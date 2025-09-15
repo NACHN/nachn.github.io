@@ -44,6 +44,7 @@ defineProps({
   transform: translateY(-5px);
   box-shadow: 0 8px 24px var(--vp-c-bg-soft-down);
   border-color: var(--vp-c-brand-1);
+  border: 1px solid var(--vp-c-brand-1);
 }
 
 .content {

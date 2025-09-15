@@ -9,7 +9,8 @@ description: 工欲善其事，必先利其器。
 researchAreas:
   - icon: '✒️'
     title: 'LaTeX'
-    details: '工欲善其事，必先利其器。'
+    details: '最具特色的在线教程！无需安装，直接在网页上编写公式并实时预览，开启最直观的 LaTeX 学习之旅。'
     link: '/tutorials/latex-tutorial'
+    bgColor: '#c4cdd4ff'
 ---
 <ResearchIndex />

@@ -35,7 +35,7 @@ export default defineConfig({
           { text: '首页', link: '/' },
           { text: '学术研究', link: '/research/index' },
           { text: '工程项目', link: '/projects/aviation-simulation/runway-capacity-simulator' },
-          { text: '教程系列', link: '/tutorials/welcome' },
+          { text: '科研入门', link: '/tutorials/welcome' },
           {
             text: '创造与探索',
             items: [

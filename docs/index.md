@@ -9,7 +9,7 @@ hero:
   actions:
     - theme: brand
       text: 开始探索
-      link: /mypage
+      link: /welcome
     - theme: brand
       text: 科研入门
       link: /tutorials/welcome
