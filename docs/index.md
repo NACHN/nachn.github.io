@@ -9,7 +9,10 @@ hero:
   actions:
     - theme: brand
       text: 开始探索
-      link: /markdown-examples
+      link: /mypage
+    - theme: brand
+      text: 科研入门
+      link: /tutorials/welcome
     - theme: alt
       text: 我的简历
       link: /resume
@@ -27,5 +30,6 @@ features:
     details: 造物主。
   - title: 更多...
     details: 现在开始“探索”我。
+    actions:
 ---
 

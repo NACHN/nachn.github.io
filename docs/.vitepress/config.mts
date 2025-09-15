@@ -4,6 +4,19 @@ export default defineConfig({
   // --- 1. 全局配置 (对所有语言生效) ---
   base: '/',
 
+  head: [
+    // 为网站添加 favicon
+    //['link', { rel: 'icon', href: '/favicon.ico' }],
+    
+    // 强制加载 MathJax 3 脚本
+    ['script', {
+      id: 'mathjax-script',
+      async: '', // async 属性确保它不会阻塞页面解析
+      src: 'https://cdnjs.loli.net/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js'
+    }]
+  ],
+
+
   // --- 2. 多语言的顶层配置 ---
   locales: {
     /**
@@ -20,8 +33,9 @@ export default defineConfig({
       themeConfig: {
         nav: [
           { text: '首页', link: '/' },
-          { text: '学术研究', link: '/research/control-theory/state-space-methods' },
+          { text: '学术研究', link: '/research/index' },
           { text: '工程项目', link: '/projects/aviation-simulation/runway-capacity-simulator' },
+          { text: '教程系列', link: '/tutorials/welcome'},
           {
             text: '创造与探索',
             items: [
@@ -44,6 +58,7 @@ export default defineConfig({
                   collapsed: false,
                   items: [
                     { text: '状态空间方法', link: '/research/control-theory/state-space-methods' },
+                    { text: '无迹卡尔曼滤波 (UKF)', link: '/research/control-theory/unscented-kalman-filter' },
                     // 在这里添加更多中文控制理论文章
                   ]
                 },
@@ -74,6 +89,14 @@ export default defineConfig({
                 { text: '交通图生成工具', link: '/projects/transportation-systems/transit-map-generator' },
                 { text: '格斗机器人', link: '/projects/robotics/combat-robot-catia' },
                 { text: '点阵字生成器', link: '/projects/software-tools/dot-matrix-font-generator' },
+              ]
+            }
+          ],
+          '/tutorials/': [
+            {
+              text: 'LaTeX交互式教程',
+              items: [
+                { text: '基础数学公式', link: '/tutorials/latex-tutorial-01' },
               ]
             }
           ],
@@ -206,5 +229,9 @@ export default defineConfig({
     // search: {
     //   provider: 'local',
     // },
+  },
+
+  markdown: {
+    math: true
   }
 })
