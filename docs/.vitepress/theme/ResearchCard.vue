@@ -4,24 +4,30 @@ defineProps({
   title: String,
   details: String,
   link: String,
-  icon: String // (可选) 你可以为每个研究方向配个图标
+  icon: String, 
+  bgColor: String,
 });
 </script>
 
 <template>
-  <a :href="link" class="research-card">
+  <a :href="link" class="research-card" :style="{ '--bgc': bgColor}">
     <div v-if="icon" class="icon-container">
       <!-- 你可以使用 emoji 或 SVG 图标 -->
-      <span class="icon">{{ icon }}</span>
+      <span class="icon" >{{ icon }}</span>
     </div>
     <div class="content">
       <h2 class="title">{{ title }}</h2>
-      <p class="details">{{ details }}</p>
+      <p class="details" :style="{ '--text-color': tColor, }">{{ details }}</p>
     </div>
   </a>
 </template>
 
 <style scoped>
+.marker{
+  width:1em;
+  height:1em;
+  position: inherit;
+}
 .research-card {
   display: block;
   border: 1px solid var(--vp-c-bg-soft);
@@ -31,6 +37,7 @@ defineProps({
   transition: all 0.25s ease;
   text-decoration: none;
   color: var(--vp-c-text-1);
+  border-left:  1em solid var(--bgc);
 }
 
 .research-card:hover {

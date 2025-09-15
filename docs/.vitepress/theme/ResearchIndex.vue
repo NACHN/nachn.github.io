@@ -22,6 +22,8 @@ const researchAreas = frontmatter.value.researchAreas;
         :details="area.details"
         :link="area.link"
         :icon="area.icon"
+        :bgColor="area.bgColor"
+        :tColor="area.tColor"
       />
     </div>
   </div>
