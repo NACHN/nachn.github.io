@@ -1,9 +1,7 @@
 ---
-title: "交互式 LaTeX 入门教程"
-date: 2023-10-30
-next:
-  text: '基础数学公式'
-  link: '/tutorials/latex-tutorial-01'
+title: "LaTeX 交互式教程"
+date: 2025-09-15
+
 ---
 
 <h1 style="text-align:center;">交互式 LaTeX 入门教程</h1>

@@ -7,7 +7,7 @@ export default defineConfig({
   head: [
     // 为网站添加 favicon
     //['link', { rel: 'icon', href: '/favicon.ico' }],
-    
+
     // 强制加载 MathJax 3 脚本
     ['script', {
       id: 'mathjax-script',
@@ -35,7 +35,7 @@ export default defineConfig({
           { text: '首页', link: '/' },
           { text: '学术研究', link: '/research/index' },
           { text: '工程项目', link: '/projects/aviation-simulation/runway-capacity-simulator' },
-          { text: '教程系列', link: '/tutorials/welcome'},
+          { text: '教程系列', link: '/tutorials/welcome' },
           {
             text: '创造与探索',
             items: [
@@ -94,11 +94,25 @@ export default defineConfig({
           ],
           '/tutorials/': [
             {
-              text: 'LaTeX交互式教程',
+              text: 'LaTeX 交互式教程',
               items: [
-                { text: '基础数学公式', link: '/tutorials/latex-tutorial-01' },
+                { text: '基础入门：从零开始写公式', link: '/tutorials/latex-tutorial-01' },
+                { text: '结构之美：矩阵、多行公式与分段函数', link: '/tutorials/latex-tutorial-02' },
+                { text: '精益求精：括号、间距与文本装饰', link: '/tutorials/latex-tutorial-03' },
+                { text: '文章之始：文档结构与自定义命令与实战', link: '/tutorials/latex-tutorial-04' },
+                { text: '文章模板：极致的内容创作体验', link: '/tutorials/latex-tutorial-05' },
+                { text: '图文并茂：插入图片与创建表格', link: '/tutorials/latex-tutorial-06' },
+                { text: '学术基石：交叉引用与文献管理', link: '/tutorials/latex-tutorial-07' },
+                { text: 'LaTeX 资源、本地环境与中文支持', link: '/tutorials/latex-tutorial-08' },
               ]
-            }
+            },
+            {
+              text: '论文检索与文献管理',
+              items: [
+                { text: '论文检索', link: '/tutorials/' },
+                { text: '文献管理', link: '/tutorials/' },
+              ]
+            },
           ],
           '/creations/': [
             {
