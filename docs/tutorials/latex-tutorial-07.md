@@ -65,7 +65,7 @@ E = mc^2
 ```
 `einstein1905` 是这篇文献的**引用密钥 (Citation Key)**，是我们稍后在正文中引用它的唯一标识。实际上，这个key我们可以自定义，你甚至可以叫abc，我们引用的时候`\cite{abc}`就行。
 
-此外，手打显然太慢了，我推荐的做法是利用[谷歌学术](scholar.google.com)自动生成BibTeX条目。
+此外，手打显然太慢了，我推荐的做法是利用[谷歌学术](https://scholar.google.com)自动生成BibTeX条目。
 
 ![BibTeX](/tutorials/imgs/ol-bibtex.png)
 
