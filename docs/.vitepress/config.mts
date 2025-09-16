@@ -32,14 +32,7 @@ export default defineConfig({
 
       // 中文版的 themeConfig
       themeConfig: {
-        search: {
-          provider: 'algolia',
-          options: {
-            appId: 'TOZCICGMZ1',      // 替换成你的 appId
-            apiKey: 'e2d3ecc7f1d625ebf418655ee34cc289',    // 替换成你的 apiKey
-            indexName: 'NACHN Website' // 替换成你的 indexName
-          }
-        },
+
         nav: [
           { text: '首页', link: '/' },
           { text: '学术研究', link: '/research/index' },
@@ -248,10 +241,14 @@ export default defineConfig({
       { icon: 'github', link: 'https://github.com/NACHN' }
     ],
 
-    // 搜索等通用配置可以放在这里
-    // search: {
-    //   provider: 'local',
-    // },
+    search: {
+      provider: 'algolia',
+      options: {
+        appId: 'TOZCICGMZ1',      // 替换成你的 appId
+        apiKey: 'e2d3ecc7f1d625ebf418655ee34cc289',    // 替换成你的 apiKey
+        indexName: 'NACHN Website' // 替换成你的 indexName
+      }
+    },
   },
 
   markdown: {
