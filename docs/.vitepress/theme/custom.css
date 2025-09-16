@@ -1,8 +1,8 @@
 :root {
   /* 品牌色 */
   --vp-c-brand-1: #00a2ff; /* 主要品牌色，用于链接、按钮背景等 */
-  --vp-c-brand-2: #00a2ff; /* 品牌色的悬停/激活状态 */
-  --vp-c-brand-3: #08b363; /* 品牌色的更亮变体 */
+  --vp-c-brand-2: #08b363; /* 品牌色的悬停/激活状态 */
+  --vp-c-brand-3: #719b00; /* 品牌色的更亮变体 */
   --vp-c-brand-soft: rgba(100, 108, 255, 0.14); /* 品牌色的柔和背景色 */
 
   /* 也可以覆盖其他颜色，比如文本颜色、背景色等 */
@@ -16,8 +16,8 @@
 */
 .dark {
   --vp-c-brand-1: #00a2ff; /* 暗色模式下的主品牌色，通常更亮一些以保证对比度 */
-  --vp-c-brand-2: #075fc4;
-  --vp-c-brand-3: #ff7b00;
+  --vp-c-brand-2: #ff7b00;
+  --vp-c-brand-3: #719b00;
   --vp-c-brand-soft: rgba(138, 222, 255, 0.14);
 }
 .VPHome .VPHero {
@@ -31,14 +31,15 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-
+  width: 300vh;
+  height: 100vh;
+  
   /* 1. 设置你的 SVG 背景 */
   background-image: url('/web.svg');
   background-repeat: repeat;
   background-position: center;
-  background-size: cover; /* 或者 contain, 80%, etc. */
+  background-size: 20%; /* 或者 contain, 80%, etc. */
+  
 
   /* 2. 应用模糊效果 */
   filter: blur(10px);
@@ -50,10 +51,35 @@
   z-index: -1;
 
   /* (可选) 放大背景图，避免模糊后边缘出现空白 */
-  transform: scale(1);
 }
 
 /* (可选) 为暗色模式调整透明度 */
 .dark .VPHome .VPHero::before {
   opacity: 0.08;
+}
+
+.card-grid-container {
+  max-width: 1152px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+.card-grid-container h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  border-bottom: 1px solid var(--vp-c-divider);
+  padding-bottom: 12px;
+  margin-top: 48px;
+  margin-bottom: 24px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+.tool-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
 }

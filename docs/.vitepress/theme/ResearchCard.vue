@@ -1,19 +1,28 @@
 <!-- docs/.vitepress/theme/ResearchCard.vue -->
 <script setup>
-defineProps({
+import { computed } from 'vue'; // <--- 添加这一行！
+
+const props = defineProps({ // <--- 把 defineProps 移到下面来，保持风格统一
   title: String,
   details: String,
   link: String,
   icon: String, 
-  bgColor: String,
+  bgColor: String
+});
+
+const isIconUrl = computed(() => {
+  // `props` 在 <script setup> 中可以直接使用，无需 this
+  return props.icon && props.icon.startsWith('/');
 });
 </script>
 
 <template>
   <a :href="link" class="research-card" :style="{ '--bgc': bgColor}">
     <div v-if="icon" class="icon-container">
-      <!-- 你可以使用 emoji 或 SVG 图标 -->
-      <span class="icon" >{{ icon }}</span>
+      <!-- 如果 icon 是一个 URL，就渲染 <img> 标签 -->
+      <img v-if="isIconUrl" :src="icon" :alt="title" class="icon-svg" />
+      <!-- 否则，就渲染 <span> 标签来显示 Emoji -->
+      <span v-else class="icon">{{ icon }}</span>
     </div>
     <div class="content">
       <h2 class="title">{{ title }}</h2>
@@ -43,8 +52,9 @@ defineProps({
 .research-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 24px var(--vp-c-bg-soft-down);
-  border-color: var(--vp-c-brand-1);
-  border: 1px solid var(--vp-c-brand-1);
+  border-color: var(--bgc, --vp-c-brand-1 );
+  border: 1px solid var(--bgc, --vp-c-brand-1);
+  color: var(--bgc,--vp-c-text-1);
 }
 
 .content {
@@ -85,5 +95,11 @@ defineProps({
   display: block;
   font-size: 3rem;
   margin-bottom: -10px;
+}
+.icon-svg {
+  display: block;
+  height: 50px; /* 统一 SVG 图标的高度 */
+  width: auto;
+  margin-bottom: -40px;
 }
 </style>
