@@ -13,7 +13,8 @@ export default defineConfig({
       id: 'mathjax-script',
       async: '', // async 属性确保它不会阻塞页面解析
       src: 'https://cdnjs.loli.net/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js'
-    }]
+    }],
+    ['meta', { name: 'algolia-site-verification', content: '06B35DC0E4315812' }]
   ],
 
 
@@ -31,6 +32,14 @@ export default defineConfig({
 
       // 中文版的 themeConfig
       themeConfig: {
+        search: {
+          provider: 'algolia',
+          options: {
+            appId: 'TOZCICGMZ1',      // 替换成你的 appId
+            apiKey: 'e2d3ecc7f1d625ebf418655ee34cc289',    // 替换成你的 apiKey
+            indexName: 'NACHN Website' // 替换成你的 indexName
+          }
+        },
         nav: [
           { text: '首页', link: '/' },
           { text: '学术研究', link: '/research/index' },
@@ -94,7 +103,7 @@ export default defineConfig({
           ],
           '/tutorials/': [
             {
-              text: 'LaTeX 交互式教程',
+              text: 'LaTeX 交互式教程', link: '/tutorials/latex-tutorial',
               items: [
                 { text: '基础入门：从零开始写公式', link: '/tutorials/latex-tutorial-01' },
                 { text: '结构之美：矩阵、多行公式与分段函数', link: '/tutorials/latex-tutorial-02' },

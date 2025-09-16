@@ -30,6 +30,4 @@ features:
     details: 造物主。
   - title: 更多...
     details: 现在开始“探索”我。
-    actions:
 ---
-
