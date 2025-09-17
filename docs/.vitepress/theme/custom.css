@@ -67,7 +67,7 @@
 .card-grid-container h2 {
   font-size: 1.8rem;
   font-weight: 600;
-  border-bottom: 1px solid var(--vp-c-divider);
+  /*border-bottom: 1px solid var(--vp-c-divider);*/
   padding-bottom: 12px;
   margin-top: 48px;
   margin-bottom: 24px;
@@ -146,3 +146,14 @@
   from, to { border-color: transparent }
   50% { border-color: #00ff99 }
 }
+/*
+.fade-slide-y-enter-active,
+.fade-slide-y-leave-active {
+  transition: all 0.3s ease;
+}
+
+.fade-slide-y-enter-from,
+.fade-slide-y-leave-to {
+  opacity: 0;
+  transform: translateX(20px);
+}*/

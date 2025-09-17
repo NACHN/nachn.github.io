@@ -12,7 +12,7 @@ import IconsBg from './IconsBg.vue'
 import { useData } from 'vitepress'
 import MeteorBg from './MeteorBg.vue'
 import Comment from './Comment.vue'
-
+import ToolShowcase from './ToolShowcase.vue'
 
 export default {
   ...DefaultTheme, // 继承默认主题的所有配置
@@ -32,8 +32,7 @@ export default {
             h(MeteorBg)
           ])
         }
-        // 【推荐】即使没有 IconsBg，也保留流星背景，保持时间连贯性
-        // 如果你取消了注释，请确保 MeteorBg 是全局持久化的
+        // 确保 MeteorBg 是全局持久化的
         /*else {
           return h(MeteorBg)
         }*/
@@ -57,5 +56,6 @@ export default {
     app.component('LatexPG', LaTeXPG)
     app.component('IconsBg', IconsBg)
     app.component('MeteorBg', MeteorBg)
+    app.component('ToolShowcase', ToolShowcase)
   }
 } satisfies Theme

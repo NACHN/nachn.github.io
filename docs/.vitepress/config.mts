@@ -62,6 +62,9 @@ export default defineConfig({
     },
   },
 
+  experimental: {
+    viewTransition: true
+  },
   // --- 3. 全局共享的 themeConfig ---
   // (这些配置会被所有语言继承)
   themeConfig: {
@@ -69,7 +72,7 @@ export default defineConfig({
       { icon: 'github', link: 'https://github.com/NACHN' }
     ],
     logo: { light: '/web-light.png', dark: '/web.svg' },
-
+    
     search: {
       provider: 'algolia',
       options: {
