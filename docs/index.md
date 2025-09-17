@@ -4,7 +4,7 @@ layout: home
 hasBg: true
 
 hero:
-  name: "戴畇滔的状态空间"
+  name: 戴畇滔的状态空间
   text: "My State, My Space"
   tagline: 控制一切
   actions:
@@ -32,5 +32,6 @@ features:
   - title: 更多...
     details: 现在开始“<a href="/story" class="ebutton">探索</a>”我。
 ---
+<VPHero/>
 
 <h1 class="slogan2" style="font-size:5vh;">探索 / 跨界 / 创新</h1>

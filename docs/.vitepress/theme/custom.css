@@ -97,7 +97,12 @@
 .slogan2{
   text-align:center;
   margin:1em 0;
-  /*animation: breath 6s 0s ease-out infinite;*/
+}
+
+.slogan{
+  text-align:center;
+  margin:1em 0;
+  animation: breath 6s 0s ease-out infinite;
 }
 
 @keyframes breath {
