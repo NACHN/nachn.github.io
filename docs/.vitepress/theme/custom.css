@@ -26,7 +26,7 @@
   overflow:visible; /* 隐藏模糊效果溢出的边缘 */
 }
 
-.VPHome .VPHero::before {
+.VPHome .VPHer {
   content: '';
   position: absolute;
   top: 0;
@@ -82,4 +82,52 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
+}
+.ebutton{
+  transition: all 0.25s ease;
+}
+.ebutton:hover{
+  color:var(--vp-c-brand-3);
+  font-size: 2em;
+  font-weight:bold;
+  width:100px;
+  height: auto;
+}
+
+.slogan2{
+  text-align:center;
+  margin:1em 0;
+  /*animation: breath 6s 0s ease-out infinite;*/
+}
+
+@keyframes breath {
+  0% {
+  }
+  50% {
+    color: #e2f7a9;
+    text-shadow: 0px 0px 10px #9afd6b;
+  }
+  100% {
+  }
+}
+
+.typewriter{
+  overflow: hidden; /* 防止文字溢出 */
+  border-right: .15em solid #00ff99; /* 光标效果 */
+  white-space: nowrap;
+  letter-spacing: .1em;
+  width:0;
+  animation: typing 3.5s 0s linear infinite, blink-caret .75s step-end infinite;
+}
+
+/* 打字效果 */
+@keyframes typing {
+  0% { width: 0 }
+  100% { width: 100% }
+}
+
+/* 光标闪烁 */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: #00ff99 }
 }

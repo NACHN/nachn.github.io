@@ -39,7 +39,7 @@ const isIconUrl = computed(() => {
 }
 .research-card {
   display: block;
-  border: 1px solid var(--vp-c-bg-soft);
+  border: none;
   border-radius: 12px;
   height: 100%;
   background-color: var(--vp-c-bg-soft);
@@ -52,7 +52,6 @@ const isIconUrl = computed(() => {
 .research-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 24px var(--vp-c-bg-soft-down);
-  border-color: var(--bgc, --vp-c-brand-1 );
   border: 1px solid var(--bgc, --vp-c-brand-1);
   color: var(--bgc,--vp-c-text-1);
 }

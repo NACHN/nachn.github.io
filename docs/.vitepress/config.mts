@@ -240,7 +240,7 @@ export default defineConfig({
     socialLinks: [
       { icon: 'github', link: 'https://github.com/NACHN' }
     ],
-    logo: { light: '/web-light.svg', dark: '/web.svg' },
+    logo: { light: '/web-light.png', dark: '/web.svg' },
 
     search: {
       provider: 'algolia',

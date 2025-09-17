@@ -35,6 +35,22 @@
       <div style="">
         <ul>
           <li>硕士毕业论文<h4>基于 QAR 数据的民航客机飞行状态实时预测研究</h4>指导老师：温瑞英、王红勇</li>
+          Problem
+          解决了从高维、含噪 QAR 数据中进行实时飞行状态预测的关键挑战，超越了传统的飞行后分析模式。
+          Solution
+          设计并验证了一个创新的“感知-预测-预警”(PPP)三层数据驱动框架。
+          <div class="perception">
+            <h1>感知层</h1>
+            开发了一种基于固定增益方程误差法的解耦辨识方法，以精确估计气动参数，克服了传统联合估计算法 (UKF) 的不稳定性问题。
+          </div>
+          <div class="prediction">
+            <h1>预测层</h1>
+            利用自学习无迹卡尔曼滤波 (UKF-L) 作为状态传播算子，实现了鲁棒的概率性航迹预测，有效量化了不确定性。
+          </div>
+          <div class="precaution">
+            <h1>预警层</h1>
+            引入了创新的“历史预测一致性误差”(PECH)特征，并结合流形学习 (UMAP) 技术，实现了飞行状态的自动识别和对不稳定进近等异常模式的早期预警。
+          </div>
         </ul>
       </div>
     </section>
@@ -125,11 +141,40 @@
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-
-
 .custom-section {
   max-width: 800px;
   margin: 40px auto;
   padding: 20px;
+}
+
+.perception{
+  background-color: #80ecb6;
+  color:#131314;
+  border-radius: 20px;
+  padding:20px;
+  margin:20px 0;
+}
+.perception h1{
+  color:#053b20;
+}
+.prediction{
+  background-color: #80c4ec;
+  color:#131314;
+  border-radius: 20px;
+  padding:20px;
+  margin:20px 0;
+}
+.prediction h1{
+  color:#08324b;
+}
+.precaution{
+  background-color: #ecc680;
+  color:#131314;
+  border-radius: 20px;
+  padding:20px;
+  margin:20px 0;
+}
+.precaution h1{
+  color:#4e3609;
 }
 </style>
