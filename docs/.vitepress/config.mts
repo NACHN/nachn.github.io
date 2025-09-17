@@ -13,7 +13,19 @@ export default defineConfig({
       id: 'mathjax-script',
       async: '', // async 属性确保它不会阻塞页面解析
       src: 'https://cdnjs.loli.net/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js'
-    }],
+    },
+    // IIFE (立即调用函数表达式)
+      `(function() {
+        const key = 'vitepress-theme-appearance';
+        // 检查 localStorage 中是否已存在主题设置
+        if (!localStorage.getItem(key)) {
+          // 如果不存在，则将主题设置为 'dark'
+          localStorage.setItem(key, 'dark');
+          // 同时在 <html> 标签上添加 'dark' 类，立即生效
+          document.documentElement.classList.add('dark');
+        }
+      })()`
+  ],
     ['meta', { name: 'algolia-site-verification', content: '06B35DC0E4315812' }]
   ],
 

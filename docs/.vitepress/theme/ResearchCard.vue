@@ -42,11 +42,45 @@ const isIconUrl = computed(() => {
   border: none;
   border-radius: 12px;
   height: 100%;
-  background-color: var(--vp-c-bg-soft);
+  background-color: linear-gradient(90deg, var(--bgc) 30%, transparent 100%);
   transition: all 0.25s ease;
   text-decoration: none;
   color: var(--vp-c-text-1);
-  border-left:  1em solid var(--bgc);
+  border-left:  0.5em solid var(--bgc);
+  position: relative;
+  overflow: hidden;
+  z-index: 0; 
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); /* 兼容 Safari */
+}
+
+.research-card::before {
+  content: ''; /* 伪元素必需的属性 */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  /* 这是关键：创建从左到右的渐变 */
+  /* 从品牌色开始，到 60% 的位置完全变为透明 */
+  background: linear-gradient(90deg, var(--bgc) 30%, transparent 100%);
+
+  /* 初始状态：完全透明，把它隐藏起来 */
+  opacity: 0.1;
+  
+  /* 动效：让 opacity 的变化在 0.3 秒内平滑过渡 */
+  transition: opacity 0.3s ease-in-out;
+  
+  /* 确保伪元素在内容下方，不会遮挡文字和图标 */
+  z-index: -1; 
+}
+
+.research-card:hover::before {
+  /* 鼠标悬停时，将伪元素的透明度从 0 变为 0.15 */
+  /* 这个值可以调整，0.15 是一个比较柔和、不刺眼的效果 */
+  opacity: 0.3;
+  animation: breathopa 5s 0s ease-out infinite;
 }
 
 .research-card:hover {

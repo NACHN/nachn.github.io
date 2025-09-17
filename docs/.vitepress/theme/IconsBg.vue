@@ -76,6 +76,7 @@ onMounted(() => {
   height: var(--size);
   top: var(--initial-top);
   left: var(--initial-left);
+
   /* 定义动画 */
   animation: float var(--animation-duration) var(--animation-delay) ease infinite;
   

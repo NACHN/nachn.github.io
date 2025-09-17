@@ -10,6 +10,7 @@ import './custom.css'
 import LaTeXPG from './LaTeXPG.vue'
 import IconsBg from './IconsBg.vue'
 import { useData } from 'vitepress'
+import MeteorBg from './MeteorBg.vue'
 
 
 export default {
@@ -23,7 +24,10 @@ export default {
       'layout-bottom': () => {
         // Check if frontmatter.hasBg is true
         if (frontmatter.value.hasBg) {
-          return h(IconsBg)
+          return h('div', [
+          h(IconsBg),
+          h(MeteorBg) 
+        ])
         }
       }
     })
@@ -36,5 +40,6 @@ export default {
     app.component('ResearchCard', ResearchCard)
     app.component('LatexPG', LaTeXPG)
     app.component('IconsBg', IconsBg)
+    app.component('MeteorBg', MeteorBg)
   }
 } satisfies Theme
