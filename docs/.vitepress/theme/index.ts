@@ -1,6 +1,6 @@
 // docs/.vitepress/theme/index.ts
 import type { Theme } from 'vitepress'
-import { ref,h } from 'vue'
+import { ref, h } from 'vue'
 import DefaultTheme from 'vitepress/theme'
 import NotFound from './NotFound.vue'
 import Resume from './resume.vue'
@@ -22,13 +22,20 @@ export default {
     const { frontmatter } = useData()
     return h(DefaultTheme.Layout, null, {
       'layout-bottom': () => {
+        
+        
         // Check if frontmatter.hasBg is true
         if (frontmatter.value.hasBg) {
           return h('div', [
-          h(IconsBg),
-          h(MeteorBg) 
-        ])
+            h(IconsBg),
+            h(MeteorBg)
+          ])
         }
+        /*else {
+          return h('div', [
+            h(MeteorBg)
+          ])
+        }*/
       }
     })
   },

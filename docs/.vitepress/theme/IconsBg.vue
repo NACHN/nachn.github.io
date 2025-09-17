@@ -1,6 +1,12 @@
 <!-- docs/.vitepress/theme/IconsBg.vue -->
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, onUnmounted } from 'vue';
+
+const BG_CONFIG = {
+  DESKTOP_DENSITY: 8192, // 桌面端密度 (数值越小，图标越密)
+  MOBILE_DENSITY: 16384,  // 移动端密度 (图标更稀疏)
+  MOBILE_BREAKPOINT: 768, // 区分移动端的宽度
+};
 
 // 1. 你的核心图标列表
 const baseIcons = [
@@ -13,7 +19,15 @@ const totalIcons = 256; // 想要总共显示 20 个漂浮图标
 
 const floatingItems = ref([]);
 
-onMounted(() => {
+// 【新增】创建一个独立的函数来生成图标
+const generateFloatingItems = () => {
+  // 【新增】动态计算图标总数
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+  const isMobile = width < BG_CONFIG.MOBILE_BREAKPOINT;
+  const density = isMobile ? BG_CONFIG.MOBILE_DENSITY : BG_CONFIG.DESKTOP_DENSITY;
+  const totalIcons = Math.floor((width * height) / density);
+
   const items = [];
   for (let i = 0; i < totalIcons; i++) {
     // 3. 循环生成每一个漂浮物
@@ -22,9 +36,9 @@ onMounted(() => {
     const iconSrc = baseIcons[i % baseIcons.length];
 
     // 4. 为每个实例生成高度随机化的样式
-    const size = Math.random() * 100 + 20; // 尺寸在 20px 到 80px 之间，让尺寸差异更明显
-    const opacity = Math.random() * 0.05 + 0.05; // 透明度在 0.05 到 0.15 之间
-    const blur = Math.random() > 0.5 ? Math.random() * 5 : 2; // 50% 的几率给图标加上一点模糊效果
+    const size = Math.random() * 100 + 20;
+    const opacity = Math.random() * 0.05 + 0.05;
+    const blur = Math.random() > 0.5 ? Math.random() * 5 : 2;
 
     items.push({
       id: i,
@@ -33,14 +47,34 @@ onMounted(() => {
         '--size': `${size}px`,
         '--initial-top': `${Math.random() * 100}%`,
         '--initial-left': `${Math.random() * 100}%`,
-        '--animation-duration': `${Math.random() * 30 + 20}s`, // 持续时间 20-50s
-        '--animation-delay': `${Math.random() * -30}s`, // 延迟范围更广
+        '--animation-duration': `${Math.random() * 30 + 20}s`,
+        '--animation-delay': `${Math.random() * -30}s`,
         'opacity': opacity,
-        'filter': `blur(${blur}px)`, // 应用模糊
+        'filter': `blur(${blur}px)`,
       }
     });
   }
   floatingItems.value = items;
+};
+
+let debounceTimer;
+const handleResize = () => {
+  clearTimeout(debounceTimer);
+  debounceTimer = setTimeout(generateFloatingItems, 200);
+};
+
+onMounted(() => {
+  // 首次加载时生成图标
+  generateFloatingItems();
+  
+  // 监听窗口尺寸变化
+  window.addEventListener('resize', handleResize);
+});
+
+// 【新增】组件卸载时移除监听
+onUnmounted(() => {
+  window.removeEventListener('resize', handleResize);
+  clearTimeout(debounceTimer);
 });
 </script>
 
