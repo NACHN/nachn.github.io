@@ -99,6 +99,8 @@ const releaseMeteors = (typeToRelease) => {
       const speed = METEOR_CONFIG.MAX_SPEED * 0.8;
       m.vx = Math.cos(angle) * speed;
       m.vy = Math.sin(angle) * speed;*/
+      m.vx = 3 * m.vx;
+      m.vy = 3 * m.vy;
     }
   });
 };
@@ -134,7 +136,6 @@ const animate = (ctx, canvas) => {
       meteor.trail.shift(); // 保持尾迹数组的长度
     }
 
-    // 3. 【核心修改】绘制尾迹
     // 3. 【核心修改】绘制尾迹
     ctx.shadowBlur = 0; // 尾迹不需要阴影
 

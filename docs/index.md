@@ -22,13 +22,13 @@ features:
   - title: 系统与控制理论
     details: <a href="/beautyofcontrol" class="ebutton">控制真美</a>，不是吗。
   - title: 音乐理论
-    details: Can you <a href="/" class="ebutton">hear</a> the music?
+    details: Can you <a href="#" class="ebutton">hear</a> the music?
   - title: 前端技术
-    details: <a href="/" class="ebutton">现代互联网</a>的伟大基础。
+    details: <a href="/creations/frontend/background-story" class="ebutton">现代互联网</a>的伟大基础。
   - title: 后端/算法
-    details: 优化，优化，还是<a href="/" class="ebutton">优化</a>。
+    details: 优化，优化，还是<a href="#" class="ebutton">优化</a>。
   - title: 3D建模
-    details: <a href="/" class="ebutton">造物主</a>。
+    details: <a href="#" class="ebutton">造物主</a>。
   - title: 更多...
     details: 现在开始“<a href="/story" class="ebutton">探索</a>”我。
 ---

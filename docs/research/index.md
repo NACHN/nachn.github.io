@@ -4,6 +4,7 @@ layout: home
 # 页面的元数据
 title: 我的研究
 description: 我学术研究、笔记与发现的精选集。将鼠标悬停在卡片上以获取更多详细信息。
+hasBg: true
 
 # 提供给 ResearchIndex.vue 组件的数据
 researchAreas:
