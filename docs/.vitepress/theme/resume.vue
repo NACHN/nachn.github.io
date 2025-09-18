@@ -1,6 +1,11 @@
 <template>
-  <div classs="my-home-container">
-
+  <div style="height:100vh;margin-top: 200px;">
+    <BoardingPass />
+  </div>
+  
+  
+  <div class="my-home-container">
+    
     <section class="hero-section">
       <div class="hero-content">
         <h1>个人简介</h1>

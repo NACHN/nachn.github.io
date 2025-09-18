@@ -14,6 +14,7 @@ import MeteorBg from './MeteorBg.vue'
 import Comment from './Comment.vue'
 import ToolShowcase from './ToolShowcase.vue'
 import TimelineCard from './TimelineCard.vue'
+import Boardingpass from './Boardingpass.vue'
 
 export default {
   ...DefaultTheme, // 继承默认主题的所有配置
@@ -33,11 +34,13 @@ export default {
             h(MeteorBg)
           ])
         }
+
         // 确保 MeteorBg 是全局持久化的
         /*else {
           return h(MeteorBg)
         }*/
       },
+      'home-hero-image': () => h(Boardingpass),
 
       // 【新增】定义文章下方的插槽内容
       'doc-after': () => {
@@ -59,5 +62,6 @@ export default {
     app.component('MeteorBg', MeteorBg)
     app.component('ToolShowcase', ToolShowcase)
     app.component('TimelineCard', TimelineCard)
+    app.component('BoardingPass', Boardingpass)
   }
 } satisfies Theme

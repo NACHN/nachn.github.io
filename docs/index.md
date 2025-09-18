@@ -32,6 +32,6 @@ features:
   - title: 更多...
     details: 现在开始“<a href="/story" class="ebutton">探索</a>”我。
 ---
-<VPHero/>
+<VPHero/>  
 
 <h1 class="slogan2" style="font-size:5vh;">探索 / 跨界 / 创新</h1>
