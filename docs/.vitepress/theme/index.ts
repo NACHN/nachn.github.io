@@ -14,7 +14,7 @@ import MeteorBg from './MeteorBg.vue'
 import Comment from './Comment.vue'
 import ToolShowcase from './ToolShowcase.vue'
 import TimelineCard from './TimelineCard.vue'
-import Boardingpass from './Boardingpass.vue'
+import Boardingpass from './BoardingPass.vue'
 
 export default {
   ...DefaultTheme, // 继承默认主题的所有配置
