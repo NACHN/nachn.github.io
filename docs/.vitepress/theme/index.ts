@@ -13,6 +13,7 @@ import { useData } from 'vitepress'
 import MeteorBg from './MeteorBg.vue'
 import Comment from './Comment.vue'
 import ToolShowcase from './ToolShowcase.vue'
+import TimelineCard from './TimelineCard.vue'
 
 export default {
   ...DefaultTheme, // 继承默认主题的所有配置
@@ -57,5 +58,6 @@ export default {
     app.component('IconsBg', IconsBg)
     app.component('MeteorBg', MeteorBg)
     app.component('ToolShowcase', ToolShowcase)
+    app.component('TimelineCard', TimelineCard)
   }
 } satisfies Theme

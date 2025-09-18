@@ -14,7 +14,7 @@ const isWindowFocused = ref(true);
 const METEOR_CONFIG = {
   BATCH_SIZE: 1,
   BATCH_INTERVAL: 200,
-  TARGETING_INTERVAL: 1000, // 我们的“时钟”每分钟滴答一次
+  TARGETING_INTERVAL: 60000, // 我们的“时钟”每分钟滴答一次
   MAX_SPEED: 3,
   TRAIL_LENGTH: 50,
   TARGET_ACCEL: 0.05,
@@ -187,6 +187,8 @@ const resizeHandler = (canvas, ctx) => {
   canvas.height = window.innerHeight;
 };
 
+createMeteor({ isTargetingMouse: true, type: 'minute' });
+
 onMounted(() => {
   const canvas = canvasRef.value;
   const ctx = canvas.getContext('2d');
@@ -219,7 +221,7 @@ onMounted(() => {
       createMeteor({ isTargetingMouse: true, type: 'hour' });
     } else if (minuteCounter > 0 && minuteCounter % 30 === 0) {
       releaseMeteors('fiveMinute');
-      createMeteor({ isTargetingMouse: true, type: 'halfHour' });
+      createMeteor({ isTargetingMouse: true, type: 'halfhour' });
     } else if (minuteCounter > 0 && minuteCounter % 5 === 0) {
       releaseMeteors('minute');
       createMeteor({ isTargetingMouse: true, type: 'fiveMinute' });

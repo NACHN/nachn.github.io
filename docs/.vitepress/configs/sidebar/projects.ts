@@ -5,7 +5,7 @@ export const projects = {
     {
       text: '工程项目实践',
       items: [
-        { text: '跑道容量模拟器', link: '/projects/aviation-simulation/runway-capacity-simulator' },
+        { text: '跑道容量模拟器', link: '/projects/cams' },
         { text: '乌鲁木齐公交信息平台', link: '/projects/transportation-systems/urumqi-transit-platform' },
         { text: '交通图生成工具', link: '/projects/transportation-systems/transit-map-generator' },
         { text: '格斗机器人', link: '/projects/robotics/combat-robot-catia' },
