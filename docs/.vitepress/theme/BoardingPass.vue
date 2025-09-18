@@ -15,6 +15,14 @@ const passInfo = ref({
     qrCodeLink: 'https://github.com/NACHN/nachn.github.io/raw/main/docs/public/YuntaoDai_CV.pdf', // 扫码下载简历的链接
 });
 
+const props = defineProps({
+    // 定义一个名为 scale 的 prop，类型是 Number，默认值是 1
+    scale: {
+        type: Number,
+        default: 1.0
+    }
+});
+
 // --- 新增的代码 ---
 const cardContainer = ref(null); // 用于获取登机牌容器的 DOM 引用
 const card = ref(null); // 用于获取登机牌本身的 DOM 引用
@@ -75,26 +83,30 @@ onUnmounted(() => {
 </script>
 
 <template>
-    <div class="boarding-pass-container" ref="cardContainer">
+    <div class="boarding-pass-container" ref="cardContainer" :style="{ '--sc': scale, '--msc': scale - 1 }">
         <div class="boarding-pass" ref="card">
             <div class="header">
                 <div class="logo">
                     <img src="/web.svg" alt="Logo" class="logo-svg" />
                     <span>YUNTAO AIRLINES 云涛航空</span>
                 </div>
-                <span class="pass-type">BOARDING PASS</span>
+                <div class="pass-type" style="display: flex;">
+                    <a href="https://github.com/NACHN">
+                        <img src="/icons/github.svg" style="filter:brightness(5.0)">
+                    </a>&nbsp;&nbsp;BOARDING PASS</img>
+                </div>
             </div>
 
             <div class="content">
                 <div class="main-info">
                     <div class="info-item">
                         <span class="label">姓名 NAME</span>
-                        <span class="value name">{{ passInfo.passengerName }}</span>
+                        <a href="#me"><span class="value name">{{ passInfo.passengerName }}</span></a>
                     </div>
                     <div class="flight-details">
                         <div class="info-item">
                             <span class="label">研究航班 RESEARCH FLIGHT</span>
-                            <span class="value">{{ passInfo.flightNumber }}</span>
+                            <a href="#research"><span class="value">{{ passInfo.flightNumber }}</span></a>
                         </div>
                         <div class="info-item">
                             <span class="label">日期 DATE</span>
@@ -108,9 +120,15 @@ onUnmounted(() => {
                     <div class="route">
                         <div class="info-item">
                             <span class="label">始发地 FROM</span>
-                            <span class="value location">{{ passInfo.origin }}</span>
+                            <a href="#education"><span class="value location">{{ passInfo.origin }}</span></a>
                         </div>
-                        <div class="plane-icon"><img src="/icons/airport.svg" style="height:1.5em; filter:invert();"></img></div>
+                        <div class="plane-icon">
+                            <svg viewBox="0 0 50 50" version="1.2" baseProfile="tiny" xmlns="http://www.w3.org/2000/svg"
+                                overflow="inherit">
+                                <path fill="currentColor"
+                                    d="M48.049 36.31c.523.169.951-.142.951-.692v-3.494c0-.55-.387-1.23-.859-1.512l-18.282-10.895c-.472-.281-.859-.962-.859-1.511v-12.206c0-.55-.168-1.417-.374-1.928 0 0-1.091-2.708-3-3.01-.204-.036-.411-.062-.619-.062h-.01c-.241-.002-.479.028-.713.072l-.216.048-.328.102c-1.588.53-2.406 2.835-2.406 2.835-.184.519-.334 1.393-.334 1.943v12.206c0 .55-.387 1.23-.859 1.512l-18.282 10.894c-.472.282-.859.962-.859 1.512v3.494c0 .55.428.861.951.691l18.098-5.875c.523-.169.951.142.951.692v9.533c0 .55-.36 1.271-.8 1.601l-2.4 1.802c-.44.33-.8 1.051-.8 1.601v2.337c0 .55.433.876.961.724l6.075-1.745c.528-.152 1.394-.152 1.922 0l6.081 1.745c.528.152.961-.174.961-.724v-2.338c0-.55-.36-1.271-.8-1.601l-2.4-1.802c-.439-.33-.8-1.051-.8-1.601v-9.533c0-.55.428-.861.951-.691l18.098 5.876z" />
+                            </svg>
+                        </div>
                         <div class="info-item">
                             <span class="label">目的地 TO</span>
                             <span class="value location destination">{{ passInfo.destination }}</span>
@@ -145,8 +163,23 @@ onUnmounted(() => {
     </div>
 </template>
 
+<style>
+html {
+  scroll-behavior: smooth;
+}
+</style>
+
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
+
+a {
+    text-decoration: none;
+    transition: all 0.5s ease;
+}
+
+a:hover {
+    background-color:var(--vp-c-brand-3)
+}
 
 .boarding-pass-container {
     /* 用于 3D 悬停效果 */
@@ -253,7 +286,7 @@ onUnmounted(() => {
 .value {
     font-size: 1.1em;
     font-weight: 700;
-    color: #fff;
+    color: var(--vp-c-text-1);
 }
 
 .name {
@@ -290,11 +323,10 @@ onUnmounted(() => {
 }
 
 .plane-icon {
-    
-    font-size: 1.5em;
+    width: 1.5em;
     transform: rotate(90deg);
     margin: 0 10px;
-    color: #fff;
+    color: var(--vp-c-text-1);
 }
 
 .info-item.small .value {

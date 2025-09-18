@@ -23,7 +23,6 @@ export default {
   // 使用 Layout 属性来扩展默认主题
   Layout: () => {
     const { frontmatter } = useData()
-
     // 定义插槽内容
     const slots = {
       // 保持你现有的背景逻辑
@@ -40,7 +39,11 @@ export default {
           return h(MeteorBg)
         }*/
       },
-      'home-hero-image': () => h(Boardingpass),
+      'home-hero-image': () => {
+        if (window.innerWidth > 1250){
+          return h(Boardingpass)
+        }
+      },
 
       // 【新增】定义文章下方的插槽内容
       'doc-after': () => {

@@ -1,5 +1,6 @@
 <template>
-  <div style="height:100vh;margin-top: 200px;">
+  <div style="height:100vh;margin-top: 100px;">
+    <h1 class="welcome" style="text-align: center; margin-bottom: 120px; font-size: 5em;">Welcome Aboard!</h1>
     <BoardingPass />
   </div>
   
@@ -8,7 +9,7 @@
     
     <section class="hero-section">
       <div class="hero-content">
-        <h1>个人简介</h1>
+        <h1 id="me">个人简介</h1>
         <img></img>
         <div class="hero-wrapper">
           <h2 style="margin: 0%;">戴畇滔</h2>
@@ -103,6 +104,9 @@
 </template>
 
 <style scoped>
+html {
+  scroll-behavior: smooth;
+}
 /* 在这里写你首页专属的 CSS */
 .my-home-container {
   padding-top: var(--vp-nav-height);
@@ -181,5 +185,9 @@
 }
 .precaution h1{
   color:#4e3609;
+}
+
+.welcome{
+  animation: breath 2s 0s ease-out infinite;
 }
 </style>

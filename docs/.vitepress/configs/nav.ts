@@ -18,6 +18,7 @@ export const nav = {
       ]
     },
     { text: '技能栈', link: '/skills' },
+    { text: '简历', link: '/resume' },
   ],
   // 英文版的 nav
   'en-US': [
