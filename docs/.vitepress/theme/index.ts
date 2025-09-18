@@ -15,6 +15,7 @@ import Comment from './Comment.vue'
 import ToolShowcase from './ToolShowcase.vue'
 import TimelineCard from './TimelineCard.vue'
 import Boardingpass from './BoardingPass.vue'
+import HeroBP from './HeroBP.vue'
 
 export default {
   ...DefaultTheme, // 继承默认主题的所有配置
@@ -39,11 +40,7 @@ export default {
           return h(MeteorBg)
         }*/
       },
-      'home-hero-image': () => {
-        if (window.innerWidth > 1250){
-          return h(Boardingpass)
-        }
-      },
+      'home-hero-image': () => h(HeroBP),
 
       // 【新增】定义文章下方的插槽内容
       'doc-after': () => {
