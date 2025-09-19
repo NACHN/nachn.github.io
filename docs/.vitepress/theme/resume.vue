@@ -34,7 +34,7 @@ onUnmounted(() => {
     <h1 class="welcome" style="text-align: center; margin-bottom: 10vh; font-size: 10vh; margin-top: 10vh;">Welcome Aboard!</h1>
     <BoardingPass />
     <a href="#me">
-      <div class="godown" style="margin-top: 5vh; text-align: center; font-size:10vh;transform: scale(2.0,1.0);">
+      <div class="godown" style="margin-top: 5vh; text-align: center; font-size:10vh;">
         <span class="down01">▼</span><br></br>
         <span class="down02">▼</span>
       </div>

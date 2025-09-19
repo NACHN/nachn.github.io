@@ -70,14 +70,30 @@ defineProps({
     transition: transform 0.25s ease;
 }
 
+.station-icon::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: var(--vp-c-bg);
+}
+
 .timeline-item:hover .station-icon {
     transform: scale(1.1);
     color: white;
-    animation: breath 1s 0s  infinite;
+
+}
+
+.timeline-item:hover .station-icon::before {
+    transform: scale(1.1);
+    color: white;
+    animation: breath 1s 0s infinite;
 }
 
 @keyframes breath {
-    0% {background-color: var(--vp-c-bg);}
+    0% {
+        background-color: var(--vp-c-bg);
+    }
 
     10% {
         background-color: #bbee2d;
@@ -89,7 +105,9 @@ defineProps({
         box-shadow: 0px 0px 20px #00f128;
     }
 
-    50% {background-color: var(--vp-c-bg);}
+    50% {
+        background-color: var(--vp-c-bg);
+    }
 
     100% {}
 }
@@ -143,7 +161,7 @@ defineProps({
     border-bottom-left-radius: 50px;
     box-shadow: 0px 0px 20px linear-gradient(90deg, var(--bgc) 30%, transparent 100%);
     background: linear-gradient(90deg, var(--bgc) 0%, transparent 50%);
-    filter:blur(10px);
+    filter: blur(10px);
     animation: breathopa 5s 0s ease-out infinite;
 }
 
