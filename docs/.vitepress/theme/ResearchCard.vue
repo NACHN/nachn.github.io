@@ -7,7 +7,20 @@ const props = defineProps({ // <--- 把 defineProps 移到下面来，保持风�
   details: String,
   link: String,
   icon: String, 
-  bgColor: String
+  bgColor: String,
+  size: {
+    type: String,
+    validator: (value) => ['normal', 'mid', 'small'].includes(value),
+    default: 'normal' // 'normal' or 'small'
+  }
+});
+
+const cardClasses = computed(() => {
+  return {
+    'is-small': props.size === 'small',
+    'is-mid': props.size === 'mid',
+    // 你未来还可以添加 'is-large' 等
+  };
 });
 
 const isIconUrl = computed(() => {
@@ -17,7 +30,7 @@ const isIconUrl = computed(() => {
 </script>
 
 <template>
-  <a :href="link" class="research-card" :style="{ '--bgc': bgColor}">
+  <a :href="link" class="research-card" :class="cardClasses" :style="{ '--bgc': bgColor}">
     <div v-if="icon" class="icon-container">
       <!-- 如果 icon 是一个 URL，就渲染 <img> 标签 -->
       <img v-if="isIconUrl" :src="icon" :alt="title" class="icon-svg" />
@@ -26,12 +39,56 @@ const isIconUrl = computed(() => {
     </div>
     <div class="content">
       <h2 class="title">{{ title }}</h2>
-      <p class="details" :style="{ '--text-color': tColor, }">{{ details }}</p>
+      <p class="details" :style="{ '--text-color': tColor, }" v-html="details"></p>
     </div>
   </a>
 </template>
 
 <style scoped>
+
+.research-card.is-small .content {
+  padding: 8px 16px; /* 减小内边距 */
+}
+.research-card.is-small .title {
+  font-size: 0.9em; /* 减小字体 */
+  font-weight: 500;
+  margin: 0;
+}
+.research-card.is-small .icon-container,
+.research-card.is-small .details {
+  display: none; /* 隐藏小卡片的图标和详情 */
+}
+
+.research-card.is-mid .content {
+  /* 中等尺寸时，内容和图标并排显示 */
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+}
+.research-card.is-mid .icon-container {
+  /* 重置 padding 和 margin */
+  
+  margin: 0;
+}
+.research-card.is-mid .icon,
+.research-card.is-mid .icon-svg {
+  /* 缩小图标尺寸 */
+  font-size: 1.8em;
+  height: 28px;
+  margin: 0;
+}
+.research-card.is-mid .title {
+  /* 调整标题样式 */
+  font-size: 1.1em;
+  font-weight: 600;
+  margin: 0;
+}
+.research-card.is-mid .details {
+  /* 中等尺寸不显示详情 */
+  display: none;
+}
+
 .marker{
   width:1em;
   height:1em;

@@ -31,12 +31,14 @@ onUnmounted(() => {
 
 <template>
   <div style="height:100vh; justify-content: center;" id="main">
-    <h1 class="welcome" style="text-align: center; margin-bottom: 10vh; font-size: 10vh; margin-top: 10vh;">Welcome Aboard!</h1>
+    <h1 class="welcome" style="text-align: center; margin-bottom: 10vh; font-size: 10vh; margin-top: 10vh;">Welcome
+      Aboard!</h1>
     <BoardingPass />
     <a href="#me">
-      <div class="godown" style="margin-top: 5vh; text-align: center; font-size:10vh;">
-        <span class="down01">▼</span><br></br>
-        <span class="down02">▼</span>
+      <div class="godown" style="margin-top: 5vh; text-align: center; font-size:10vh; left: 50vw;">
+        <span class="down01">﹀</span><br></br>
+        <span class="down02">﹀</span><br></br>
+        <span class="down03">﹀</span>
       </div>
     </a>
   </div>
@@ -95,27 +97,19 @@ onUnmounted(() => {
           </div>
         </div>
       </div>
+
+      <a href="#research">
+        <div class="godown" style="margin-top:0vh; text-align: center; font-size:10vh; left: 50vw;">
+          <span class="down01">﹀</span><br></br>
+          <span class="down02">﹀</span><br></br>
+          <span class="down03">﹀</span>
+        </div>
+      </a>
     </section>
 
-    <ResearchIndex id="research"
-      :title="'基于 QAR 数据的民航客机飞行状态实时预测研究'"
-      :description="'构建三层PPP框架'"
-    />
+    <ResearchIndex id="research" :title="'基于 QAR 数据的民航客机飞行状态实时预测研究'" :description="'构建三层PPP框架'" />
 
-    <section class="bgs-section" id="education">
-      <h1 style="background-color: #37bfe0; color: #f1f9ff;">教育背景|Education</h1>
-      <div style="">
-        <ul>
-          <li>2023-09至今<h4>中国民航大学，空中交通管理学院<span style="color: #9fa2a3; font-weight: 100; font-size: small;"> - 天津</span>
-            </h4>
-          </li>交通运输工程
-          <li>2018-09至2022-06<h4>东北林业大学，交通学院<span style="color: #9fa2a3; font-weight: 100; font-size: small;"> -
-                哈尔滨</span></h4>
-          </li>
-          交通运输
-        </ul>
-      </div>
-    </section>
+
 
     <section class="pubs-section">
       <h1 style="background-color: #37bfe0; color: #f1f9ff;">学术论文|Publications</h1>
@@ -150,25 +144,76 @@ onUnmounted(() => {
       </div>
     </section>
 
-    <section class="skills-section">
-      <h1 style="background-color: #37bfe0; color: #f1f9ff;">技术技能|Skills</h1>
-      <div style="">
-        <ul>
-          <li>
-            <h5>编程语言</h5>Python, Matlab, Julia, C/C++, JavaScript, TypeScript
-          </li>
-          <li>
-            <h5>科学计算与仿真</h5>Matlab, Simulink, Modelica, CATIA
-          </li>
-          <li>
-            <h5>软件开发</h5>Git, Linux, Vue, Server Deployment
-          </li>
-          <li>
-            <h5>设计与建模</h5>Blender, 3Ds Max, Substance Painter, Adobe Suite(Photoshop, Illustrator), EDA
-          </li>
-        </ul>
+    <section id="education" class="resume-section">
+      <h2 style="margin-bottom: 2vh;">教育背景 | Education</h2>
+
+      <!-- [新] 使用我们熟悉的 card-grid 布局 -->
+      <div class="card-grid education-grid">
+
+        <!-- 卡片 1: 硕士经历 -->
+        <ResearchCard icon="🎓" title="中国民航大学" details="硕士研究生 (M.S.)<br>空中交通管理学院<br>交通运输工程<br><h3>2023.09 - 至今</h3>"
+          bgColor="#0795f3" />
+
+        <!-- 卡片 2: 本科经历 -->
+        <ResearchCard icon="🌲" title="东北林业大学" details="学士 (B.S.)<br>交通学院<br>交通运输<br><h3>2018.09 - 2022.06</h3>"
+          bgColor="#006400" />
+
       </div>
     </section>
+
+    <section id="skills" class="resume-section">
+      <h2 style="margin-bottom: 2vh;">技术技能 | Skills</h2>
+
+      <!-- 技能分类行 1: 编程语言 -->
+      <div class="skill-category-row">
+        <!-- 左侧的类别卡片 -->
+        <ResearchCard class="category-tag" size="mid" title="编程语言" icon="💻" bgColor="#007ACC" link="#" />
+        <!-- 右侧的技能标签网格 -->
+        <div class="skill-tags-grid">
+          <ResearchCard size="small" title="Python" bgColor="#333" />
+          <ResearchCard size="small" title="MATLAB" bgColor="#333" />
+          <ResearchCard size="small" title="Julia" bgColor="#333" />
+          <ResearchCard size="small" title="C/C++" bgColor="#333" />
+          <ResearchCard size="small" title="JavaScript" bgColor="#333" />
+          <ResearchCard size="small" title="TypeScript" bgColor="#333" />
+        </div>
+      </div>
+
+      <!-- 技能分类行 2: 科学计算与仿真 -->
+      <div class="skill-category-row">
+        <ResearchCard class="category-tag" size="mid" title="科学计算" icon="🔬" bgColor="#228B22" link="#" />
+        <div class="skill-tags-grid">
+          <ResearchCard size="small" title="Simulink" bgColor="#333" />
+          <ResearchCard size="small" title="Modelica" bgColor="#333" />
+          <ResearchCard size="small" title="CATIA" bgColor="#333" />
+        </div>
+      </div>
+
+      <!-- 技能分类行 3: 软件开发 -->
+      <div class="skill-category-row">
+        <ResearchCard class="category-tag" size="mid" title="软件开发" icon="🌐" bgColor="#FF5722" link="#" />
+        <div class="skill-tags-grid">
+          <ResearchCard size="small" title="Git" bgColor="#333" />
+          <ResearchCard size="small" title="Linux" bgColor="#333" />
+          <ResearchCard size="small" title="Vue.js" bgColor="#333" />
+          <ResearchCard size="small" title="Server Deployment" bgColor="#333" />
+        </div>
+      </div>
+
+      <!-- 技能分类行 4: 设计与建模 -->
+      <div class="skill-category-row">
+        <ResearchCard class="category-tag" size="mid" title="设计建模" icon="🎨" bgColor="#7A4DDE" link="#" />
+        <div class="skill-tags-grid">
+          <ResearchCard size="small" title="Blender" bgColor="#333" />
+          <ResearchCard size="small" title="3ds Max" bgColor="#333" />
+          <ResearchCard size="small" title="Substance Painter" bgColor="#333" />
+          <ResearchCard size="small" title="Adobe Suite" bgColor="#333" />
+          <ResearchCard size="small" title="EDA" bgColor="#333" />
+        </div>
+      </div>
+
+    </section>
+
 
   </div>
 </template>
@@ -179,52 +224,56 @@ html {
 }
 
 a {
-    text-decoration: none;
-    transition: all 0.5s ease;
+  text-decoration: none;
+  transition: all 0.5s ease;
 }
 
-.godown{
-  color: #fff6f1;
+.godown {
+  color: var(--vp-c-text-1);
   transition: all 0.5s ease;
   animation: down 2s ease infinite;
 }
 
-.godown:hover{
+.godown:hover {
   color: var(--vp-c-brand-2);
-  
+
 }
 
-.down01{
+.down01 {
+  animation: blin 2s 0.4s ease infinite;
+}
+
+.down02 {
   animation: blin 2s 0.2s ease infinite;
 }
 
-.down02{
+.down03 {
   animation: blin 2s ease infinite;
 }
 
-@keyframes blin{
-  0%{
+@keyframes blin {
+  0% {
     opacity: 1;
   }
-  20%{
+
+  20% {
     opacity: 0;
   }
-  100%{
+
+  100% {
     opacity: 1;
   }
 }
 
 @keyframes down {
-  0% {
-    transform: scale(2.0,1.0);
-  }
+  0% {}
+
   30% {
     /* 回到初始位置，准备下一次循环 */
-    transform: scale(2.0,1.0) translateY(1vh);
+    transform: translateY(1vh);
   }
-  100% {
-    transform: scale(2.0,1.0);
-  }
+
+  100% {}
 }
 
 /* 在这里写你首页专属的 CSS */
@@ -333,7 +382,7 @@ a {
   /* [关键] 保持圆形 */
   max-width: 350px;
   /* 给一个最大宽度，防止在大屏幕上过大 */
-  margin: 50px auto;
+  margin: 1vh auto;
   /* 在单列布局时居中 */
   border-radius: 500px;
   /* [关键] 改为 50% 来创建完美的圆形 */
@@ -452,7 +501,7 @@ a {
 .intro-right-column {
   line-height: 1.8;
   /* 增加行高，提升阅读体验 */
-  margin-top: 5vh;
+  margin-top: 2vh;
   background-color: #12121317;
   border-radius: 24px;
   backdrop-filter: blur(15px);
@@ -467,21 +516,23 @@ a {
 }
 
 .story-paragraph:first-child {
-  margin-bottom: 1.5em;
+  margin-bottom: 1em;
   color: var(--vp-c-text-2);
   font-weight: 400;
+  font-size: 1em;
 }
 
-.tag-container{
+.tag-container {
   display: flex;
 }
 
-.tags{
+.tags {
   font-weight: 600;
   font-size: larger;
   border-radius: 2em;
-  padding:0px 10px;
+  padding: 0px 10px;
   margin-right: 10px;
+  filter: invert();
 }
 
 
@@ -530,5 +581,58 @@ a {
 
 .welcome {
   animation: breath 2s 0s ease-out infinite;
+}
+
+.skill-category-row {
+  display: flex;
+  align-items: flex-start; /* 顶部对齐 */
+  gap: 20px;
+  margin-bottom: 20px;
+  height:10vh;
+}
+
+.category-tag {
+  flex-shrink: 0; /* 防止类别卡片被压缩 */
+  width: 200px; /* 给一个固定的宽度 */
+}
+
+/* 覆盖 ResearchCard 的一些样式，让它更适合作为类别标签 */
+:deep(.category-tag .title) {
+  font-size: 1.2em;
+}
+:deep(.category-tag .icon) {
+  font-size: 2em;
+}
+:deep(.category-tag:hover .details) {
+  display: none; /* 类别卡片不需要显示详情 */
+}
+
+
+.skill-tags-grid {
+  flex-grow: 1;
+  display: flex;
+  flex-wrap: wrap; /* 允许标签换行 */
+  gap: 10px; /* 标签之间的间距 */
+}
+
+/* 
+  :deep() 是一个 Vue 的特殊选择器，
+  它允许 scoped 样式穿透到子组件的根元素。
+  我们用它来确保 ResearchCard 的 margin 被正确设置。
+*/
+:deep(.skill-tags-grid .research-card) {
+  margin: 0; /* 移除 ResearchCard 可能自带的 margin */
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .skill-category-row {
+    flex-direction: column; /* 变为上下布局 */
+    align-items: stretch; /* 拉伸以适应宽度 */
+  }
+  .category-tag {
+    width: 100%; /* 类别卡片占满整行 */
+    text-align: center;
+  }
 }
 </style>
