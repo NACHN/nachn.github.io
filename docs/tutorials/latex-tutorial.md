@@ -2,7 +2,7 @@
 title: "LaTeX 交互式教程"
 date: 2025-09-15
 
-researchAreas:
+items:
   - icon: '✒️'
     title: '基础入门'
     details: '从零开始写公式。学习 `$` 与 `$$` 的区别，掌握 `{}` 分组、分数 `\frac`、根号 `\sqrt`、上下标 `^/_` 等最核心的语法，写下你的第一个公式。'

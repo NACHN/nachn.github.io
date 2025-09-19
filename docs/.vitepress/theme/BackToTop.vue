@@ -59,8 +59,8 @@ onUnmounted(() => {
   /* 确保在顶层 */
 
   /* 尺寸和形状 */
-  width: 80px;
-  height: 80px;
+  width: 5vw;
+  height: 5vw;
   border-radius: 50%;
   margin:20px;
   padding: 20px;
@@ -89,8 +89,8 @@ onUnmounted(() => {
 }
 
 .icon {
-  width: 24px;
-  height: 24px;
+  width: 3vw;
+  height: 3vw;
   /* 
     如果你的 SVG 是黑色的，在暗色模式下可能看不清。
     这个 filter 会在暗色模式下把它变成白色。
