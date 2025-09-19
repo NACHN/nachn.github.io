@@ -107,7 +107,7 @@ onUnmounted(() => {
                     </div>
                     <div class="info-item">
                         <span class="label">货物 CARGO</span>
-                        <a href="#project"><span class="value name">{{ passInfo.cargo }}</span></a>
+                        <a href="#projects"><span class="value name">{{ passInfo.cargo }}</span></a>
                     </div>
                     </div>
                     <div class="flight-details">
@@ -138,7 +138,7 @@ onUnmounted(() => {
                         </div>
                         <div class="info-item">
                             <span class="label">目的地 TO</span>
-                            <span class="value location destination">{{ passInfo.destination }}</span>
+                            <a href="#contact"><span class="value location destination">{{ passInfo.destination }}</span></a>
                         </div>
                     </div>
                 </div>

@@ -1,44 +1,44 @@
 <!-- docs/.vitepress/theme/ResearchIndex.vue (Upgraded) -->
 <script setup>
-import { computed } from 'vue'
+import { computed } from 'vue';
 import { useData } from 'vitepress';
 import ResearchCard from './ResearchCard.vue';
-import TimelineCard from './TimelineCard.vue'; // 1. 导入新的 TimelineCard
+import TimelineCard from './TimelineCard.vue';
 
+// 1. 获取 frontmatter 作为“后备”数据源
 const { frontmatter } = useData();
 
+// 2. 定义 props，允许外部直接传入数据
 const props = defineProps({
     title: String,
     description: String,
+    items: Array, // [关键] 允许直接传入 items 数组
+    layout: String, // 'grid' or 'timeline'
+    lineColor: String // for timeline
 });
 
-const pageTitle = computed(() => {
-  return props.title || frontmatter.title;
-});
+// 3. 创建计算属性来决定最终使用哪个数据源
+const pageTitle = computed(() => props.title || frontmatter.value.title);
+const pageDescription = computed(() => props.description || frontmatter.value.description);
+const displayItems = computed(() => props.items || frontmatter.value.items);
+const displayLayout = computed(() => props.layout || frontmatter.value.index_type || 'grid');
+const displayLineColor = computed(() => props.lineColor || frontmatter.value.lineColor);
 
-const pageDetails = computed(() => {
-  return props.description || frontmatter.description;
-});
-
-// 2. 从 frontmatter 读取数据和布局类型
-const items = frontmatter.value.items; // 将数据源重命名为 items，更通用
-const layout = frontmatter.value.index_type || 'grid'; // 默认为 'grid'
-const color = frontmatter.value.lineColor || '#f00';
 </script>
 
 <template>
   <div class="universal-index">
     <div class="header">
       <h1>{{ pageTitle }}</h1>
-      <p>{{ pageDetails }}</p>
+      <p>{{ pageDescription }}</p>
     </div>
 
     <!-- 3. 根据 layout 的值，条件渲染不同的布局 -->
     
     <!-- Grid 布局 -->
-    <div v-if="layout === 'grid'" class="card-grid">
+    <div v-if="displayLayout === 'grid'" class="card-grid">
       <ResearchCard
-        v-for="item in items"
+        v-for="item in displayItems"
         :key="item.title"
         :title="item.title"
         :details="item.details"
@@ -50,16 +50,16 @@ const color = frontmatter.value.lineColor || '#f00';
     </div>
 
     <!-- Timeline 布局 -->
-    <div v-else-if="layout === 'timeline'" class="timeline-container">
+    <div v-else-if="displayLayout === 'timeline'" class="timeline-container">
       <TimelineCard
-        v-for="item in items"
+        v-for="item in displayItems"
         :key="item.title"
         :title="item.title"
         :details="item.details"
         :link="item.link"
         :icon="item.icon"
         :bgColor="item.bgColor"
-        :lineColor="color"
+        :lineColor="displayLineColor"
       />
     </div>
   </div>

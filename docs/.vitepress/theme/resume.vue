@@ -2,8 +2,98 @@
 import { ref, onMounted, onUnmounted } from 'vue';
 import BoardingPass from './BoardingPass.vue';
 import ResearchIndex from './ResearchIndex.vue'
+import TimelineCard from './TimelineCard.vue';
 
 const introductionTitle = ref(null); // 我们需要获取标题元素的引用
+
+const publications = ref([
+  {
+    title: "Paper 1",
+    details: "[1] Y. Dai, R. Wen, H. Wang. In: IEEE Transactions on Intelligent Transportation Systems (T-ITS). (Under Review)",
+    icon: "📄",
+  },
+  {
+    title: "Paper 2",
+    details: "[2] Y. Dai, R. Wen, H. Wang. In: IEEE Transactions on Intelligent Transportation Systems (T-ITS). (Under Review)",
+    icon: "📄",
+  },
+]);
+
+const projects = ref([
+  {
+    icon: '🚌', // 公交车图标
+    title: '公交信息平台',
+    details: '与交通运输局合作，主导开发。采用 Python Flask 后端处理实时 GPS 数据，Vue+TS 前端结合 OpenLayers 实现 GIS 可视化与智能决策支持。',
+    link: '#', // 如果有专门的页面介绍，可以链接过去
+    bgColor: '#f44336' // 交通信号灯的红色
+  },
+  {
+    icon: '✈️', // 飞机图标
+    title: '蒙特卡洛跑道容量模拟软件',
+    details: '利用 Java 实现基于 Agent 的仿真模型，模拟飞机起降行为，支持自定义调度规则，并在 GitHub 开源。',
+    link: 'https://github.com/NACHN/CaMS',
+    bgColor: '#2196F3' // 天蓝色
+  },
+  {
+    icon: '🤖', // 机器人图标
+    title: '格斗机器人设计与制造',
+    details: '大学生工程能力竞赛项目。使用 CATIA 进行三维建模与有限元分析，利用 3D 打印制造核心部件并完成硬件集成。',
+    link: '#',
+    bgColor: '#9C27B0' // 机械感的紫色
+  },
+]);
+
+const education = ref([
+  {
+    icon: "🎓",
+    title: "中国民航大学",
+    details: "硕士研究生 (M.S.)<br>空中交通管理学院<br>交通运输工程<br><h3>2023.09 - 至今</h3>",
+    bgColor: "#0795f3"
+  },
+  {
+    icon: "🌲",
+    title: "东北林业大学",
+    details: "学士 (B.S.)<br>交通学院<br>交通运输<br><h3>2018.09 - 2022.06</h3>",
+    bgColor: "#006400"
+  }
+]);
+
+// [新增] 技能数据 (一个嵌套结构)
+const skills = ref([
+  {
+    category: { title: "编程语言", icon: "💻", bgColor: "#007ACC" },
+    tags: [
+      { title: "Python" }, { title: "MATLAB" }, { title: "Julia" },
+      { title: "C/C++" }, { title: "JavaScript" }, { title: "TypeScript" }
+    ]
+  },
+  {
+    category: { title: "科学计算", icon: "🔬", bgColor: "#228B22" },
+    tags: [
+      { title: "Simulink" }, { title: "Modelica" }, { title: "CATIA" }
+    ]
+  },
+  {
+    category: { title: "软件开发", icon: "🌐", bgColor: "#FF5722" },
+    tags: [
+      { title: "Git" }, { title: "Linux" }, { title: "Vue.js" }, { title: "Server Deployment" }
+    ]
+  },
+  {
+    category: { title: "设计建模", icon: "🎨", bgColor: "#7A4DDE" },
+    tags: [
+      { title: "Blender" }, { title: "3ds Max" }, { title: "Substance Painter" },
+      { title: "Adobe Suite" }, { title: "EDA" }
+    ]
+  }
+]);
+
+const contactInfo = ref({
+  email: 'daiyuntao928@gmail.com',
+  github: 'https://github.com/NACHN',
+  website: 'https://nachn.github.io',
+  location: 'Tianjin, China'
+});
 
 const handleScroll = () => {
   if (!introductionTitle.value) return;
@@ -109,111 +199,95 @@ onUnmounted(() => {
 
     <ResearchIndex id="research" :title="'基于 QAR 数据的民航客机飞行状态实时预测研究'" :description="'构建三层PPP框架'" />
 
-
-
-    <section class="pubs-section">
-      <h1 style="background-color: #37bfe0; color: #f1f9ff;">学术论文|Publications</h1>
-      <div style="">
-        <ul>
-          <li><a href="/resume">论文1，IEEE-T-ITS，Under Review</a></li>
-          <li><a href="/resume">论文2，IEEE-T-ITS，Under Review</a></li>
-        </ul>
-      </div>
+    <section id="publications" class="resume-section">
+      <!-- 使用 ResearchIndex 组件，并通过 props 传入数据 -->
+      <ResearchIndex :items="publications" layout="timeline" lineColor="#37bfe0" :title="'学术发表'" />
     </section>
-
-    <section class="proj-section" id="project">
-      <h1 style="background-color: #37bfe0; color: #f1f9ff;">项目经历|Projects</h1>
-      <div style="">
-        <ul>
-          <li>
-            <h4>乌鲁木齐公交信息平台 <span style="font-size:smaller;">与乌鲁木齐市交通运输局合作项目</span></h4>
-          </li>
-          采用Python Flask作为后端，Vue+ts作为前端<br></br>
-          基于Openlayers实现基本GIS功能，智能分析和决策支持
-          <li>
-            <h4>蒙特卡洛跑道容量模拟软件 <span style="font-size:smaller;">课程项目</span></h4>
-          </li>
-          利用Java实现agent-based模拟飞机起降行为，支持自定义规则<br></br>
-          <a href="https://github.com/NACHN/CaMS">于Github开源</a>
-          <li>
-            <h4>格斗机器人设计与制造 <span style="font-size:smaller;">大学生工程能力竞赛，本科</span></h4>
-          </li>
-          使用CATIA建模和有限元分析，使用3D打印制造<br></br>
-
-        </ul>
+    <a href="#projects">
+      <div class="godown" style="margin-top: 0vh; text-align: center; font-size:10vh; left: 50vw;">
+        <span class="down01">﹀</span><br></br>
+        <span class="down02">﹀</span><br></br>
+        <span class="down03">﹀</span>
       </div>
-    </section>
+    </a>
 
-    <section id="education" class="resume-section">
-      <h2 style="margin-bottom: 2vh;">教育背景 | Education</h2>
-
-      <!-- [新] 使用我们熟悉的 card-grid 布局 -->
-      <div class="card-grid education-grid">
-
-        <!-- 卡片 1: 硕士经历 -->
-        <ResearchCard icon="🎓" title="中国民航大学" details="硕士研究生 (M.S.)<br>空中交通管理学院<br>交通运输工程<br><h3>2023.09 - 至今</h3>"
-          bgColor="#0795f3" />
-
-        <!-- 卡片 2: 本科经历 -->
-        <ResearchCard icon="🌲" title="东北林业大学" details="学士 (B.S.)<br>交通学院<br>交通运输<br><h3>2018.09 - 2022.06</h3>"
-          bgColor="#006400" />
-
-      </div>
+    <section id="projects" class="resume-section">
+      <!-- 使用 ResearchIndex 组件，并传入 projects 数据 -->
+      <ResearchIndex :items="projects" layout="grid" :title="'工程项目'" />
     </section>
 
     <section id="skills" class="resume-section">
-      <h2 style="margin-bottom: 2vh;">技术技能 | Skills</h2>
 
-      <!-- 技能分类行 1: 编程语言 -->
-      <div class="skill-category-row">
-        <!-- 左侧的类别卡片 -->
-        <ResearchCard class="category-tag" size="mid" title="编程语言" icon="💻" bgColor="#007ACC" link="#" />
-        <!-- 右侧的技能标签网格 -->
+      <!-- [新] 使用 v-for 循环渲染每一个技能行 -->
+      <div v-for="skillGroup in skills" :key="skillGroup.category.title" class="skill-category-row">
+        <!-- 左侧的类别卡片，数据来自 skillGroup.category -->
+        <ResearchCard class="category-tag" size="mid" :title="skillGroup.category.title"
+          :icon="skillGroup.category.icon" :bgColor="skillGroup.category.bgColor" />
+        <!-- 右侧的技能标签网格，数据来自 skillGroup.tags -->
         <div class="skill-tags-grid">
-          <ResearchCard size="small" title="Python" bgColor="#333" />
-          <ResearchCard size="small" title="MATLAB" bgColor="#333" />
-          <ResearchCard size="small" title="Julia" bgColor="#333" />
-          <ResearchCard size="small" title="C/C++" bgColor="#333" />
-          <ResearchCard size="small" title="JavaScript" bgColor="#333" />
-          <ResearchCard size="small" title="TypeScript" bgColor="#333" />
+          <ResearchCard v-for="tag in skillGroup.tags" :key="tag.title" size="small" :title="tag.title"
+            bgColor="#333" />
         </div>
       </div>
-
-      <!-- 技能分类行 2: 科学计算与仿真 -->
-      <div class="skill-category-row">
-        <ResearchCard class="category-tag" size="mid" title="科学计算" icon="🔬" bgColor="#228B22" link="#" />
-        <div class="skill-tags-grid">
-          <ResearchCard size="small" title="Simulink" bgColor="#333" />
-          <ResearchCard size="small" title="Modelica" bgColor="#333" />
-          <ResearchCard size="small" title="CATIA" bgColor="#333" />
-        </div>
+    </section>
+    <a href="#education">
+      <div class="godown" style="margin-top: 0vh; text-align: center; font-size:10vh; left: 50vw;">
+        <span class="down01">﹀</span><br></br>
+        <span class="down02">﹀</span><br></br>
+        <span class="down03">﹀</span>
       </div>
+    </a>
 
-      <!-- 技能分类行 3: 软件开发 -->
-      <div class="skill-category-row">
-        <ResearchCard class="category-tag" size="mid" title="软件开发" icon="🌐" bgColor="#FF5722" link="#" />
-        <div class="skill-tags-grid">
-          <ResearchCard size="small" title="Git" bgColor="#333" />
-          <ResearchCard size="small" title="Linux" bgColor="#333" />
-          <ResearchCard size="small" title="Vue.js" bgColor="#333" />
-          <ResearchCard size="small" title="Server Deployment" bgColor="#333" />
-        </div>
-      </div>
+    <section id="education" class="resume-section">
 
-      <!-- 技能分类行 4: 设计与建模 -->
-      <div class="skill-category-row">
-        <ResearchCard class="category-tag" size="mid" title="设计建模" icon="🎨" bgColor="#7A4DDE" link="#" />
-        <div class="skill-tags-grid">
-          <ResearchCard size="small" title="Blender" bgColor="#333" />
-          <ResearchCard size="small" title="3ds Max" bgColor="#333" />
-          <ResearchCard size="small" title="Substance Painter" bgColor="#333" />
-          <ResearchCard size="small" title="Adobe Suite" bgColor="#333" />
-          <ResearchCard size="small" title="EDA" bgColor="#333" />
-        </div>
-      </div>
-
+      <!-- 使用 ResearchIndex 组件来渲染教育背景 -->
+      <ResearchIndex :items="education" layout="grid" :title="'教育背景'" />
     </section>
 
+    <section id="contact" class="resume-section">
+      <h1>联系我 | CONTACT</h1>
+
+      <div class="contact-grid">
+
+        <!-- 左侧：联系信息 -->
+        <div class="contact-details">
+          <h3 style="font-weight: 700;">Let's Connect!</h3>
+          <p>
+            I'm currently seeking Ph.D. opportunities in Control Systems, Robotics, or related fields.
+            I'm passionate about tackling challenging problems and collaborating with innovative minds.
+            Feel free to reach out!
+          </p>
+
+          <div class="contact-links">
+            <a :href="`mailto:${contactInfo.email}`" class="contact-link">
+              <span class="icon">📧</span>
+              <span class="text">{{ contactInfo.email }}</span>
+            </a>
+            <a :href="contactInfo.github" target="_blank" class="contact-link">
+              <span class="icon">💻</span>
+              <span class="text">GitHub Profile</span>
+            </a>
+            <a :href="contactInfo.website" target="_blank" class="contact-link">
+              <span class="icon">🌐</span>
+              <span class="text">Personal Website</span>
+            </a>
+            <div class="contact-link">
+              <span class="icon">📍</span>
+              <span class="text">{{ contactInfo.location }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 右侧：地图（一个简单的 iframe 嵌入） -->
+        <div class="contact-map" id="contact">
+          <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+            src="https://www.openstreetmap.org/export/embed.html?bbox=117.0,39.0,117.4,39.2&layer=mapnik"
+            style="border: 1px solid black; border-radius: 12px;">
+          </iframe>
+        </div>
+
+      </div>
+    </section>
 
   </div>
 </template>
@@ -585,34 +659,42 @@ a {
 
 .skill-category-row {
   display: flex;
-  align-items: flex-start; /* 顶部对齐 */
+  align-items: flex-start;
+  /* 顶部对齐 */
   gap: 20px;
   margin-bottom: 20px;
-  height:10vh;
+  height: 10vh;
 }
 
 .category-tag {
-  flex-shrink: 0; /* 防止类别卡片被压缩 */
-  width: 200px; /* 给一个固定的宽度 */
+  flex-shrink: 0;
+  /* 防止类别卡片被压缩 */
+  width: 200px;
+  /* 给一个固定的宽度 */
 }
 
 /* 覆盖 ResearchCard 的一些样式，让它更适合作为类别标签 */
 :deep(.category-tag .title) {
   font-size: 1.2em;
 }
+
 :deep(.category-tag .icon) {
   font-size: 2em;
 }
+
 :deep(.category-tag:hover .details) {
-  display: none; /* 类别卡片不需要显示详情 */
+  display: none;
+  /* 类别卡片不需要显示详情 */
 }
 
 
 .skill-tags-grid {
   flex-grow: 1;
   display: flex;
-  flex-wrap: wrap; /* 允许标签换行 */
-  gap: 10px; /* 标签之间的间距 */
+  flex-wrap: wrap;
+  /* 允许标签换行 */
+  gap: 10px;
+  /* 标签之间的间距 */
 }
 
 /* 
@@ -621,18 +703,104 @@ a {
   我们用它来确保 ResearchCard 的 margin 被正确设置。
 */
 :deep(.skill-tags-grid .research-card) {
-  margin: 0; /* 移除 ResearchCard 可能自带的 margin */
+  margin: 0;
+  /* 移除 ResearchCard 可能自带的 margin */
 }
 
 /* 响应式调整 */
 @media (max-width: 768px) {
   .skill-category-row {
-    flex-direction: column; /* 变为上下布局 */
-    align-items: stretch; /* 拉伸以适应宽度 */
+    flex-direction: column;
+    /* 变为上下布局 */
+    align-items: stretch;
+    /* 拉伸以适应宽度 */
   }
+
   .category-tag {
-    width: 100%; /* 类别卡片占满整行 */
+    width: 100%;
+    /* 类别卡片占满整行 */
     text-align: center;
   }
+}
+
+.timeline-container {
+  max-width: 800px;
+  /* 时间轴布局通常窄一些更好看 */
+  margin: 2em auto 0;
+  /* 居中并与标题保持距离 */
+  position: relative;
+  /* 成为内部绝对定位元素的父级 */
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem;
+  align-items: center;
+  margin-top: 2em;
+  backdrop-filter: blur(15px);
+}
+
+@media (max-width: 768px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.contact-details h3 {
+  font-size: 1.8em;
+  font-weight: 600;
+  margin-bottom: 0.5em;
+  color: var(--vp-c-brand-1);
+  background-color: #12121317;
+}
+
+.contact-details p {
+  line-height: 1.7;
+  color: var(--vp-c-text-2);
+  margin-bottom: 2em;
+}
+
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--vp-c-text-1);
+  font-weight: 500;
+  transition: color 0.25s;
+}
+
+.contact-link:hover {
+  color: var(--vp-c-brand-2);
+}
+
+.contact-link .icon {
+  font-size: 1.5em;
+  margin-right: 12px;
+  width: 28px; /* 固定宽度以便对齐 */
+  text-align: center;
+}
+
+.contact-map {
+  width: 100%;
+  height: 300px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--vp-shadow-2);
+}
+
+.contact-map iframe {
+  filter: grayscale(0.8) contrast(1.2); /* [酷炫效果] 让地图变成灰度，更具设计感 */
+  transition: filter 0.3s ease;
+}
+
+.contact-map:hover iframe {
+  filter: grayscale(0) contrast(1); /* 鼠标悬停时恢复彩色 */
 }
 </style>
