@@ -5,6 +5,7 @@ import { ref, onMounted, onUnmounted } from 'vue';
 // 将所有信息都定义为响应式数据，方便未来扩展
 const passInfo = ref({
     passengerName: 'DAIYUNTAO 戴畇滔',
+    cargo: 'PROJECTS 项目',
     flightNumber: 'PPP-001', // Perception-Prediction-Precaution
     destination: 'Ph.D. in Control Systems',
     origin: '中国民航大学 CAUC / M.S.',
@@ -99,9 +100,15 @@ onUnmounted(() => {
 
             <div class="content">
                 <div class="main-info">
+                    <div class="flight-details">
                     <div class="info-item">
                         <span class="label">姓名 NAME</span>
                         <a href="#me"><span class="value name">{{ passInfo.passengerName }}</span></a>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">货物 CARGO</span>
+                        <a href="#project"><span class="value name">{{ passInfo.cargo }}</span></a>
+                    </div>
                     </div>
                     <div class="flight-details">
                         <div class="info-item">

@@ -16,6 +16,7 @@ import ToolShowcase from './ToolShowcase.vue'
 import TimelineCard from './TimelineCard.vue'
 import Boardingpass from './BoardingPass.vue'
 import HeroBP from './HeroBP.vue'
+import BackToTop from './BackToTop.vue'
 
 export default {
   ...DefaultTheme, // 继承默认主题的所有配置
@@ -31,9 +32,11 @@ export default {
         if (frontmatter.value.hasBg) {
           return h('div', [
             h(IconsBg),
-            h(MeteorBg)
+            h(MeteorBg),
+            h(BackToTop)
           ])
         }
+        return h(BackToTop)
 
         // 确保 MeteorBg 是全局持久化的
         /*else {
@@ -63,5 +66,6 @@ export default {
     app.component('ToolShowcase', ToolShowcase)
     app.component('TimelineCard', TimelineCard)
     app.component('BoardingPass', Boardingpass)
+    app.component('BackToTop', BackToTop)
   }
 } satisfies Theme

@@ -100,7 +100,7 @@ onUnmounted(() => {
   width: 100%;
   height: 100vh;
   overflow: hidden;
-  z-index: -1; /* 确保背景在最底层 */
+  z-index: -20; /* 确保背景在最底层 */
 }
 
 .floating-icon {

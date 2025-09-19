@@ -4,10 +4,12 @@ import BoardingPass from './BoardingPass.vue';
 </script>
 
 <template>
+    <a href="/resume#main">
   <div class="hero-boarding-pass-wrapper">
     <!-- BoardingPass 组件现在总是在这里，但它的父容器会控制它的可见性 -->
     <BoardingPass />
   </div>
+  </a>
 </template>
 
 <style scoped>
