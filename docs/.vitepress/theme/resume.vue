@@ -1,6 +1,8 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
 import BoardingPass from './BoardingPass.vue';
+import ResearchIndex from './ResearchIndex.vue'
+
 const introductionTitle = ref(null); // 我们需要获取标题元素的引用
 
 const handleScroll = () => {
@@ -28,9 +30,15 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div style="height:100vh;margin-top: 5em;" id="main">
-    <h1 class="welcome" style="text-align: center; margin-bottom: 2em; font-size: 5em;">Welcome Aboard!</h1>
+  <div style="height:100vh; justify-content: center;" id="main">
+    <h1 class="welcome" style="text-align: center; margin-bottom: 10vh; font-size: 10vh; margin-top: 10vh;">Welcome Aboard!</h1>
     <BoardingPass />
+    <a href="#me">
+      <div class="godown" style="margin-top: 5vh; text-align: center; font-size:10vh;transform: scale(2.0,1.0);">
+        <span class="down01">▼</span><br></br>
+        <span class="down02">▼</span>
+      </div>
+    </a>
   </div>
 
 
@@ -68,10 +76,19 @@ onUnmounted(() => {
             <p class="story-paragraph">
               我的学术之旅，源于对错综复杂的交通系统的毕生迷恋，以及对技术的无限好奇。这份热情驱动着我，从一名在B站记录城市公交动态的少年UP主，成长为一名对科学技术充满热情的研究者...
             </p>
-            <div class="tags">123</div>
+            <div class="tag-container">
+              <div class="tags" style="background-color: var(--vp-c-brand-3);">科学计算</div>
+              <div class="tags" style="background-color: var(--vp-c-brand-3);">建模仿真</div>
+              <div class="tags" style="background-color: var(--vp-c-brand-3);">全栈开发</div>
+            </div>
             <p class="story-paragraph">
               自交通系统出发，跨越航空与控制工程，构建从气动参数估计到概率预测的完整研究链条。熟悉科学计算建模仿真与前后端开发，致力于用跨学科方法解决飞行预测与安全问题。
             </p>
+            <div class="tag-container">
+              <div class="tags" style="background-color: #db5507;">飞行力学</div>
+              <div class="tags" style="background-color: #db5507;">控制理论</div>
+              <div class="tags" style="background-color: #db5507;">概率论</div>
+            </div>
             <p class="story-paragraph">
               硕士阶段专注于气动参数估计与飞行状态预测，探索控制理论与概率推断的结合，致力于提升飞行安全与系统可靠性。
             </p>
@@ -79,6 +96,11 @@ onUnmounted(() => {
         </div>
       </div>
     </section>
+
+    <ResearchIndex id="research"
+      :title="'基于 QAR 数据的民航客机飞行状态实时预测研究'"
+      :description="'构建三层PPP框架'"
+    />
 
     <section class="bgs-section" id="education">
       <h1 style="background-color: #37bfe0; color: #f1f9ff;">教育背景|Education</h1>
@@ -91,31 +113,6 @@ onUnmounted(() => {
                 哈尔滨</span></h4>
           </li>
           交通运输
-        </ul>
-      </div>
-    </section>
-
-    <section class="research-section" id="research">
-      <h1 style="background-color: #37bfe0; color: #f1f9ff;">研究经历|Researches</h1>
-      <div style="">
-        <ul>
-          <li>硕士毕业论文<h4>基于 QAR 数据的民航客机飞行状态实时预测研究</h4>指导老师：温瑞英、王红勇</li>
-          Problem
-          解决了从高维、含噪 QAR 数据中进行实时飞行状态预测的关键挑战，超越了传统的飞行后分析模式。
-          Solution
-          设计并验证了一个创新的“感知-预测-预警”(PPP)三层数据驱动框架。
-          <div class="perception">
-            <h1>感知层</h1>
-            开发了一种基于固定增益方程误差法的解耦辨识方法，以精确估计气动参数，克服了传统联合估计算法 (UKF) 的不稳定性问题。
-          </div>
-          <div class="prediction">
-            <h1>预测层</h1>
-            利用
-          </div>
-          <div class="precaution">
-            <h1>预警层</h1>
-            引入
-          </div>
         </ul>
       </div>
     </section>
@@ -181,6 +178,55 @@ html {
   scroll-behavior: smooth;
 }
 
+a {
+    text-decoration: none;
+    transition: all 0.5s ease;
+}
+
+.godown{
+  color: #fff6f1;
+  transition: all 0.5s ease;
+  animation: down 2s ease infinite;
+}
+
+.godown:hover{
+  color: var(--vp-c-brand-2);
+  
+}
+
+.down01{
+  animation: blin 2s 0.2s ease infinite;
+}
+
+.down02{
+  animation: blin 2s ease infinite;
+}
+
+@keyframes blin{
+  0%{
+    opacity: 1;
+  }
+  20%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+
+@keyframes down {
+  0% {
+    transform: scale(2.0,1.0);
+  }
+  30% {
+    /* 回到初始位置，准备下一次循环 */
+    transform: scale(2.0,1.0) translateY(1vh);
+  }
+  100% {
+    transform: scale(2.0,1.0);
+  }
+}
+
 /* 在这里写你首页专属的 CSS */
 .my-home-container {
   padding-top: var(--vp-nav-height);
@@ -231,7 +277,6 @@ html {
 }
 
 .bgs-section>h1,
-.research-section>h1,
 .pubs-section>h1,
 .proj-section>h1,
 .skills-section>h1 {
@@ -292,7 +337,7 @@ html {
   /* 在单列布局时居中 */
   border-radius: 500px;
   /* [关键] 改为 50% 来创建完美的圆形 */
-  border: 10px solid var(--vp-c-bg-alt);
+  border: 10px solid var(--vp-c-text-1);
   /* 用一个稍微不同的背景色做边框 */
   padding: 2em;
   background-color: #12121359;
@@ -386,8 +431,8 @@ html {
 }
 
 .key-info h4 {
-  font-size: 1em;
-  font-weight: 600;
+  font-size: 2vh;
+  font-weight: 700;
   margin-top: 1rem;
   margin-bottom: 0.5rem;
   color: #121213;
@@ -407,7 +452,7 @@ html {
 .intro-right-column {
   line-height: 1.8;
   /* 增加行高，提升阅读体验 */
-  margin-top: 100px;
+  margin-top: 5vh;
   background-color: #12121317;
   border-radius: 24px;
   backdrop-filter: blur(15px);
@@ -419,7 +464,6 @@ html {
   color: var(--vp-c-text-1);
   font-size: 1.7em;
   font-weight: 600;
-  margin: 40px;
 }
 
 .story-paragraph:first-child {
@@ -427,6 +471,20 @@ html {
   color: var(--vp-c-text-2);
   font-weight: 400;
 }
+
+.tag-container{
+  display: flex;
+}
+
+.tags{
+  font-weight: 600;
+  font-size: larger;
+  border-radius: 2em;
+  padding:0px 10px;
+  margin-right: 10px;
+}
+
+
 
 .custom-section {
   max-width: 800px;

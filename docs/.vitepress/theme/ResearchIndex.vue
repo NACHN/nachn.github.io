@@ -1,10 +1,24 @@
 <!-- docs/.vitepress/theme/ResearchIndex.vue (Upgraded) -->
 <script setup>
+import { computed } from 'vue'
 import { useData } from 'vitepress';
 import ResearchCard from './ResearchCard.vue';
 import TimelineCard from './TimelineCard.vue'; // 1. 导入新的 TimelineCard
 
 const { frontmatter } = useData();
+
+const props = defineProps({
+    title: String,
+    description: String,
+});
+
+const pageTitle = computed(() => {
+  return props.title || frontmatter.title;
+});
+
+const pageDetails = computed(() => {
+  return props.description || frontmatter.description;
+});
 
 // 2. 从 frontmatter 读取数据和布局类型
 const items = frontmatter.value.items; // 将数据源重命名为 items，更通用
@@ -15,8 +29,8 @@ const color = frontmatter.value.lineColor || '#f00';
 <template>
   <div class="universal-index">
     <div class="header">
-      <h1>{{ frontmatter.title }}</h1>
-      <p>{{ frontmatter.description }}</p>
+      <h1>{{ pageTitle }}</h1>
+      <p>{{ pageDetails }}</p>
     </div>
 
     <!-- 3. 根据 layout 的值，条件渲染不同的布局 -->

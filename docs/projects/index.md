@@ -2,7 +2,8 @@
 layout: home
 title: 工程项目
 description: 从理论到实践，这里记录了我参与和开发的各类工程项目。
-hasBg: true # 如果你想在这个页面也显示动态背景
+hasBg: true 
+
 index_type: timeline
 lineColor: '#bbff00ff'
 items:

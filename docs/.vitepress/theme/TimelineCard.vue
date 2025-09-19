@@ -17,8 +17,8 @@ defineProps({
         </div>
         <div class="timeline-content">
             <a :href="link" class="content-wrapper" :style="{ '--bgc': bgColor }">
-                <h3 class="title">{{ icon }}{{ title }}</h3>
-                <p class="details">{{ details }}</p>
+                <h3 v-if="title" class="title">{{ icon }}{{ title }}</h3>
+                <p v-if="details" class="details">{{ details }}</p>
             </a>
         </div>
     </div>
