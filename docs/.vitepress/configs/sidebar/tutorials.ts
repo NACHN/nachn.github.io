@@ -3,6 +3,9 @@
 export const tutorials = {
   'zh-CN': [
     {
+      text: '课题组内部知识库', link: '/tutorials/ima-access'
+    },
+    {
       text: 'LaTeX 交互式教程', link: '/tutorials/latex-tutorial',
       collapsed: false,
       items: [

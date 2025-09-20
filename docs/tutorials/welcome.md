@@ -8,6 +8,11 @@ hasBg: true
 
 # 提供给 ResearchIndex.vue 组件的数据
 tutorials:
+  - icon: '🔑'
+    title: '课题组内部知识库'
+    details: '基于腾讯 IMA 构建，存放内部笔记、数据与文献。支持强大的 AI 对话与 RAG 查询。点击查看加入方式，扫码提交申请，由管理员审核后即可访问。'
+    link: '/tutorials/ima-access' # 链接到专门的说明页面
+    bgColor: '#b0ec0bff'
   - icon: '✒️'
     title: 'LaTeX 交互式教程'
     details: '最具特色的在线教程！无需安装，直接在网页上编写公式并实时预览，开启最直观的 LaTeX 学习之旅。'
@@ -18,6 +23,7 @@ tutorials:
     details: '（筹备中）从海量文献中快速找到所需，并使用 Zotero 等工具高效管理你的参考文献。'
     link: '#' # 暂时没有链接
     bgColor: '#ff6464ff'
+
 
 # --- 工具推荐 ---
 tools:
