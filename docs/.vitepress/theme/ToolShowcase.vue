@@ -108,10 +108,10 @@ const activeTab = ref('software');
 }
 
 .tab-button.active {
-  color: #cae8fa;
-  border-bottom-color: var(--vp-c-brand-1);
-  background: linear-gradient(0deg, #00a2ff7c 0%, transparent 20%);
-  text-shadow: 0px 0px 5px #00a2ff;
+  color: var(--vp-c-text-1);
+  border-bottom-color: var(--vp-c-brand-3);
+  background: linear-gradient(0deg, var(--vp-c-brand-3) 0%, transparent 20%);
+  text-shadow: 0px 0px 5px var(--vp-c-brand-3);
 }
 
 .card-grid1 {

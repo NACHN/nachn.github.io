@@ -18,16 +18,16 @@ tutorials:
     details: '最具特色的在线教程！无需安装，直接在网页上编写公式并实时预览，开启最直观的 LaTeX 学习之旅。'
     link: '/tutorials/latex '
     bgColor: '#00ecf8ff' # LaTeX 的经典颜色
+  - icon: '✈️'
+    title: '交互式飞行动力学入门'
+    details: '告别枯燥的公式！通过一个全交互的 3D 飞机模型，亲手操作并深刻理解坐标系、姿态、气动力和运动轨迹。从零开始，构建对六自由度 (6-DoF) 的系统性认识。'
+    link: '/tutorials/6dof' # 链接到我们刚刚完成的教程首页
+    bgColor: '#2493faff'
   - icon: '📚'
     title: '论文检索与文献管理'
     details: '（筹备中）从海量文献中快速找到所需，并使用 Zotero 等工具高效管理你的参考文献。'
-    link: '#' # 暂时没有链接
+    link: '#'
     bgColor: '#ff6464ff'
-  - icon: '✈️'
-    title: '六自由度（6-DoF）方程'
-    details: '一切飞行的基础。'
-    link: '/tutorials/6dof' # 暂时没有链接
-    bgColor: '#2493faff'
 
 # --- 工具推荐 ---
 tools:
@@ -130,9 +130,17 @@ tool_tutorials:
     bgColor: '#389826'
 ---
 
+<!-- [优化] 页面内容部分 -->
 <div class="card-grid-container">
+
+  <!-- [新增] 开场白，连接主题和内容 -->
+  <p class="leading-text">
+    “工欲善其事，必先利其器。” 无论是掌握一门核心理论，还是运用高效的工具，都是科研道路上不可或缺的一环。本站旨在为你提供这两方面的支持：通过交互式教程深化理论理解，通过精选工具提升研究效率。
+  </p>
   
   <h2>教程系列</h2>
+  <!-- [新增] 板块描述 -->
+  <p class="section-description">通过亲手操作和即时反馈，将抽象概念转化为直观认知。</p>
   <div class="card-grid">
     <ResearchCard 
       v-for="item in $frontmatter.tutorials" 
@@ -145,10 +153,30 @@ tool_tutorials:
     />
   </div>
 
-  <h2>工具推荐</h2>
+  <h2>工具推荐与教程</h2>
+  <!-- [新增] 板块描述 -->
+  <p class="section-description">我精选了一系列能极大提升科研效率的工具并计划撰写教程，助你武装到牙齿。</p>
   <ToolShowcase 
-    :software="$frontmatter.tool_software"
+    :software="$frontmatter.tools"
     :tutorials="$frontmatter.tool_tutorials"
   />
 
 </div>
+
+<!-- [新增] 为新增的文本元素添加一些简单样式 -->
+<style>
+.leading-text {
+  font-size: 1.1rem;
+  color: var(--vp-c-text-2);
+  text-align: center;
+  margin: 2rem auto 4rem;
+
+  line-height: 1.7;
+}
+.section-description {
+  font-size: 1rem;
+  color: var(--vp-c-text-2);
+  margin-top: -1rem;
+  margin-bottom: 0rem;
+}
+</style>
