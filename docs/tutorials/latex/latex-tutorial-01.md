@@ -5,7 +5,7 @@ date: 2025-09-15
 
 prev:
   text: 'LaTeX 教程主页'
-  link: '/tutorials/latex-tutorial'
+  link: '/tutorials/latex'
 ---
 
 # 基础入门：从零开始写公式

@@ -17,6 +17,11 @@ import TimelineCard from './TimelineCard.vue'
 import Boardingpass from './BoardingPass.vue'
 import HeroBP from './HeroBP.vue'
 import BackToTop from './BackToTop.vue'
+import AircraftViewer from './AircraftViewer.vue'
+import AxesControl from './ACViewerControl/AxesControl.vue'
+import EulerAnglesControl from './ACViewerControl/EulerAnglesControl.vue'
+import AirFlowControl from './ACViewerControl/AirFlowControl.vue'
+import ForcesControl from './ACViewerControl/ForcesControl.vue'
 
 export default {
   ...DefaultTheme, // 继承默认主题的所有配置
@@ -67,5 +72,10 @@ export default {
     app.component('TimelineCard', TimelineCard)
     app.component('BoardingPass', Boardingpass)
     app.component('BackToTop', BackToTop)
+    app.component('ACViewer', AircraftViewer);
+    app.component('AxesControl', AxesControl);
+    app.component('EulerAnglesControl', EulerAnglesControl)
+    app.component('AirFlowControl', AirFlowControl)
+    app.component('ForcesControl',ForcesControl)
   }
 } satisfies Theme
