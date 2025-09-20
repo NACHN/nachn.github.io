@@ -89,7 +89,7 @@ const skills = ref([
 ]);
 
 const contactInfo = ref({
-  email: 'daiyuntao928@gmail.com',
+  email: 'daiyuntao123@163.com',
   github: 'https://github.com/NACHN',
   website: 'https://nachn.github.io',
   location: 'Tianjin, China'
@@ -154,11 +154,22 @@ onUnmounted(() => {
             <h4>研究方向</h4>
             <p>飞行状态识别与预测</p>
             <h4>联系方式</h4>
-            <div class="contact-links">
-              <a href="mailto:daiyuntao928@gmail.com">Email</a> |
-              <a href="https://github.com/NACHN" target="_blank">GitHub</a> |
-              <a href="https://orcid.org/0009-0001-4427-5175" target="_blank">ORCID</a>
-            </div>
+            <div class="contact-links-grid">
+        <!-- 邮箱链接 -->
+        <a :href="`mailto:${contactInfo.email}`" class="contact-icon-link" title="Email">
+          <img src="/icons/email.svg" alt="Email Icon" class="contact-icon" />Email
+        </a>
+        
+        <!-- GitHub 链接 -->
+        <a :href="contactInfo.github" target="_blank" class="contact-icon-link" title="GitHub">
+          <img src="/icons/github.svg" alt="GitHub Icon" class="contact-icon" />Github
+        </a>
+        
+        <!-- ORCID 链接 (确保你有 orcid.svg) -->
+        <a href="https://orcid.org/0009-0001-4427-5175" target="_blank" class="contact-icon-link" title="ORCID">
+          <img src="/icons/orcid.svg" alt="ORCID Icon" class="contact-icon" />ORCID
+        </a>
+      </div>
           </div>
         </div>
 
@@ -446,7 +457,7 @@ a {
   position: relative;
   /* 成为伪元素定位的父级 */
   overflow: hidden;
-  /*将移动的背景限制在圆形内部 */
+  /* 将移动的背景限制在圆形内部 */
 
   top: 0px;
   text-align: center;
@@ -478,11 +489,11 @@ a {
 .intro-left-column::before {
   content: '';
   position: absolute;
-  top: -10%;
+  top: -30%;
   left: 0;
   width: 300%;
   /* [关键] 让背景宽度是容器的两倍，以便平移 */
-  height: 150%;
+  height: 300%;
   z-index: -1;
   /* 确保背景在内容之下 */
 
@@ -559,6 +570,62 @@ a {
   margin-top: 1rem;
   margin-bottom: 0.5rem;
   color: #121213;
+}
+
+.contact-links-grid {
+  
+  display: grid;
+  grid-template-columns: 1fr; /* 默认单列布局 */
+  gap: 1.2rem; /* 行间距 */
+}
+
+@media (min-width: 640px) {
+  .contact-links-grid {
+    grid-template-columns: repeat(2, auto);
+    gap: 0;
+  }
+}
+
+
+.contact-icon-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--vp-c-text-1);
+  font-weight: 500;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: transparent;
+  transition: all 0.25s ease;
+}
+
+.contact-icon-link:not(.is-static):hover {
+  background-color: var(--vp-c-bg-soft);
+  color: var(--vp-c-brand-1); /* 悬停时变为品牌色 */
+  transform: translateY(-2px);
+  box-shadow: var(--vp-shadow-1);
+}
+
+.contact-icon {
+  width: 24px;   /* [关键] 控制图标大小 */
+  height: 24px;
+  margin-right: 12px;
+  flex-shrink: 0; /* 防止图标被压缩 */
+  transition: transform 0.25s ease;
+}
+
+.contact-icon-link:hover .contact-icon {
+  transform: scale(1.1);
+}
+
+/* 
+ * 如果你的 SVG 是纯色的，并且你想让它在亮/暗模式下自动变色，
+ * 这个 CSS filter 会很有用。
+ * (这部分需要根据你的 SVG 颜色进行微调)
+*/
+.dark .contact-icon {
+   filter: invert(1) brightness(0.8) sepia(1) hue-rotate(180deg) saturate(5); 
+  /* 上面的滤镜可以把黑色图标变成你的主题色，可以尝试调整 */
 }
 
 .contact-links a {

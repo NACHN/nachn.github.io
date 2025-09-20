@@ -168,6 +168,8 @@
   min-width:960px;
 }
 
-.container{
+@media (min-width: 960px) {
+  .container{
   max-height:250px
+}
 }
