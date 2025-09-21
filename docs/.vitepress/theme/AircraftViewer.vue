@@ -55,7 +55,7 @@ const createAllHelpers = () => {
     helpers.bodyAxes = createLabeledAxes(5, bodyBasis, { xLabel: 'Xb', yLabel: 'Yb', zLabel: 'Zb' }, { xColor: 0xff0000, yColor: 0x00ff00, zColor: 0x0000ff });
     helpers.windAxes = createLabeledAxes(5, bodyBasis, { xLabel: 'Xw', yLabel: 'Yw', zLabel: 'Zw' }, { xColor: 0xffa500, yColor: 0xffa500, zColor: 0xffa500 });
     
-    const groundBasis = { xVec: new THREE.Vector3(1, 0, 0), yVec: new THREE.Vector3(0, 0, -1), zVec: new THREE.Vector3(0, -1, 0) };
+    const groundBasis = { xVec: new THREE.Vector3(1, 0, 0), yVec: new THREE.Vector3(0, 0, 1), zVec: new THREE.Vector3(0, -1, 0) };
     helpers.groundAxes = createLabeledAxes(6, groundBasis, { xLabel: 'N', yLabel: 'E', zLabel: 'D' }, { xColor: 0xcccccc, yColor: 0xcccccc, zColor: 0xcccccc });
 
     // --- 创建力矢量 ---

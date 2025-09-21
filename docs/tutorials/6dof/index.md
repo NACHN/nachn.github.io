@@ -42,13 +42,13 @@ aside: false
 
 ### 理论与实践的结合
 
-我们提倡多元化的学习方法。对于严谨的理论推导，我们强烈推荐西北工业大学wch同学的公开课视频，它为飞行动力学入门提供了出色的讲解。
+我提倡多元化的学习方法。对于严谨的理论推导，我强烈推荐西北工业大学wch同学的公开课视频，它为飞行动力学入门提供了出色的讲解。
 
 <div style="margin: 2em 0; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
   <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=37761521&bvid=BV1ft411i7VG&cid=66418692&p=1&autoplay=false" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="width:100%;height:50vh; display: block;"></iframe>
 </div>
 
-本教程将作为上述理论的**最佳实践伙伴**，其核心特色就是**可视化与交互**。我们将抛弃静态图片，让你在一个全交互的 3D 环境中，将理论知识转化为直观感受。
+本教程将作为上述理论的**最佳实践伙伴**，其核心特色就是**可视化与交互**。在这里，我们将抛弃静态图片，让你在一个全交互的 3D 环境中，将理论知识转化为直观感受。
 
 你不再是被动的读者，而是主动的**飞行探索者**。
 
