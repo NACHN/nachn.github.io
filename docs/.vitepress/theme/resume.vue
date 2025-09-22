@@ -89,7 +89,7 @@ const skills = ref([
 ]);
 
 const contactInfo = ref({
-  email: 'daiyuntao123@163.com',
+  email: 'contact@daiyuntao.com',
   github: 'https://github.com/NACHN',
   website: 'https://nachn.github.io',
   location: 'Tianjin, China'

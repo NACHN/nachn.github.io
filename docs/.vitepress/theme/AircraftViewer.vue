@@ -12,11 +12,14 @@ const container = ref(null);
 const scene = shallowRef(null);
 const aircraft = shallowRef(null);
 const viewerState = shallowRef({});
-
+const flightParams = ref({
+  alpha: 0, // Angle of Attack in degrees
+  beta: 0   // Sideslip Angle in degrees
+});
 provide('scene', scene);
 provide('aircraft', aircraft);
 provide('viewerState', viewerState);
-
+provide('flightParams', flightParams);
 let renderer;
 let animationFrameId = null;
 
@@ -211,7 +214,7 @@ onUnmounted(() => {
 </template>
 <style scoped>
 .viewer-wrapper { border: 1px solid var(--vp-c-divider); border-radius: 8px; display: flex; }
-.controls-panel { padding: 12px; background-color: var(--vp-c-bg-soft); border-bottom: 1px solid var(--vp-c-divider); font-size: 0.9em; }
+.controls-panel { padding: 12px; background-color: var(--vp-c-bg-soft); border-bottom: 1px solid var(--vp-c-divider); font-size: 0.9em; width: 30%;}
 .controls-panel label { display: flex; align-items: center; gap: 8px; cursor: pointer; }
-.viewer-container { width: 70%; height: 500px; background-color: #111111; position: relative; }
+.viewer-container { width: 70%; min-height: 40vh; background-color: #111111; position: relative; }
 </style>

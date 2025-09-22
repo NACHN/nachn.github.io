@@ -5,6 +5,7 @@ import * as THREE from 'three';
 
 // --- 1. 注入共享状态 ---
 const viewerState = inject('viewerState');
+const flightParams = inject('flightParams'); 
 
 // --- 2. UI 状态 ---
 const alpha = ref(0); // 攻角 (Angle of Attack) in degrees
@@ -56,7 +57,14 @@ const updateAirflowRotation = () => {
 // --- 4. Watchers (无变化，逻辑正确) ---
 
 // 监听滑块的值变化时，调用更新函数
-watch([alpha, beta], updateAirflowRotation);
+watch([alpha, beta], ([newAlpha, newBeta]) => {
+  if (flightParams.value) {
+    flightParams.value.alpha = newAlpha;
+    flightParams.value.beta = newBeta;
+  }
+  // The original logic to update the 3D model is still needed
+  updateAirflowRotation();
+}, { immediate: true }); // Use immediate to set initial values
 
 // 当依赖的坐标系 (bodyAxes 或 windAxes) 出现或姿态变化时，也应该触发一次更新
 // 这样可以确保在显示气流系时，它能立即获得正确的初始姿态
