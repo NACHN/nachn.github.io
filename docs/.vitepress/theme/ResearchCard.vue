@@ -27,10 +27,28 @@ const isIconUrl = computed(() => {
   // `props` 在 <script setup> 中可以直接使用，无需 this
   return props.icon && props.icon.startsWith('/');
 });
+
+const linkAttributes = computed(() => {
+  // 检查 link prop 是否以 'http' 开头 (包括 http:// 和 https://)
+  // 这是判断外部链接最简单可靠的方法。
+  const isExternal = props.link && props.link.startsWith('http');
+
+  if (isExternal) {
+    // 如果是外部链接，返回一个包含 target 和 rel 属性的对象
+    return {
+      target: '_blank',
+      rel: 'noopener noreferrer'
+    };
+  }
+  
+  // 如果是内部链接 (如 '/tutorials/page-1')，返回一个空对象
+  // 这样 <a> 标签就不会有任何额外的属性，实现正常的内部跳转
+  return {};
+});
 </script>
 
 <template>
-  <a :href="link" class="research-card" :class="cardClasses" :style="{ '--bgc': bgColor}">
+  <a :href="link" v-bind="linkAttributes" class="research-card" :class="cardClasses" :style="{ '--bgc': bgColor}">
     <div v-if="icon" class="icon-container">
       <!-- 如果 icon 是一个 URL，就渲染 <img> 标签 -->
       <img v-if="isIconUrl" :src="icon" :alt="title" class="icon-svg" />

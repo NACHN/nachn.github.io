@@ -1,7 +1,9 @@
 ---
 title: "LaTeX 交互式教程"
 date: 2025-09-15
-
+next:
+  text: '第一课：LaTeX基础入门'
+  link: '/tutorials/latex/latex-tutorial-01'
 items:
   - icon: '✒️'
     title: '基础入门'

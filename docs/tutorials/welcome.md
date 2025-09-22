@@ -23,6 +23,11 @@ tutorials:
     details: '告别枯燥的公式！通过一个全交互的 3D 飞机模型，亲手操作并深刻理解坐标系、姿态、气动力和运动轨迹。从零开始，构建对六自由度 (6-DoF) 的系统性认识。'
     link: '/tutorials/6dof' # 链接到我们刚刚完成的教程首页
     bgColor: '#2493faff'
+  - icon: '⚙️'
+    title: '让代码跑起来'
+    details: '让 Python 代码从普通的文本变成能跑起来的程序，从 Python 环境配置到 VS Code 深度整合，为你的科研之旅铺平道路。'
+    link: '/tutorials/python' # 与下方工具教程中的链接保持一致
+    bgColor: '#607d8bff' # 一个稳重的蓝灰色
   - icon: '📚'
     title: '论文检索与文献管理'
     details: '（筹备中）从海量文献中快速找到所需，并使用 Zotero 等工具高效管理你的参考文献。'
@@ -120,8 +125,8 @@ tool_tutorials:
     bgColor: '#3F51B5'
   - icon: '/icons/python.svg'
     title: 'Python 科研环境搭建'
-    details: '（筹备中）面向初学者的 Python 科研环境配置指南。从安装纯净的官方 Python 开始，到使用 Conda 管理虚拟环境，为你的数据分析之旅打下坚实基础。'
-    link: '#' # 将来替换为 /tutorials/python-setup
+    details: 'AI 生成的代码无法运行？本教程将从零开始，带你安装官方 Python ，并无缝整合 VS Code，为你打造一个稳定、高效、可复现的现代化科学计算环境。'
+    link: '/tutorials/python' # 与上方新增卡片的链接保持一致
     bgColor: '#3776AB'
   - icon: '/icons/julia.svg'
     title: 'Julia 语言快速入门'
