@@ -59,8 +59,8 @@ const updateAirflowRotation = () => {
 // 监听滑块的值变化时，调用更新函数
 watch([alpha, beta], ([newAlpha, newBeta]) => {
   if (flightParams.value) {
-    flightParams.value.alpha = newAlpha;
-    flightParams.value.beta = newBeta;
+    flightParams.value.alpha = -newAlpha;
+    flightParams.value.beta = -newBeta
   }
   // The original logic to update the 3D model is still needed
   updateAirflowRotation();
@@ -78,7 +78,7 @@ watch(() => [
 <template>
   <div class="control-group airflow-control">
     <div class="slider-control">
-      <label>攻角 (α): {{ alpha.toFixed(1) }}°</label>
+      <label>攻角 (α): {{ -alpha.toFixed(1) }}°</label>
       <input type="range" v-model.number="alpha" min="-15" max="20" step="0.5" />
     </div>
     <div class="slider-control">
