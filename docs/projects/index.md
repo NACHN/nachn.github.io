@@ -7,6 +7,11 @@ hasBg: true
 index_type: timeline
 lineColor: '#bbff00ff'
 items:
+  - icon: '🛫'
+    title: '训练平台'
+    details: '好玩的小游戏。'
+    link: 'https://at.daiyuntao.com'
+    bgColor: '#4CAF50' # 代表公共交通的绿色
   - icon: '🚌'
     title: '公交信息平台'
     details: '与官方合作，前后端全栈开发，构建全市公交车辆、线路与场站的动态管理系统。'
