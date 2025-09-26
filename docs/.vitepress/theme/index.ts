@@ -22,6 +22,7 @@ import AxesControl from './ACViewerControl/AxesControl.vue'
 import EulerAnglesControl from './ACViewerControl/EulerAnglesControl.vue'
 import AirFlowControl from './ACViewerControl/AirFlowControl.vue'
 import ForcesControl from './ACViewerControl/ForcesControl.vue'
+import MainPage from './MainPage.vue'
 
 export default {
   ...DefaultTheme, // 继承默认主题的所有配置
@@ -77,5 +78,6 @@ export default {
     app.component('EulerAnglesControl', EulerAnglesControl)
     app.component('AirFlowControl', AirFlowControl)
     app.component('ForcesControl',ForcesControl)
+    app.component('MainPage',MainPage)
   }
 } satisfies Theme

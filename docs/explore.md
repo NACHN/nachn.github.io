@@ -2,4 +2,5 @@
 layout: home
 hasBg: true
 ---
-主页
+<h1 style="text-align:center; margin-top:10vh">开始研究</h1>
+<MainPage/>
