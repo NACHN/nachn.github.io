@@ -10,7 +10,7 @@ hero:
   actions:
     - theme: brand
       text: 开始探索
-      link: /welcome
+      link: /explore
     - theme: brand
       text: 科研入门
       link: /tutorials/welcome
