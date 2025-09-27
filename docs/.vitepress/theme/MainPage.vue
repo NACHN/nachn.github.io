@@ -46,7 +46,7 @@ const academicLinks = [
     {
         name: ' ',
         desc: '下文献',
-        url: 'https://scholar.google.com/',
+        url: 'https://sci-hub.ru/',
         icon: { type: 'png', path: '/icons/sci-hub.svg' },
         size: '1x2',
         bg: '#ffffff'
