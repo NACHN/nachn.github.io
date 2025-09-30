@@ -221,6 +221,7 @@
     }
 
     .ads {
+        white-space: pre-line; 
         position: relative;
         bottom: -120px;
         left: 40px;
@@ -230,7 +231,7 @@
         border: dashed 2px #000;
         width: 260px;
         height: 40px;
-        line-height: 14px;
+        line-height: 16px;
     }
 
     .qrcode-wrapper {
@@ -358,6 +359,7 @@
         font-size: 16px;
         position: absolute;
         left: 0px;
+        top:1px;
     }
 
     .time-yy {
@@ -397,9 +399,9 @@
     }
 
     .seat {
-        font-family: 'B612', serif;
+        font-family: 'B612', 'Source Han Serif SC', serif;
         position: absolute;
-        right: 18px;
+        right: 16px;
         top: 0;
         width: 100px;
         text-align: left;
@@ -436,6 +438,7 @@
     }
 
     .ads {
+        
         position: relative;
         bottom: -120px;
         left: 40px;
@@ -445,7 +448,7 @@
         border: dashed 2px #000;
         width: 260px;
         height: 40px;
-        line-height: 14px;
+        line-height: 16px;
     }
 
     .qrcode-wrapper {

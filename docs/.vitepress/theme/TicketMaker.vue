@@ -15,7 +15,7 @@ const ticketData = ref({
     type: '网',
     lv: '硬座',
     pass: '1001011919****0810 李田所',
-    ad: '买票请到12306 发货请到95306'
+    ad: '壮丽76年·奋斗新时代\n热烈庆祝中华人民共和国成立76周年'
 })
 
 const generateTicket = () => {
@@ -192,7 +192,7 @@ const exportToPDF = async () => {
                 <div class="form-row">
                     <div class="form-group">
                         <label for="ad">广告内容:</label>
-                        <input id="ad" v-model="ticketData.ad" type="text" />
+                        <textarea id="ad" v-model="ticketData.ad" type="text" />
                     </div>
                 </div>
 
@@ -275,6 +275,15 @@ const exportToPDF = async () => {
 }
 
 .form-group input {
+    width: 100%;
+    padding: 5px 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 0.85em;
+}
+
+.form-group textarea {
     width: 100%;
     padding: 5px 8px;
     border: 1px solid #ddd;

@@ -43,7 +43,7 @@ const h = computed(() => props.time.substring(8, 10) + ':');
 const m = computed(() => props.time.substring(10, 12));
 
 const car = computed(() => props.seat.substring(0, 2));
-const st = computed(() => props.seat.substring(2, 5));
+const st = computed(() => props.seat.substring(2));
 
 // 3. 二维码状态
 const qrcodeCanvas = ref(null); // 绑定到 <canvas> 元素的引用
@@ -157,7 +157,7 @@ const ticketClasses = computed(() => {
             <span v-if="props.bg !== 'old'" class="ymdk"
                 style="line-height: 20px;">&emsp;&emsp;&emsp;&emsp;年&emsp;&emsp;月&emsp;&emsp;日&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;开&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;车&emsp;&emsp;&emsp;号<br>￥&emsp;&emsp;&emsp;&emsp;&emsp;元</span>
             <span v-if="props.bg === 'old'" class="ymdk"
-                style="line-height: 20px;">&emsp;&emsp;&nbsp;年&emsp;&nbsp;月&emsp;&nbsp;日&emsp;&emsp;&nbsp;&nbsp;开&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;&nbsp;车&emsp;&nbsp;&nbsp;&nbsp;号<br>￥&emsp;&emsp;&emsp;&nbsp;&nbsp;元</span>
+                style="line-height: 20px;">&emsp;&emsp;&nbsp;年&emsp;&nbsp;月&emsp;&nbsp;日&emsp;&emsp;&nbsp;&nbsp;开&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;车&emsp;&nbsp;&nbsp;&nbsp;号<br>￥&emsp;&emsp;&emsp;&nbsp;&nbsp;元</span>
 
             <div class="car">{{ car }}</div>
             <div class="seat">{{ st }}</div>
