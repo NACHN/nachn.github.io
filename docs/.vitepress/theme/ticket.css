@@ -106,7 +106,8 @@
     width: 96px;
     text-align: center;
     font-size: 14px;
-    transform: scaleY(1.2);
+    transform: scaleY(1.2) scaleX(0.8);
+    letter-spacing: 2px; 
 }
 
 .to-py {
@@ -115,7 +116,8 @@
     width: 96px;
     text-align: center;
     font-size: 14px;
-    transform: scaleY(1.2);
+    letter-spacing: 2px; 
+    transform: scaleY(1.2) scaleX(0.8);
 }
 
 .code {
@@ -216,11 +218,12 @@
     bottom:-120px;
     left:40px;
     font-family: 'Source Han Serif SC', serif;
-    font-size: 12px;
+    font-size: 14px;
     text-align: center;
     border: dashed 2px #000;
     width:260px;
     height:40px;
+    line-height: 14px;
 }
 
 .qrcode-wrapper{

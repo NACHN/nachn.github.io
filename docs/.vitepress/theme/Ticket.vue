@@ -1,6 +1,6 @@
 <script setup>
 import { computed, watch, ref, onMounted } from 'vue';
-import './ticket.css'; 
+import './ticket.css';
 
 // 1. 定义 Props
 const props = defineProps({
@@ -21,16 +21,17 @@ const props = defineProps({
 
 // 2. 局部变量/计算属性
 const machine = 'E001001';
+
 const ads = computed(() => props.ad || '车票已逝，记忆永存');
 // 时间解析
-const yy = props.time.substring(0, 4);
-const mm = props.time.substring(4, 6);
-const dd = props.time.substring(6, 8); 
-const h = props.time.substring(8, 10) + ':'; 
-const m = props.time.substring(10, 12); 
-// 座位解析
-const car = props.seat.substring(0, 2);
-const st = props.seat.substring(2, 5);
+const yy = computed(() => props.time.substring(0, 4));
+const mm = computed(() => props.time.substring(4, 6));
+const dd = computed(() => props.time.substring(6, 8));
+const h = computed(() => props.time.substring(8, 10) + ':');
+const m = computed(() => props.time.substring(10, 12));
+
+const car = computed(() => props.seat.substring(0, 2));
+const st = computed(() => props.seat.substring(2, 5));
 
 // 3. 二维码状态
 const qrcodeCanvas = ref(null); // 绑定到 <canvas> 元素的引用
@@ -50,10 +51,10 @@ const generateQRCode = async () => {
         await QRCode.toCanvas(qrcodeCanvas.value, qrContent, {
             width: 80,
             errorCorrectionLevel: 'H',
-             color: {
-               dark: '#000000',
-               light: '#ffffff00' // 设置为白色或透明
-             }
+            color: {
+                dark: '#000000',
+                light: '#ffffff00' // 设置为白色或透明
+            }
         });
     } catch (err) {
         console.error('二维码生成失败:', err);
@@ -66,7 +67,7 @@ onMounted(async () => {
     try {
         const module = await import('qrcode');
         QRCode = module.default;
-        generateQRCode(); 
+        generateQRCode();
     } catch (e) {
         console.error('二维码库加载失败，请确保已安装：npm install qrcode');
     }
@@ -131,10 +132,12 @@ watch(props, () => {
         <div class="ads">
             <span>{{ ads }}</span>
         </div>
+
         <div id="qrcode-container" ref="qrcodeContainer"></div>
         <div class="qrcode-wrapper">
             <canvas ref="qrcodeCanvas" id="qrcode-canvas"></canvas>
         </div>
+
         <span
             style="position: relative;bottom: -50px;left:20px;font-family: 'Source Han Serif SC', serif;">12345301145145E001001
             JM</span>
