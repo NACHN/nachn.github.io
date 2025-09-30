@@ -20,8 +20,16 @@ const props = defineProps({
 });
 
 // 2. 局部变量/计算属性
-const machine = 'E001001';
-
+const generateRandom3Digit = () => {
+    // Math.random() 生成 0 到 1 之间的浮点数
+    // Math.floor(...) 确保它是整数
+    // (999 - 100 + 1) 是 900，确保数字在 100 到 999 之间
+    const num = Math.floor(Math.random() * 900) + 100;
+    
+    // 返回字符串格式
+    return String(num); 
+};
+const machine = ref(`E${generateRandom3Digit()}${generateRandom3Digit()}`);
 const ads = computed(() => props.ad || '车票已逝，记忆永存');
 // 时间解析
 const yy = computed(() => props.time.substring(0, 4));
@@ -139,7 +147,7 @@ watch(props, () => {
         </div>
 
         <span
-            style="position: relative;bottom: -50px;left:20px;font-family: 'Source Han Serif SC', serif;">12345301145145E001001
+            style="position: relative;bottom: -50px;left:20px;font-family: 'Source Han Serif SC', serif;">12345301145145{{machine}}
             JM</span>
     </div>
 
