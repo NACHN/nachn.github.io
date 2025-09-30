@@ -1,17 +1,36 @@
+/* 1. 定义常规体 (Normal/Regular) */
 @font-face {
-  font-family: 'Source Han Serif SC';
-  src: url('/fonts/SourceHanSerifSC-Regular_0.otf') format('opentype');
-  font-weight: 400;
+    font-family: 'Source Han Serif SC';
+    src: url('/fonts/SourceHanSerifSC-Regular_0.otf') format('opentype');
+    /* format可以是 'otf' 或 'opentype' */
+    font-weight: 400;
+    /* 或者 'normal' */
+    font-style: normal;
 }
+
+/* 2. 定义半粗体 (SemiBold) */
 @font-face {
-  font-family: 'Source Han Serif SC';
-  src: url('/fonts/SourceHanSerifSC-SemiBold_0.otf') format('opentype');
-  font-weight: 600;
+    font-family: 'Source Han Serif SC';
+    src: url('/fonts/SourceHanSerifSC-SemiBold_0.otf') format('opentype');
+    font-weight: 600;
+    /* SemiBold 通常是 600 */
+    font-style: normal;
 }
+
+/* 3. 定义粗体 (Bold) */
 @font-face {
-  font-family: 'Source Han Serif SC';
-  src: url('/fonts/SourceHanSerifSC-Bold_0.otf') format('opentype');
-  font-weight: 700;
+    font-family: 'Source Han Serif SC';
+    src: url('/fonts/SourceHanSerifSC-Bold_0.otf') format('opentype');
+    font-weight: 700;
+    /* 或者 'bold' */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'B612';
+    src: url('/fonts/ticket.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
 }
 
 .ticket {
@@ -30,6 +49,7 @@
 }
 
 .machine {
+    font-family: 'B612', serif;
     position: relative;
     left: 20px;
     color: #b95a5aff;
@@ -85,6 +105,9 @@
     left: 40px;
     width: 96px;
     text-align: center;
+    font-size: 14px;
+    transform: scaleY(1.2) scaleX(0.8);
+    letter-spacing: 2px; 
 }
 
 .to-py {
@@ -92,14 +115,17 @@
     left: 280px;
     width: 96px;
     text-align: center;
+    font-size: 14px;
+    letter-spacing: 2px; 
+    transform: scaleY(1.2) scaleX(0.8);
 }
 
 .code {
     position: absolute;
-    left: 160px;
-    font-size: 24px;
+    left: 170px;
+    font-size: 22px;
     font-family: 'Source Han Serif SC', serif;
-    width: 100px;
+    width: 80px;
     text-align: center;
     padding-bottom: 4px;
     border-bottom: solid 2px #000;
@@ -108,20 +134,62 @@
 .info {
     position: relative;
     top: 72px;
-    left: 32px;
+    left: 20px;
 }
 
-.seat {
+.ymdk{
+    font-family: 'Source Han Serif SC', serif;
+    font-size: 10px;
     position: absolute;
-    right: 80px;
+    left:0px;
+}
+
+.time-yy{
+    font-family: 'B612', serif;
+}
+.time-mm{
+    font-family: 'B612', serif;
+    position: relative;
+    left:14px;
+}
+.time-dd{
+    font-family: 'B612', serif;
+    position: relative;
+    left:24px;
+}
+.time-h{
+    font-family: 'B612', serif;
+    position: relative;
+    left:48px;
+}
+.time-m{
+    font-family: 'B612', serif;
+    position: relative;
+    left:50px;
+}
+
+.car {
+    font-family: 'B612', serif;
+    position: absolute;
+    right: 50px;
+    top: 0;
+    width: 100px;
+}
+.seat{
+    font-family: 'B612', serif;
+    position: absolute;
+    right: 18px;
     top: 0;
     width: 100px;
     text-align: left;
 }
 
+
 .price {
+    font-family: 'B612', serif;
     position: absolute;
     top: 20px;
+    left:10px;
 }
 
 .type {
@@ -140,6 +208,7 @@
 }
 
 .pass{
+    font-family: 'B612', 'Source Han Serif SC', serif;
     position:relative;
     bottom:-120px;
     left:20px;
@@ -147,11 +216,18 @@
 .ads{
     position:relative;
     bottom:-120px;
-    left:20px;
+    left:40px;
     font-family: 'Source Han Serif SC', serif;
-    font-size: 12px;
+    font-size: 14px;
     text-align: center;
     border: dashed 2px #000;
-    width:300px;
+    width:260px;
     height:40px;
+    line-height: 14px;
+}
+
+.qrcode-wrapper{
+    position: relative;
+    left:320px;
+    top:50px;
 }

@@ -38,196 +38,430 @@
     height: 270px;
     background-image: url('/ticket.png');
     background-size: cover;
-    border-radius: 20px;
     margin: 20px;
     color: black;
+    border-radius: 20px;
+
+    .header {
+        position: relative;
+        top: 15px;
+    }
+
+    .machine {
+        font-family: 'B612', serif;
+        position: relative;
+        left: 20px;
+        font-size: 20px;
+        color: #b95a5aff;
+    }
+
+    .check {
+        position: relative;
+        left: 240px;
+        font-size: 16px;
+        font-family: 'Source Han Serif SC', serif;
+    }
+
+    .sta {
+        position: relative;
+        top: 20px;
+    }
+
+    .from_box {
+        font-size: 24px;
+        position: absolute;
+        left: 40px;
+        min-width: 96px;
+        text-align: justify;
+    }
+
+    .from_box::after {
+        content: "";
+        display: inline-block;
+        width: 100%;
+    }
+
+    .to_box {
+        font-size: 24px;
+        position: absolute;
+        left: 280px;
+        min-width: 96px;
+        text-align: justify;
+    }
+
+    .to_box::after {
+        content: "";
+        display: inline-block;
+        width: 100%;
+    }
+
+    .sta-py {
+        position: relative;
+        top: 44px;
+        font-family: "FangSong", "仿宋", "STFangsong", serif;
+    }
+
+    .from-py {
+        position: absolute;
+        left: 40px;
+        width: 96px;
+        text-align: center;
+        font-size: 14px;
+        transform: scaleY(1.2) scaleX(0.8);
+        letter-spacing: 2px;
+    }
+
+    .to-py {
+        position: absolute;
+        left: 280px;
+        width: 96px;
+        text-align: center;
+        font-size: 14px;
+        letter-spacing: 2px;
+        transform: scaleY(1.2) scaleX(0.8);
+    }
+
+    .code {
+        position: absolute;
+        left: 170px;
+        font-size: 22px;
+        font-family: 'Source Han Serif SC', serif;
+        width: 80px;
+        text-align: center;
+        padding-bottom: 4px;
+        border-bottom: solid 2px #000;
+    }
+
+    .info {
+        position: relative;
+        top: 72px;
+        left: 20px;
+    }
+
+    .ymdk {
+        font-family: 'Source Han Serif SC', serif;
+        font-size: 10px;
+        position: absolute;
+        left: 0px;
+    }
+
+    .time-yy {
+        font-family: 'B612', serif;
+    }
+
+    .time-mm {
+        font-family: 'B612', serif;
+        position: relative;
+        left: 14px;
+    }
+
+    .time-dd {
+        font-family: 'B612', serif;
+        position: relative;
+        left: 24px;
+    }
+
+    .time-h {
+        font-family: 'B612', serif;
+        position: relative;
+        left: 48px;
+    }
+
+    .time-m {
+        font-family: 'B612', serif;
+        position: relative;
+        left: 50px;
+    }
+
+    .car {
+        font-family: 'B612', serif;
+        position: absolute;
+        right: 50px;
+        top: 0;
+        width: 100px;
+    }
+
+    .seat {
+        font-family: 'B612', serif;
+        position: absolute;
+        right: 18px;
+        top: 0;
+        width: 100px;
+        text-align: left;
+    }
+
+
+    .price {
+        font-family: 'B612', serif;
+        position: absolute;
+        top: 20px;
+        left: 10px;
+    }
+
+    .type {
+        position: absolute;
+        top: 20px;
+        text-align: center;
+        width: 360px;
+    }
+
+    .lv {
+        position: absolute;
+        top: 20px;
+        text-align: center;
+        right: 80px;
+        width: 100px;
+    }
+
+    .pass {
+        font-family: 'B612', 'Source Han Serif SC', serif;
+        position: relative;
+        bottom: -120px;
+        left: 20px;
+    }
+
+    .ads {
+        position: relative;
+        bottom: -120px;
+        left: 40px;
+        font-family: 'Source Han Serif SC', serif;
+        font-size: 14px;
+        text-align: center;
+        border: dashed 2px #000;
+        width: 260px;
+        height: 40px;
+        line-height: 14px;
+    }
+
+    .qrcode-wrapper {
+        position: relative;
+        left: 320px;
+        top: 50px;
+    }
+
+    .bott {
+        position: relative;
+        bottom: -40px;
+        left: 0px;
+        font-weight: bold;
+        
+        
+        font-family: 'Times New Roman', Times, serif;
+        
+        letter-spacing: 0px;
+    }
 }
 
-.header {
-    position: relative;
-    top: 10px;
-}
+.ticket-old {
+    border-radius: 0px;
 
-.machine {
-    font-family: 'B612', serif;
-    position: relative;
-    left: 20px;
-    color: #b95a5aff;
-}
+    .header {
+        position: relative;
+        top: 20px;
+        left: 10px;
+        font-size: 20px;
+    }
 
-.check {
-    position: relative;
-    left: 240px;
-    font-family: 'Source Han Serif SC', serif;
-}
+    .machine {
+        font-family: 'B612', serif;
+        position: relative;
+        left: 20px;
+        color: #d13e3eff;
+    }
 
-.sta {
-    position: relative;
-    top: 20px;
-}
+    .check {
+        position: absolute;
+        right: 40px;
+        font-size: 16px;
+        text-align: right;
+        font-family: 'Source Han Serif SC', serif;
+    }
 
-.from_box {
-    font-size: 24px;
-    position: absolute;
-    left: 40px;
-    min-width: 96px;
-    text-align: justify;
-}
+    .sta {
+        position: relative;
+        top: 20px;
+    }
 
-.from_box::after {
-    content: "";
-    display: inline-block;
-    width: 100%;
-}
+    .from_box {
+        font-size: 24px;
+        position: absolute;
+        left: 40px;
+        min-width: 96px;
+        text-align: justify;
+    }
 
-.to_box {
-    font-size: 24px;
-    position: absolute;
-    left: 280px;
-    min-width: 96px;
-    text-align: justify;
-}
+    .from_box::after {
+        content: "";
+        display: inline-block;
+        width: 100%;
+    }
 
-.to_box::after {
-    content: "";
-    display: inline-block;
-    width: 100%;
-}
+    .to_box {
+        font-size: 24px;
+        position: absolute;
+        left: 280px;
+        min-width: 96px;
+        text-align: justify;
+    }
 
-.sta-py {
-    position: relative;
-    top: 44px;
-    font-family: "FangSong", "仿宋", "STFangsong", serif;
-}
+    .to_box::after {
+        content: "";
+        display: inline-block;
+        width: 100%;
+    }
 
-.from-py {
-    position: absolute;
-    left: 40px;
-    width: 96px;
-    text-align: center;
-    font-size: 14px;
-    transform: scaleY(1.2) scaleX(0.8);
-    letter-spacing: 2px; 
-}
+    .sta-py {
+        position: relative;
+        top: 44px;
+        font-family: "FangSong", "仿宋", "STFangsong", serif;
+    }
 
-.to-py {
-    position: absolute;
-    left: 280px;
-    width: 96px;
-    text-align: center;
-    font-size: 14px;
-    letter-spacing: 2px; 
-    transform: scaleY(1.2) scaleX(0.8);
-}
+    .from-py {
+        position: absolute;
+        left: 40px;
+        width: 96px;
+        text-align: center;
+        font-size: 14px;
+        transform: scaleY(1.2) scaleX(0.8);
+        letter-spacing: 2px;
+    }
 
-.code {
-    position: absolute;
-    left: 160px;
-    font-size: 24px;
-    font-family: 'Source Han Serif SC', serif;
-    width: 100px;
-    text-align: center;
-    padding-bottom: 4px;
-    border-bottom: solid 2px #000;
-}
+    .to-py {
+        position: absolute;
+        left: 280px;
+        width: 96px;
+        text-align: center;
+        font-size: 14px;
+        letter-spacing: 2px;
+        transform: scaleY(1.2) scaleX(0.8);
+    }
 
-.info {
-    position: relative;
-    top: 72px;
-    left: 20px;
-}
+    .code {
+        position: absolute;
+        left: 170px;
+        font-size: 22px;
+        font-family: 'Source Han Serif SC', serif;
+        width: 80px;
+        text-align: center;
+        padding-bottom: 4px;
+        border-bottom: solid 2px #000;
+    }
 
-.ymdk{
-    font-family: 'Source Han Serif SC', serif;
-    font-size: 10px;
-    position: absolute;
-    left:0px;
-}
+    .info {
+        position: relative;
+        top: 72px;
+        left: 20px;
+    }
 
-.time-yy{
-    font-family: 'B612', serif;
-}
-.time-mm{
-    font-family: 'B612', serif;
-    position: relative;
-    left:14px;
-}
-.time-dd{
-    font-family: 'B612', serif;
-    position: relative;
-    left:24px;
-}
-.time-h{
-    font-family: 'B612', serif;
-    position: relative;
-    left:48px;
-}
-.time-m{
-    font-family: 'B612', serif;
-    position: relative;
-    left:50px;
-}
+    .ymdk {
+        font-family: 'Source Han Serif SC', serif;
+        font-size: 16px;
+        position: absolute;
+        left: 0px;
+    }
 
-.car {
-    font-family: 'B612', serif;
-    position: absolute;
-    right: 50px;
-    top: 0;
-    width: 100px;
-}
-.seat{
-    font-family: 'B612', serif;
-    position: absolute;
-    right: 18px;
-    top: 0;
-    width: 100px;
-    text-align: left;
-}
+    .time-yy {
+        font-family: 'B612', serif;
+    }
+
+    .time-mm {
+        font-family: 'B612', serif;
+        position: relative;
+        left: 18px;
+    }
+
+    .time-dd {
+        font-family: 'B612', serif;
+        position: relative;
+        left: 36px;
+    }
+
+    .time-h {
+        font-family: 'B612', serif;
+        position: relative;
+        left: 54px;
+    }
+
+    .time-m {
+        font-family: 'B612', serif;
+        position: relative;
+        left: 56px;
+    }
+
+    .car {
+        font-family: 'B612', serif;
+        position: absolute;
+        right: 50px;
+        top: 0;
+        width: 100px;
+    }
+
+    .seat {
+        font-family: 'B612', serif;
+        position: absolute;
+        right: 18px;
+        top: 0;
+        width: 100px;
+        text-align: left;
+    }
 
 
-.price {
-    font-family: 'B612', serif;
-    position: absolute;
-    top: 20px;
-    left:10px;
-}
+    .price {
+        font-family: 'B612', serif;
+        position: absolute;
+        top: 20px;
+        left: 16px;
+    }
 
-.type {
-    position: absolute;
-    top: 20px;
-    text-align: center;
-    width: 360px;
-}
+    .type {
+        position: absolute;
+        top: 20px;
+        text-align: center;
+        width: 360px;
+    }
 
-.lv {
-    position: absolute;
-    top: 20px;
-    text-align: center;
-    right: 80px;
-    width: 100px;
-}
+    .lv {
+        position: absolute;
+        top: 20px;
+        text-align: center;
+        right: 80px;
+        width: 100px;
+    }
 
-.pass{
-    font-family: 'B612', 'Source Han Serif SC', serif;
-    position:relative;
-    bottom:-120px;
-    left:20px;
-}
-.ads{
-    position:relative;
-    bottom:-120px;
-    left:40px;
-    font-family: 'Source Han Serif SC', serif;
-    font-size: 14px;
-    text-align: center;
-    border: dashed 2px #000;
-    width:260px;
-    height:40px;
-    line-height: 14px;
-}
+    .pass {
+        font-family: 'B612', 'Source Han Serif SC', serif;
+        position: relative;
+        bottom: -120px;
+        left: 20px;
+    }
 
-.qrcode-wrapper{
-    position: relative;
-    left:320px;
-    top:50px;
+    .ads {
+        position: relative;
+        bottom: -120px;
+        left: 40px;
+        font-family: 'Source Han Serif SC', serif;
+        font-size: 14px;
+        text-align: center;
+        border: dashed 2px #000;
+        width: 260px;
+        height: 40px;
+        line-height: 14px;
+    }
+
+    .qrcode-wrapper {
+        position: relative;
+        left: 320px;
+        top: 50px;
+    }
+    .bott {
+        position: relative;
+        bottom: -30px;
+        left: -20px;
+        font-weight: bold;
+        
+        
+        font-family: 'Times New Roman', Times, serif;
+        
+        letter-spacing: 0px;
+    }
 }

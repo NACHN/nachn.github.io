@@ -3,16 +3,16 @@ import { ref } from 'vue'
 import Ticket from './Ticket.vue'
 
 const ticketData = ref({
-    check: '检票：A8A9',
-    from: '乌鲁木齐',
-    to: '乌鲁木齐南',
-    code: '7556',
-    from_py: 'Wulumuqi',
-    to_py: 'Wulumuqinan',
-    time: '201807111623',
-    seat: '10044',
-    price: '1.0',
-    type: '支',
+    check: '第 1 候车室',
+    from: '北京西',
+    to: '长沙',
+    code: 'Z1',
+    from_py: 'Beijingxi',
+    to_py: 'Changsha',
+    time: '202510011759',
+    seat: '01066',
+    price: '189.5',
+    type: '网',
     lv: '硬座',
     pass: '1001011919****0810 李田所',
     ad: '买票请到12306 发货请到95306'
@@ -203,11 +203,19 @@ const exportToPDF = async () => {
                 </div>
             </form>
         </div>
-        <div class="ticket-preview" id="ticket-preview">
+        <div style="display: flex;">
+        <div class="ticket-preview" id="ticket-preview" style="box-shadow: none;">
             <Ticket :check="ticketData.check" :from="ticketData.from" :to="ticketData.to" :code="ticketData.code"
                 :from_py="ticketData.from_py" :to_py="ticketData.to_py" :time="ticketData.time" :seat="ticketData.seat"
                 :price="ticketData.price" :type="ticketData.type" :lv="ticketData.lv" :pass="ticketData.pass"
                 :ad="ticketData.ad" />
+        </div>
+        <div class="ticket-preview" id="ticket-preview" style="box-shadow: none;">
+            <Ticket :check="ticketData.check" :from="ticketData.from" :to="ticketData.to" :code="ticketData.code"
+                :from_py="ticketData.from_py" :to_py="ticketData.to_py" :time="ticketData.time" :seat="ticketData.seat"
+                :price="ticketData.price" :type="ticketData.type" :lv="ticketData.lv" :pass="ticketData.pass"
+                :ad="ticketData.ad" :bg="'old'" />
+        </div>
         </div>
     </div>
 </template>
