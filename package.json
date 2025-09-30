@@ -1,6 +1,8 @@
 {
   "devDependencies": {
     "markdown-it-mathjax3": "^4.3.2",
+    "playwright": "^1.55.1",
+    "qrcode": "^1.5.4",
     "vitepress": "^1.6.4"
   },
   "scripts": {
@@ -9,6 +11,9 @@
     "docs:preview": "vitepress preview docs"
   },
   "dependencies": {
+    "html2canvas": "^1.4.1",
+    "jspdf": "^3.0.3",
+    "qrcodejs": "^1.0.0",
     "three": "^0.180.0",
     "three-spritetext": "^1.10.0"
   }

@@ -3,18 +3,19 @@ import { ref } from 'vue'
 import Ticket from './Ticket.vue'
 
 const ticketData = ref({
-    check: '',
-    from: '',
-    to: '',
-    code: '',
-    from_py: '',
-    to_py: '',
-    time: '',
-    seat: '',
-    price: '',
-    type: '',
-    lv: '',
-    pass: ''
+    check: '检票：A8A9',
+    from: '乌鲁木齐',
+    to: '乌鲁木齐南',
+    code: '7556',
+    from_py: 'Wulumuqi',
+    to_py: 'Wulumuqinan',
+    time: '201807111623',
+    seat: '10044',
+    price: '1.0',
+    type: '支',
+    lv: '硬座',
+    pass: '1001011919****0810 李田所',
+    ad: '买票请到12306 发货请到95306'
 })
 
 const generateTicket = () => {
@@ -35,9 +36,89 @@ const resetForm = () => {
         price: '',
         type: '',
         lv: '',
-        pass: ''
+        pass: '',
+        ad: ''
     }
 }
+
+const exportToPDF = async () => {
+    try {
+        // 获取车票元素
+        const ticketElement = document.getElementById('ticket-preview')
+        if (!ticketElement) {
+            console.error('未找到车票预览元素')
+            return
+        }
+
+        // 克隆车票元素以避免影响页面显示
+        const clonedTicket = ticketElement.cloneNode(true)
+
+        // 创建新的窗口用于打印
+        const printWindow = window.open('', '_blank')
+
+        // 写入打印窗口内容
+        printWindow.document.write(`
+      <!DOCTYPE html>
+        <html>
+  <head>
+    <title>火车票</title>
+    <link rel="stylesheet" href="/ticket.css">
+    <style>
+      @page {
+        size: 428px 270px;
+        margin: 0;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        width: 428px;
+        height: 270px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: white;
+      }
+      * {
+        -webkit-print-color-adjust: exact !important;
+        color-adjust: exact !important;
+      }
+    </style>
+  </head>
+  <body>
+    ${clonedTicket.outerHTML}
+  </body>
+  </html>
+    `)
+
+        // 等待内容加载完成
+        printWindow.document.close()
+        printWindow.focus()
+
+        // 等待图片加载完成
+        const images = printWindow.document.querySelectorAll('img')
+        if (images.length > 0) {
+            await Promise.all(
+                Array.from(images).map(img => {
+                    if (img.complete) return Promise.resolve()
+                    return new Promise(resolve => {
+                        img.onload = resolve
+                        img.onerror = resolve
+                    })
+                })
+            )
+        }
+
+        // 等待一小段时间确保背景图片加载完成
+        await new Promise(resolve => setTimeout(resolve, 500))
+
+        // 打印
+        printWindow.print()
+        printWindow.close()
+    } catch (error) {
+        console.error('导出PDF失败:', error)
+    }
+}
+
 </script>
 
 <template>
@@ -59,7 +140,7 @@ const resetForm = () => {
                         <input id="code" v-model="ticketData.code" type="text" />
                     </div>
                 </div>
-                
+
                 <!-- 第二行：出发站拼音、到达站拼音、时间 -->
                 <div class="form-row">
                     <div class="form-group">
@@ -75,7 +156,7 @@ const resetForm = () => {
                         <input id="time" v-model="ticketData.time" type="text" />
                     </div>
                 </div>
-                
+
                 <!-- 第三行：座位、价格、类型 -->
                 <div class="form-row">
                     <div class="form-group">
@@ -91,7 +172,7 @@ const resetForm = () => {
                         <input id="type" v-model="ticketData.type" type="text" />
                     </div>
                 </div>
-                
+
                 <!-- 第四行：座位等级、乘客、检票口 -->
                 <div class="form-row">
                     <div class="form-group">
@@ -114,18 +195,19 @@ const resetForm = () => {
                         <input id="ad" v-model="ticketData.ad" type="text" />
                     </div>
                 </div>
-                
+
                 <div class="button-group">
                     <button type="submit">生成火车票</button>
                     <button type="button" @click="resetForm">重置</button>
+                    <!--button type="button" @click="exportToPDF">导出PDF</button-->
                 </div>
             </form>
         </div>
-        <div class="ticket-preview">
-            <h2>预览</h2>
+        <div class="ticket-preview" id="ticket-preview">
             <Ticket :check="ticketData.check" :from="ticketData.from" :to="ticketData.to" :code="ticketData.code"
                 :from_py="ticketData.from_py" :to_py="ticketData.to_py" :time="ticketData.time" :seat="ticketData.seat"
-                :price="ticketData.price" :type="ticketData.type" :lv="ticketData.lv" :pass="ticketData.pass" :ad="ticketData.ad"/>
+                :price="ticketData.price" :type="ticketData.type" :lv="ticketData.lv" :pass="ticketData.pass"
+                :ad="ticketData.ad" />
         </div>
     </div>
 </template>
@@ -160,7 +242,7 @@ const resetForm = () => {
         flex-direction: column;
         gap: 0;
     }
-    
+
     .form-group {
         margin-bottom: 8px;
     }
@@ -171,7 +253,7 @@ const resetForm = () => {
     .form-row {
         flex-wrap: wrap;
     }
-    
+
     .form-group {
         flex: 0 0 calc(50% - 5px);
     }
