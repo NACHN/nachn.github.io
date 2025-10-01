@@ -45,6 +45,8 @@ const m = computed(() => props.time.substring(10, 12));
 const car = computed(() => props.seat.substring(0, 2));
 const st = computed(() => props.seat.substring(2));
 
+const num = computed(() => st.value.length <= 3); 
+
 // 3. 二维码状态
 const qrcodeCanvas = ref(null); // 绑定到 <canvas> 元素的引用
 let QRCode = null; // 存储动态导入的 qrcode 库
@@ -128,16 +130,20 @@ const ticketClasses = computed(() => {
         </div>
         <div class="sta">
             <div class="from_box">
-                {{ from }}<span v-if="props.bg !== 'old'"
-                    style="position: relative;font-size: 14px; font-family: 'Source Han Serif SC', serif;">站</span>
+                <div class="from">
+                {{ from }}</div>
+                <span v-if="props.bg !== 'old'"
+                    style="font-size: 14px; font-family: 'Source Han Serif SC', serif;">站</span>
             </div>
             <div class="code">
                 {{ code }}
             </div>
             <div style="position:absolute;left: 230px; top:15px;transform:scaleX(3) scaleY(1.1);">⇀</div>
             <div class="to_box">
-                {{ to }}<span v-if="props.bg !== 'old'"
-                    style="position: relative;font-size: 14px; font-family: 'Source Han Serif SC', serif;">站</span>
+                <div class="to">
+                    {{ to }}</div>
+                <span v-if="props.bg !== 'old'"
+                    style="font-size: 14px; font-family: 'Source Han Serif SC', serif;">站</span>
             </div>
         </div>
         <div class="sta-py">
@@ -155,9 +161,9 @@ const ticketClasses = computed(() => {
             <span class="time-h">{{ h }}</span>
             <span class="time-m">{{ m }}</span>
             <span v-if="props.bg !== 'old'" class="ymdk"
-                style="line-height: 20px;">&emsp;&emsp;&emsp;&emsp;年&emsp;&emsp;月&emsp;&emsp;日&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;开&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;车&emsp;&emsp;&emsp;号<br>￥&emsp;&emsp;&emsp;&emsp;&emsp;元</span>
+                style="line-height: 20px;">&emsp;&emsp;&emsp;&emsp;年&emsp;&emsp;月&emsp;&emsp;日&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;开&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;车&emsp;&emsp;&emsp;<span v-if="num">号</span><br>￥&emsp;&emsp;&emsp;&emsp;&emsp;元</span>
             <span v-if="props.bg === 'old'" class="ymdk"
-                style="line-height: 20px;">&emsp;&emsp;&nbsp;年&emsp;&nbsp;月&emsp;&nbsp;日&emsp;&emsp;&nbsp;&nbsp;开&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;车&emsp;&nbsp;&nbsp;&nbsp;号<br>￥&emsp;&emsp;&emsp;&nbsp;&nbsp;元</span>
+                style="line-height: 20px;">&emsp;&emsp;&nbsp;年&emsp;&nbsp;月&emsp;&nbsp;日&emsp;&emsp;&nbsp;&nbsp;&nbsp;开&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;车&emsp;&nbsp;&nbsp;&nbsp;<span v-if="num">号</span><br>￥&emsp;&emsp;&emsp;&nbsp;&nbsp;元</span>
 
             <div class="car">{{ car }}</div>
             <div class="seat">{{ st }}</div>
@@ -180,11 +186,11 @@ const ticketClasses = computed(() => {
             <canvas ref="qrcodeCanvas" id="qrcode-canvas"></canvas>
         </div>
         <div style="transform: scaleY(1.2) scaleX(0.8);">
-            <span class="bott">12345301145145{{
+            <span class="bott">10001301145145{{
                 machine }}
                 JM</span>
         </div>
-        
+
     </div>
 
 </template>

@@ -160,7 +160,7 @@ const exportToPDF = async () => {
                 <!-- 第三行：座位、价格、类型 -->
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="seat">座位:</label>
+                        <label for="seat">座位（如0911A、11012号中铺）:</label>
                         <input id="seat" v-model="ticketData.seat" type="text" />
                     </div>
                     <div class="form-group">
