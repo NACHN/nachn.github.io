@@ -7,6 +7,22 @@
     /* 或者 'normal' */
     font-style: normal;
 }
+@font-face {
+    font-family: 'Source Han Sans SC';
+    src: url('/fonts/SourceHanSansSC-Regular.otf') format('opentype');
+    /* format可以是 'otf' 或 'opentype' */
+    font-weight: 400;
+    /* 或者 'normal' */
+    font-style: normal;
+}
+@font-face {
+    font-family: 'tcode';
+    src: url('/fonts/code.otf') format('opentype');
+    /* format可以是 'otf' 或 'opentype' */
+    font-weight: 400;
+    /* 或者 'normal' */
+    font-style: normal;
+}
 
 /* 2. 定义半粗体 (SemiBold) */
 @font-face {
@@ -78,7 +94,8 @@
     .from {
         top: 0px;
         text-align: justify;
-        min-width: 86px;
+        min-width: 80px;
+        font-family: 'Source Han Sans SC';
     }
 
     .from::after {
@@ -97,7 +114,8 @@
     .to {
         top: 0px;
         text-align: justify;
-        min-width: 86px;
+        min-width: 80px;
+        font-family: 'Source Han Sans SC';
     }
 
     .to::after {
@@ -139,12 +157,13 @@
         position: absolute;
         left: 170px;
         font-size: 24px;
-        font-family: 'Times New Roman', 'Source Han Serif SC', serif;
+        font-family: 'tcode', 'Times New Roman', 'Source Han Serif SC', serif;
         letter-spacing: 1px;
         width: 80px;
         text-align: center;
         padding-bottom: 4px;
         border-bottom: solid 2px #000;
+        transform: scaleY(1.05);
     }
 
     .info {
@@ -311,7 +330,6 @@
 
     .from {
         top: 0px;
-        min-width: 96px;
         text-align: justify;
     }
 
@@ -365,7 +383,7 @@
         position: absolute;
         left: 170px;
         font-size: 22px;
-        font-family: 'Source Han Serif SC', serif;
+        font-family: 'Times New Roman', 'Source Han Serif SC', serif;
         width: 80px;
         text-align: center;
         padding-bottom: 4px;

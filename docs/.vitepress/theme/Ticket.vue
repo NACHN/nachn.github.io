@@ -132,17 +132,17 @@ const ticketClasses = computed(() => {
             <div class="from_box">
                 <div class="from">
                 {{ from }}</div>
-                <span v-if="props.bg !== 'old'"
+                <span v-if="1"
                     style="font-size: 14px; font-family: 'Source Han Serif SC', serif; margin-left: 4px;">站</span>
             </div>
             <div class="code">
                 {{ code }}
             </div>
-            <div style="position:absolute;left: 230px; top:15px;transform:scaleX(3) scaleY(1.1);">⇀</div>
+            <div style="position:absolute;left: 230px; top:16px;transform:scaleX(3) scaleY(1.1);">⇀</div>
             <div class="to_box">
                 <div class="to">
                     {{ to }}</div>
-                <span v-if="props.bg !== 'old'"
+                <span v-if="1"
                     style="font-size: 14px; font-family: 'Source Han Serif SC', serif; margin-left: 4px;">站</span>
             </div>
         </div>
