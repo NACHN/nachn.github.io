@@ -11,7 +11,7 @@ const ticketData = ref({
     to_py: 'Changsha',
     time: '202510011759',
     seat: '01066',
-    price: '189.5',
+    price: '189. 5',
     type: '网',
     lv: '硬座',
     pass: '1001011919****0810 李田所',

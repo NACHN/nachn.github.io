@@ -28,7 +28,8 @@ const displayItems = frontmatter.value.items;
             :price="item.price"
             :type="item.type"
             :lv="item.lv"
-            :pass="item.pass" />
+            :pass="item.pass"
+            :bg="item.bg" />
         </div>
     </div>
 </template>
