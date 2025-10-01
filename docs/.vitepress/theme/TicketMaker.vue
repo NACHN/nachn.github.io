@@ -207,13 +207,13 @@ const exportToPDF = async () => {
         <div class="ticket-preview" id="ticket-preview" style="box-shadow: none;">
             <Ticket :check="ticketData.check" :from="ticketData.from" :to="ticketData.to" :code="ticketData.code"
                 :from_py="ticketData.from_py" :to_py="ticketData.to_py" :time="ticketData.time" :seat="ticketData.seat"
-                :price="ticketData.price" :type="ticketData.type" :lv="ticketData.lv" :pass="ticketData.pass"
+                :price="ticketData.price" :type="ticketData.type" :lv="ticketData.lv" :pass="ticketData.pass+' 非报销凭证'"
                 :ad="ticketData.ad" />
         </div>
         <div class="ticket-preview" id="ticket-preview" style="box-shadow: none;">
             <Ticket :check="ticketData.check" :from="ticketData.from" :to="ticketData.to" :code="ticketData.code"
                 :from_py="ticketData.from_py" :to_py="ticketData.to_py" :time="ticketData.time" :seat="ticketData.seat"
-                :price="ticketData.price" :type="ticketData.type" :lv="ticketData.lv" :pass="ticketData.pass"
+                :price="ticketData.price" :type="ticketData.type" :lv="ticketData.lv" :pass="ticketData.pass+' 非报销凭证'"
                 :ad="ticketData.ad" :bg="'old'" />
         </div>
         </div>
