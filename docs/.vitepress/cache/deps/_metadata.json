@@ -1,56 +1,62 @@
 {
-  "hash": "7186db25",
+  "hash": "aa16b82d",
   "configHash": "3cf96fae",
-  "lockfileHash": "643a9783",
-  "browserHash": "031b84b0",
+  "lockfileHash": "21b63c90",
+  "browserHash": "e99b688d",
   "optimized": {
     "vue": {
       "src": "../../../../node_modules/.pnpm/vue@3.5.21/node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "93d3a589",
+      "fileHash": "36a9dd69",
       "needsInterop": false
     },
     "vitepress > @vue/devtools-api": {
       "src": "../../../../node_modules/.pnpm/@vue+devtools-api@7.7.7/node_modules/@vue/devtools-api/dist/index.js",
       "file": "vitepress___@vue_devtools-api.js",
-      "fileHash": "39f7acb3",
+      "fileHash": "b7921805",
       "needsInterop": false
     },
     "vitepress > @vueuse/core": {
       "src": "../../../../node_modules/.pnpm/@vueuse+core@12.8.2/node_modules/@vueuse/core/index.mjs",
       "file": "vitepress___@vueuse_core.js",
-      "fileHash": "944a21a6",
+      "fileHash": "51ad07ed",
       "needsInterop": false
     },
     "three": {
       "src": "../../../../node_modules/.pnpm/three@0.180.0/node_modules/three/build/three.module.js",
       "file": "three.js",
-      "fileHash": "42420da0",
+      "fileHash": "3b04f5e7",
       "needsInterop": false
     },
     "three-spritetext": {
       "src": "../../../../node_modules/.pnpm/three-spritetext@1.10.0_three@0.180.0/node_modules/three-spritetext/dist/three-spritetext.mjs",
       "file": "three-spritetext.js",
-      "fileHash": "f0593936",
+      "fileHash": "c9c3eac0",
       "needsInterop": false
     },
     "three/examples/jsm/controls/OrbitControls.js": {
       "src": "../../../../node_modules/.pnpm/three@0.180.0/node_modules/three/examples/jsm/controls/OrbitControls.js",
       "file": "three_examples_jsm_controls_OrbitControls__js.js",
-      "fileHash": "bcebd5ea",
+      "fileHash": "c49f3830",
       "needsInterop": false
     },
     "three/examples/jsm/loaders/GLTFLoader.js": {
       "src": "../../../../node_modules/.pnpm/three@0.180.0/node_modules/three/examples/jsm/loaders/GLTFLoader.js",
       "file": "three_examples_jsm_loaders_GLTFLoader__js.js",
-      "fileHash": "b1e048f6",
+      "fileHash": "68485d64",
       "needsInterop": false
     },
     "qrcode": {
       "src": "../../../../node_modules/.pnpm/qrcode@1.5.4/node_modules/qrcode/lib/browser.js",
       "file": "qrcode.js",
-      "fileHash": "c649e2ff",
+      "fileHash": "0cc2ca32",
       "needsInterop": true
+    },
+    "html-to-image": {
+      "src": "../../../../node_modules/.pnpm/html-to-image@1.11.13/node_modules/html-to-image/es/index.js",
+      "file": "html-to-image.js",
+      "fileHash": "7d2158dd",
+      "needsInterop": false
     }
   },
   "chunks": {

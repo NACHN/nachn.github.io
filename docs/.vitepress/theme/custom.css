@@ -1,5 +1,7 @@
 :root {
   /* 品牌色 */
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background:-webkit-linear-gradient(120deg,#00a2ff 30%, #0066ffff 100%);
   --vp-c-brand-1: #00a2ff; /* 主要品牌色，用于链接、按钮背景等 */
   --vp-c-brand-2: #bbff00; /* 品牌色的悬停/激活状态 */
   --vp-c-brand-3: #719b00; /* 品牌色的更亮变体 */
@@ -20,6 +22,7 @@
   --vp-c-brand-3: #719b00;
   --vp-c-brand-soft: rgba(138, 222, 255, 0.14);
 }
+
 .VPHome .VPHero {
   position: relative; /* 确保伪元素可以相对于它定位 */
   z-index: 1;

@@ -11,6 +11,7 @@
     "docs:preview": "vitepress preview docs"
   },
   "dependencies": {
+    "html-to-image": "^1.11.13",
     "html2canvas": "^1.4.1",
     "jspdf": "^3.0.3",
     "qrcodejs": "^1.0.0",

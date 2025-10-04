@@ -20,7 +20,10 @@ const props = defineProps({
     bg: { // 接收底图类型，例如 'old' 或 'new'
         type: String,
         default: 'new' // 默认值设为 'new' 对应 /ticket.png
-    }
+    },
+    mas: String,
+    m21: String,
+    des: String
 });
 
 // 2. 局部变量/计算属性
@@ -33,20 +36,24 @@ const generateRandom3Digit = () => {
     // 返回字符串格式
     return String(num);
 };
-const machine = ref(`E${generateRandom3Digit()}${generateRandom3Digit()}`);
+
+const ma = ref(`E${generateRandom3Digit()}${generateRandom3Digit()}`);
+const machine = computed(() => props.mas || ma);
 const ads = computed(() => props.ad || '车票已逝，记忆永存');
 // 时间解析
 const yy = computed(() => props.time.substring(0, 4));
 const mm = computed(() => props.time.substring(4, 6));
 const dd = computed(() => props.time.substring(6, 8));
-const h = computed(() => props.time.substring(8, 10) + ':'+props.time.substring(10, 12));
+const h = computed(() => props.time.substring(8, 10) + ': ' + props.time.substring(10, 12));
 const m = computed(() => props.time.substring(10, 12));
 
 const car = computed(() => props.seat.substring(0, 2));
 const st = computed(() => props.seat.substring(2));
 
-const num = computed(() => st.value.length <= 3); 
+const num = computed(() => st.value.length <= 3);
 
+const f4 = computed(() => props.from.length > 4 ? true : false)
+const t4 = computed(() => props.to.length > 4 ? true : false)
 // 3. 二维码状态
 const qrcodeCanvas = ref(null); // 绑定到 <canvas> 元素的引用
 let QRCode = null; // 存储动态导入的 qrcode 库
@@ -60,13 +67,16 @@ const generateQRCode = async () => {
     // 准备二维码的内容字符串
     const qrContent = `车次:${props.code}|从:${props.from}|到:${props.to}|时间:${props.time}`;
 
+    let size=80
+    if(props.bg==='old2')size=100
+
     try {
         // 使用 qrcode 库的 toCanvas 方法
         await QRCode.toCanvas(qrcodeCanvas.value, qrContent, {
-            width: 80,
+            width: size,
             errorCorrectionLevel: 'H',
             color: {
-                dark: '#000000',
+                dark: '#343638',
                 light: '#ffffff00' // 设置为白色或透明
             }
         });
@@ -97,7 +107,22 @@ const backgroundStyle = computed(() => {
     // 默认图片 URL
     let imageUrl = '/ticket.png';
 
-    if (props.bg === 'old') {
+    if (props.bg === '400BF') {
+        imageUrl = '/CR400BF.png';
+    }
+    else if (props.bg === '400AF') {
+        imageUrl = '/CR400AF.png';
+    }
+    else if (props.bg === '400BFZ') {
+        imageUrl = '/CR400BFZ.png';
+    }
+    else if (props.bg === 'CRH') {
+        imageUrl = '/CRH.png';
+    }
+    else if (props.bg === '200J') {
+        imageUrl = '/CR200J.png';
+    }
+    else if (props.bg === 'old' || props.bg === 'old2') {
         imageUrl = '/ticketold.png';
     }
 
@@ -110,10 +135,11 @@ const backgroundStyle = computed(() => {
 // 2. 计算属性：动态类名 (控制圆角用)
 const ticketClasses = computed(() => {
     return {
+        'ticket-default': props.bg !== 'old',
         // 如果 props.bg 是 'old'，则添加 'ticket-no-radius' 类
         'ticket-old': props.bg === 'old',
         // 否则添加默认的圆角类（或者直接不处理，让 CSS 默认生效）
-        'ticket-default': props.bg !== 'old'
+        'ticket-old2': props.bg === 'old2'
 
         // 确保基础的 'ticket' 类始终存在
         // 'ticket'
@@ -129,20 +155,33 @@ const ticketClasses = computed(() => {
             <span class="check">{{ check }}</span>
         </div>
         <div class="sta">
-            <div class="from_box">
+            <div v-if="f4" class="from_box" style="left: 20px;">
                 <div class="from">
-                {{ from }}</div>
-                <span v-if="1"
+                    {{ from }}</div>
+                <span v-if="props.bg !== 'old2'"
+                    style="font-size: 14px; font-family: 'Source Han Serif SC', serif; margin-left: 4px;">站</span>
+            </div>
+            <div v-else class="from_box">
+                <div class="from">
+                    {{ from }}</div>
+                <span v-if="props.bg !== 'old2'"
                     style="font-size: 14px; font-family: 'Source Han Serif SC', serif; margin-left: 4px;">站</span>
             </div>
             <div class="code">
-                {{ code }}
+                {{ code }}<span v-if="props.bg === 'old2'"
+                    style="font-size: 18px; font-family: 'Source Han Serif SC', serif; margin-left: 0px;">次</span>
             </div>
-            <div style="position:absolute;left: 230px; top:16px;transform:scaleX(3) scaleY(1.1);">⇀</div>
-            <div class="to_box">
+            <div class="arrow">⇀</div>
+            <div v-if="t4" class="to_box" style="left: 260px;">
                 <div class="to">
                     {{ to }}</div>
-                <span v-if="1"
+                <span v-if="props.bg !== 'old2'"
+                    style="font-size: 14px; font-family: 'Source Han Serif SC', serif; margin-left: 4px;">站</span>
+            </div>
+            <div v-else class="to_box">
+                <div class="to">
+                    {{ to }}</div>
+                <span v-if="props.bg !== 'old2'"
                     style="font-size: 14px; font-family: 'Source Han Serif SC', serif; margin-left: 4px;">站</span>
             </div>
         </div>
@@ -155,29 +194,49 @@ const ticketClasses = computed(() => {
             </div>
         </div>
         <div class="info">
-            <span class="time-yy">{{ yy }}</span>
-            <span class="time-mm">{{ mm }}</span>
-            <span class="time-dd">{{ dd }}</span>
-            <span class="time-h">{{ h }}</span>
+            <div v-if="props.bg !== 'old' && props.bg !== 'old2'">
+                <span class="time-yy">{{ yy }}</span>
+                <span class="time-mm">{{ mm }}</span>
+                <span class="time-dd">{{ dd }}</span>
+                <span class="time-h">{{ h }}</span>
 
-            <span v-if="props.bg !== 'old'" class="ymdk"
-                style="line-height: 20px;">&emsp;&emsp;&emsp;&emsp;年&emsp;&emsp;&emsp;月&emsp;&emsp;&emsp;日&emsp;&emsp;&emsp;&emsp;&emsp;开&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;车&emsp;&emsp;&emsp;&nbsp;<span v-if="num">号</span><br>￥&emsp;&emsp;&emsp;&emsp;&emsp;元</span>
-            <span v-if="props.bg === 'old'" class="ymdk"
-                style="line-height: 20px;">&emsp;&emsp;&nbsp;&nbsp;年&emsp;&nbsp;月&emsp;&nbsp;日&emsp;&emsp;&nbsp;&nbsp;&nbsp;开&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;车&emsp;&nbsp;&nbsp;&nbsp;<span v-if="num">号</span><br>￥&emsp;&emsp;&emsp;&nbsp;&nbsp;元</span>
+                <span class="ymdk"
+                    style="line-height: 20px; text-align: left;">&emsp;&emsp;&emsp;&emsp;年&emsp;&emsp;&emsp;月&emsp;&emsp;&emsp;日&emsp;&emsp;&emsp;&emsp;&emsp;开&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;车&emsp;&emsp;&emsp;&nbsp;<span
+                        v-if="num">号</span></span>
 
-            <div class="car">{{ car }}</div>
-            <div class="seat">{{ st }}</div>
-            <div class="price">{{ price }}</div>
 
-            <div class="type">{{ type }}</div>
+
+                <div class="car">{{ car }}</div>
+                <div class="seat">{{ st }}</div>
+                <div class="price">￥{{ price }}
+                    <span style="font-size: 10px; position: relative; top:-3px; text-align: left;">元</span>
+
+                </div>
+            </div>
+            <div v-if="props.bg === 'old'">
+                <span class="ymdk" style="line-height: 20px; text-align: left;">{{ yy }}年{{ mm
+                    }}月{{ dd }}日{{ h }}开&emsp;&emsp;&emsp;&emsp;{{ car }}车{{ st }}<span v-if="num">号</span><br>￥{{ price
+                    }}元</span>
+            </div>
+            <div v-if="props.bg === 'old2'">
+                <span class="ymdk" style="line-height: 26px; text-align: left;">{{ yy }}年{{ mm
+                    }}月{{ dd }}日{{ h }}开&emsp;&emsp;&emsp;&nbsp;{{ car }}车{{ st }}<span v-if="num">号</span><br><span
+                        style="font-size: 22px; font-family: 'Times New Roman', Times, serif;">￥{{ price
+                        }}</span>元</span>
+            </div>
+
+            <div v-if="props.bg !== 'old2'" class="type">{{ type }}</div>
             <div class="lv">{{ lv }}</div>
-            <span style="position:absolute; top:40px; left:0;font-family: 'Source Han Serif SC', serif;">限乘当日当次车</span>
+            <span v-if="props.bg !== 'old2'"
+                style="position:absolute; top:40px; left:0;font-family: 'Source Han Serif SC', serif; white-space: pre-line;">{{des}}</span>
+            <span v-if="props.bg === 'old2'"
+                style="position:absolute; top:52px; left:0;font-family: 'Source Han Serif SC', serif; white-space: pre-line;">{{des}}</span>
 
         </div>
         <div class="pass">
             {{ pass }}
         </div>
-        <div class="ads">
+        <div v-if="props.bg !== 'old2'" class="ads">
             <span>{{ ads }}</span>
         </div>
 
@@ -185,10 +244,17 @@ const ticketClasses = computed(() => {
         <div class="qrcode-wrapper">
             <canvas ref="qrcodeCanvas" id="qrcode-canvas"></canvas>
         </div>
-        <div style="transform: scaleY(1.2) scaleX(0.8);">
-            <span class="bott">10001301145145{{
+        <div v-if="props.bg !== 'old2'" style="transform: scaleY(1.2) scaleX(0.8);">
+            <span v-if="m21" class="bott">{{ m21 }}</span>
+            <span v-else class="bott">10001301145145{{
                 machine }}
                 JM</span>
+        </div>
+        <div v-if="props.bg === 'old2'" style="transform: scaleY(1.0) scaleX(0.8);">
+            <span v-if="m21" class="bott">{{ m21 }}</span>
+            <span v-else class="bott">10001301145145 {{
+                machine }}
+            </span>
         </div>
 
     </div>
