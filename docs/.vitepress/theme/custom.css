@@ -19,10 +19,28 @@
 .dark {
   --vp-c-brand-1: #00a2ff; /* 暗色模式下的主品牌色，通常更亮一些以保证对比度 */
   --vp-c-brand-2: #bbff00;
-  --vp-c-brand-3: #719b00;
+  --vp-c-brand-3: #719410ff;
   --vp-c-brand-soft: rgba(138, 222, 255, 0.14);
 }
-
+.VPButton.medium.brand{
+  transition: all 0.25s;
+  backdrop-filter: blur(10px);
+}
+.VPButton.medium.brand:hover{
+  animation: breath 6s 0s ease-out infinite;
+  background-color: #729b00ff;
+  transform: translateX(2px) translateY(2px);
+  border-left-width: 1vh;
+}
+.VPButton.alt{
+  transition: all 0.25s;
+}
+.VPButton:hover{
+  animation: breath 6s 0s ease-out infinite;
+  background-color: #729b00ff;
+  transform: translateX(2px) translateY(2px);
+  border-left-width: 1vh;
+}
 .VPHome .VPHero {
   position: relative; /* 确保伪元素可以相对于它定位 */
   z-index: 1;

@@ -16,6 +16,14 @@
     /* 或者 'normal' */
     font-style: normal;
 }
+@font-face {
+    font-family: 'Source Han Sans SC';
+    src: url('/fonts/SourceHanSansSC-Bold.otf') format('opentype');
+    /* format可以是 'otf' 或 'opentype' */
+    font-weight: 700;
+    /* 或者 'normal' */
+    font-style: Bold;
+}
 
 /* 衬线数字字体 */
 @font-face {

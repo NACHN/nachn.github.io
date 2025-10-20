@@ -25,6 +25,7 @@ import ForcesControl from './ACViewerControl/ForcesControl.vue'
 import MainPage from './MainPage.vue'
 import TrainTicket from './TrainTicket.vue'
 import TicketMaker from './TicketMaker.vue'
+import STMaker from './STMaker.vue'
 
 export default {
   ...DefaultTheme, // 继承默认主题的所有配置
@@ -83,5 +84,6 @@ export default {
     app.component('MainPage',MainPage)
     app.component('TrainTicket',TrainTicket)
     app.component('TicketMaker',TicketMaker)
+    app.component('STMaker',STMaker)
   }
 } satisfies Theme
