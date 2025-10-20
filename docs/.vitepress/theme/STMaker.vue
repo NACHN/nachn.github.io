@@ -269,9 +269,9 @@ const showline = (index) => {
         <div class="preview-area" :style="{ width: boardWidth + 'px' }" ref="previewAreaRef">
             <div class="station-header" :style="{ width: boardWidth + 'px', height: headerHeight + 'px' }">
                 <div style="display: flex; flex-direction: row; align-items: center; ">
-                    <img src="/icons/GJ.svg" alt="公交图标" :style="{ height: headerHeight - 40 + 'px' }"
+                    <img src="/icons/GJ.svg" alt="公交图标" :style="{ height: Math.min(headerHeight - 40 , 250) + 'px' }"
                         style=" position: relative;left:20px; color: white;" />
-                    <div style="display: flex; flex-direction: column; align-items: flex-start;">
+                    <div style="display: flex; flex-direction: column; align-items: flex-start;margin-left: 30px;">
                         <span style="font-size:40px; line-height: 40px;">公交站</span>
                         <span style="font-size:20px;">BUS STATION</span>
                     </div>
