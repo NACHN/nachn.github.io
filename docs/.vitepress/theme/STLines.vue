@@ -191,12 +191,12 @@ const getGridStyle = (line) => {
                             'passed-station': station.status === 'passed'
                         }"
                     >
-                        <span class="station-py" :style="{lineHeight:dynamicStyles.baseSize}" >{{ line.stations_py[sIndex] || '' }}</span>
+                        <span class="station-py" >{{ line.stations_py[sIndex] || '' }}</span>
                         <!-- 左侧部分：序号和站名 -->
                         <span class="station-cn" :style="{}">{{ sIndex + 1 }}. {{ station.name }}</span>
                         <!-- 右侧部分：翻译 -->
                         
-                        <!-- 标记保持不变 >
+                        <!-- 标记保持不变 :style="{lineHeight:dynamicStyles.baseSize}>
                         <span class="annotation" v-if="sIndex === 0">起点站</span>
                         <span class="annotation" v-else-if="sIndex === line.stations.length - 1">终点站</span-->
                     </div>
