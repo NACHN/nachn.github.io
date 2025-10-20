@@ -1,4 +1,5 @@
 <script setup>
+
 import { defineProps, computed } from 'vue'; // 引入 computed
 
 const props = defineProps({
@@ -114,7 +115,8 @@ const getGridStyle = (line) => {
     // 注意：这里的 line.stations 已经是我们处理过的对象数组了
     const stationCount = line.stations.length; 
     const columnCount = computed(() => {
-        if (stationCount <= 20) return 2;
+        if (stationCount <= 10) return 1;
+        else if (stationCount <= 20) return 2;
         else if (stationCount <= 40) return 3;
         else if (stationCount <= 56) return 4;
         else return 5;
@@ -128,6 +130,32 @@ const getGridStyle = (line) => {
     };
 };
 
+/**
+ * 根据字符串长度（其中一个汉字计为两个长度）来确定缩放比例。
+ * * @param {string} linename - 输入的字符串（如线路名称）。
+ * @returns {number} 缩放比例。
+ */
+const linenamesc = (linename) => {
+    // 1. 匹配所有双字节字符（非ASCII字符，通常包括汉字）
+    // [^\x00-\xff] 匹配不在 ASCII 0-255 范围内的所有字符
+    const chineseChars = linename.match(/[^\x00-\xff]/g) || [];
+    
+    // 2. 计算实际长度：
+    //    - 基础长度：linename.length (所有字符都计为 1)
+    //    - 额外长度：chineseChars.length (每个汉字额外加 1，使其总长度为 2)
+    const effectiveLength = linename.length + chineseChars.length;
+
+    // 3. 根据有效长度进行判断
+    if (effectiveLength <= 4) {
+        return 1.0;
+    } else if (effectiveLength <= 6) {
+        return 0.8;
+    } else if (effectiveLength <= 8) {
+        return 0.6;
+    } else {
+        return 0.5;
+    }
+};
 </script>
 
 <template>
@@ -150,7 +178,8 @@ const getGridStyle = (line) => {
                     <span class="value">{{ line.fare }}</span>
                 </div>
                 <!-- 使用动态样式 -->
-                <div class="line-name" :style="dynamicStyles.lineName">{{ line.name }}</div>
+                <div class="line-name" :style="[dynamicStyles.lineName,{transform: 'scale('+linenamesc(line.name)+')'}]">{{ line.name }}</div>
+
                 <div style="height:10px;"></div>
                 <div class="info-item" :style="dynamicStyles.infoItem">
                     <span :style="dynamicStyles.base" class="label vertical">首末班</span>
@@ -234,6 +263,7 @@ const getGridStyle = (line) => {
     font-weight: bold;
     text-align: center;
     flex-grow: 1;
+    white-space: nowrap;
     display: flex;
     justify-content: center;
     align-items: center;

@@ -3,8 +3,9 @@ import { ref, computed } from 'vue';
 import STLines from './STLines.vue';
 import * as htmlToImage from 'html-to-image';
 
-// 用于引用预览区 DOM 元素的 ref
+// --- Refs ---
 const previewAreaRef = ref(null);
+const fileInputRef = ref(null); // 新增：用于引用文件上传输入框
 
 // 站牌的核心响应式数据
 const stationData = ref({
@@ -78,6 +79,32 @@ const addLine = () => {
  */
 const removeLine = (index) => {
     stationData.value.lines.splice(index, 1);
+};
+
+/**
+ * 将指定索引的线路向上移动一位
+ * @param {number} index - 要上移线路的当前索引
+ */
+const moveLineUp = (index) => {
+    // 如果已经是第一项，则无法上移
+    if (index === 0) return;
+
+    const lines = stationData.value.lines;
+    // 使用数组解构赋值来交换元素位置
+    [lines[index - 1], lines[index]] = [lines[index], lines[index - 1]];
+};
+
+/**
+ * 将指定索引的线路向下移动一位
+ * @param {number} index - 要下移线路的当前索引
+ */
+const moveLineDown = (index) => {
+    const lines = stationData.value.lines;
+    // 如果已经是最后一项，则无法下移
+    if (index >= lines.length - 1) return;
+
+    // 交换元素位置
+    [lines[index], lines[index + 1]] = [lines[index + 1], lines[index]];
 };
 
 /**
@@ -201,6 +228,80 @@ const exportModularSVG = async () => {
 const showline = (index) => {
     stationData.value.lines[index].show = !stationData.value.lines[index].show;
 };
+
+/**
+ * 保存 (序列化): 将当前站牌数据保存为 JSON 文件
+ */
+const saveConfiguration = () => {
+    try {
+        // 1. 将 stationData 对象转换为格式化的 JSON 字符串
+        //    (null, 2) 是为了让 JSON 文件有缩进，更易读
+        const jsonString = JSON.stringify(stationData.value, null, 2);
+
+        // 2. 创建一个 Blob 对象，这是文件的前身
+        const blob = new Blob([jsonString], { type: 'application/json' });
+
+        // 3. 使用已有的 triggerDownload 函数来下载文件
+        const filename = `${stationData.value.name || 'station-config'}.json`;
+        triggerDownload(URL.createObjectURL(blob), filename);
+
+    } catch (error) {
+        console.error('保存配置失败:', error);
+        alert('保存配置失败！');
+    }
+};
+
+/**
+ * 加载 (反序列化) - 步骤1: 触发隐藏的文件选择框
+ */
+const loadConfiguration = () => {
+    // 模拟点击隐藏的 <input type="file">
+    fileInputRef.value.click();
+};
+
+/**
+ * 加载 (反序列化) - 步骤2: 处理用户选择的文件
+ * @param {Event} event - 文件输入框的 change 事件
+ */
+const handleFileLoad = (event) => {
+    const file = event.target.files[0];
+    if (!file) {
+        return; // 用户取消了选择
+    }
+
+    // 使用 FileReader API 来读取文件内容
+    const reader = new FileReader();
+
+    // 定义文件读取成功后的回调
+    reader.onload = (e) => {
+        try {
+            const text = e.target.result;
+            // 1. 将读取到的 JSON 字符串解析成 JavaScript 对象
+            const loadedData = JSON.parse(text);
+
+            // 2. 用加载的数据覆盖现有的 stationData
+            //    Vue 会自动更新整个界面，这就是响应性的魔力！
+            stationData.value = loadedData;
+
+            alert('配置加载成功！');
+        } catch (error) {
+            console.error('加载或解析配置文件失败:', error);
+            alert('加载失败！请确保你选择的是一个有效的JSON配置文件。');
+        }
+    };
+
+    // 定义文件读取失败的回调
+    reader.onerror = (e) => {
+        console.error('读取文件失败:', e);
+        alert('读取文件时发生错误。');
+    };
+
+    // 以文本形式开始读取文件
+    reader.readAsText(file);
+
+    // 清空 input 的值，这样即使用户连续选择同一个文件也能触发 change 事件
+    event.target.value = null;
+};
 </script>
 
 <template>
@@ -229,13 +330,31 @@ const showline = (index) => {
                     </div>
                 </div>
             </form>
-
+            <button class="addline" @click="addLine">+</button><span style="margin-left: 4px;margin-right: 24px;">添加线路</span> 点击线路展开或收起，右侧按钮调整线路顺序
             <hr class="divider">
+            <div class="button-group">
+                <!-- 新增的保存和加载按钮 -->
+                <button type="button" @click="saveConfiguration">保存配置</button>
+                <button type="button" @click="loadConfiguration">加载配置</button>
 
+
+                <!--button type="submit" @click="generate">生成预览</button-->
+            </div>
             <!-- 动态线路表单 -->
             <div v-for="(line, index) in stationData.lines" :key="index" class="line-form">
                 <h3 class="line-title" @click="showline(index)">线路 {{ index + 1 }}：{{ line.name }}
-                    <button type="button" @click="removeLine(index)" class="remove-line-btn">删除该线路</button>
+                    <!-- 绑定新的函数，并添加 disabled 状态 -->
+                    <button type="button" @click.stop="moveLineUp(index)" class="move-line-btn" :disabled="index === 0">
+                        上移
+                    </button>
+                    <button type="button" @click.stop="moveLineDown(index)" class="move-line-btn"
+                        :disabled="index === stationData.lines.length - 1">
+                        下移
+                    </button>
+                    <!-- 注意：删除按钮的 @click 事件也需要 .stop 修饰符 -->
+                    <button type="button" @click.stop="removeLine(index)" class="remove-line-btn">
+                        删除
+                    </button>
                 </h3>
                 <div v-if="line.show">
                     <div class="form-row">
@@ -287,23 +406,23 @@ const showline = (index) => {
 
 
             <!-- 4. 更新按钮组 -->
-            <div class="button-group">
-                <button type="button" @click="addLine" style="background-color: #28a745;">添加线路</button>
-                <button type="submit" @click="generate">生成预览</button>
-            </div>
+
             <div class="button-group export-group">
-                <button type="button" @click="exportAllPNG" style="background-color: #3498db;">导出整站PNG</button>
-                <button type="button" @click="exportAllSVG" style="background-color: #e67e22;">导出整站SVG</button>
-                <button type="button" @click="exportModularPNG" style="background-color: #1abc9c;">导出模块化PNG</button>
-                <button type="button" @click="exportModularSVG" style="background-color: #9b59b6;">导出模块化SVG</button>
+                <button type="button" @click="exportAllPNG">导出整站PNG</button>
+                <button type="button" @click="exportAllSVG">导出整站SVG</button>
+                <button type="button" @click="exportModularPNG">导出模块化PNG</button>
+                <button type="button" @click="exportModularSVG">导出模块化SVG</button>
             </div>
+            <input type="file" ref="fileInputRef" @change="handleFileLoad" accept=".json" style="display: none;" />
         </div>
+
+
 
         <!-- 5. 在预览区根元素上添加 ref -->
         <div class="preview-area" :style="{ width: boardWidth + 'px' }" ref="previewAreaRef">
             <div class="station-header" :style="{ width: boardWidth + 'px', height: headerHeight + 'px' }">
                 <div style="display: flex; flex-direction: row; align-items: center; ">
-                    <img src="/icons/GJ.svg" alt="公交图标" :style="{ height: Math.min(headerHeight - 40 , 250) + 'px' }"
+                    <img src="/icons/GJ.svg" alt="公交图标" :style="{ height: Math.min(headerHeight - 40, 250) + 'px' }"
                         style=" position: relative;left:20px; color: white;" />
                     <div style="display: flex; flex-direction: column; align-items: flex-start;margin-left: 30px;">
                         <span style="font-size:40px; line-height: 40px;">公交站</span>
@@ -378,11 +497,38 @@ const showline = (index) => {
     font-family: inherit;
 }
 
+.move-line-btn:disabled,
+.remove-line-btn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.move-line-btn:disabled:hover,
+.remove-line-btn:disabled:hover {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.addline {
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    background: none;
+    color: var(--vp-c-text-1);
+    border: 1px solid var(--vp-c-brand-3);
+    transition: all ease 0.3s;
+}
+
+.addline:hover {
+    background-color: var(--vp-c-brand-2);
+    color: black;
+}
+
 .button-group {
     display: flex;
     gap: 10px;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 /* 新增：专门为导出按钮组的样式 */
@@ -392,6 +538,7 @@ const showline = (index) => {
 }
 
 .button-group button {
+    flex: 1;
     padding: 10px 15px;
     /* 调整内边距 */
     border: none;
@@ -400,7 +547,18 @@ const showline = (index) => {
     font-size: 0.9em;
     /* 调整字体大小 */
     color: white;
-    transition: background-color 0.3s;
+    transition: all ease 0.3s;
+}
+
+.button-group button {
+    background: none;
+    color: var(--vp-c-text-1);
+    border: 1px solid var(--vp-c-brand-3);
+}
+
+.button-group button:hover {
+    background-color: var(--vp-c-brand-2);
+    color: black;
 }
 
 .button-group button[type="submit"] {
@@ -437,6 +595,21 @@ const showline = (index) => {
     cursor: pointer;
     background-color: #36a270;
     color: white;
+}
+
+.move-line-btn {
+    padding: 0px 12px;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--vp-c-brand-1);
+    color: white;
+    cursor: pointer;
+    font-size: 0.9em;
+    float: right;
+}
+
+.move-line-btn:hover {
+    background-color: #2b7dc0ff;
 }
 
 .remove-line-btn {
