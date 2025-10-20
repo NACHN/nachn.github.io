@@ -113,6 +113,7 @@ const getGridStyle = (line) => {
                     <span :style="dynamicStyles.base" class="label vertical">首末班</span>
                     <span class="value hours">{{ line.hours }}</span>
                 </div>
+                <div style="height:20px;"></div>
                 <div class="info-item" :style="dynamicStyles.infoItem">
                     <span class="label">开往:</span>
                     <span class="value direction" :style="{ color: line.stc }">{{ line.direction }}</span>
@@ -121,6 +122,7 @@ const getGridStyle = (line) => {
                     <span class="label">下站:</span>
                     <span class="value next-station" :style="{ color: line.stc }">{{ line.next_station }}</span>
                 </div>
+                <div style="height:20px;"></div>
                 <div class="info-item" :style="dynamicStyles.infoItem">
                     <span :style="dynamicStyles.base" class="label">服务热线</span>
                     <span class="value">{{ line.phone }}</span>
@@ -185,6 +187,7 @@ const getGridStyle = (line) => {
     justify-content: center;
     align-items: center;
     font-family: 'Source Han Sans SC', sans-serif;
+    line-height: normal;
     /* 移除静态字体大小和字间距 */
 }
 .info-item {
