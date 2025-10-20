@@ -26,31 +26,72 @@ const props = defineProps({
 });
 
 /**
+ * 修改后的计算属性：
+ * 它接收已经处理好的、包含站点数组的 lines prop，
+ * 然后为其添加 'status' 字段。
+ */
+const processedLines = computed(() => {
+    // 遍历从父组件传来的每个 line 对象
+    return props.lines.map(line => {
+        
+        // 在 line.stations 数组中找到当前站点的索引
+        // line.stations 现在已经是 ['乌鲁木齐站南广场', '锦绣四街', ...]
+        const currentStationIndex = line.stations.findIndex(
+            stationName => stationName === props.currentStationName
+        );
+
+        // 基于索引，为每个站点创建一个包含状态的新对象数组
+        const stationsWithStatus = line.stations.map((stationName, index) => {
+            let status = 'future'; // 默认为未到达的站点
+            if (currentStationIndex !== -1) { // 仅在找到当前站点时才进行判断
+                if (index < currentStationIndex) {
+                    status = 'passed'; // 索引 < 当前站索引 -> 已过站点
+                } else if (index === currentStationIndex) {
+                    status = 'current'; // 索引 === 当前站索引 -> 当前站点
+                }
+            }
+            
+            return {
+                name: stationName,
+                py: line.stations_py[index] || '', // 从 stations_py 数组中获取对应的拼音
+                status: status // 'passed', 'current', or 'future'
+            };
+        });
+
+        // 返回新的 line 对象，用我们处理过的 stationsWithStatus 数组替换旧的
+        return {
+            ...line, // 复制 line 的所有原始属性
+            stations: stationsWithStatus, // 覆盖 stations 属性
+        };
+    });
+});
+
+/**
  * MODIFICATION 1: 字体大小自适应
  * 创建一个计算属性，根据 boardWidth 生成一系列动态的字体大小。
  * 这样做的好处是，所有的响应式计算都集中在一个地方，方便管理。
  */
 const dynamicStyles = computed(() => {
     // 定义一个基础尺寸，让所有字体大小都和它关联，实现等比缩放
-    const baseSize = props.lineHeight / 50; // 例如，1000px 宽度时，baseSize 是 10
+    const baseSize = props.lineHeight / 40; // 例如，1000px 宽度时，baseSize 是 10
 
     return {
         // 线路名称（大数字）的样式
         lineName: {
-            fontSize: `${baseSize * 15}px`, // 1000px 时为 150px (约 8em)
-            letterSpacing: `-${baseSize * 1.5}px` // 间距也自适应
+            fontSize: `120px`, // 1000px 时为 150px (约 8em)
+            letterSpacing: `-8px` // 间距也自适应
         },
         // 左侧信息项的样式
         infoItem: {
-            fontSize: `${baseSize * 2.5}px` // 1000px 时为 25px
+            fontSize: `20px` // 1000px 时为 25px
         },
         // 票价等较小文字的样式
         smallInfo: {
-            fontSize: `${baseSize * 2}px` // 1000px 时为 20px
+            fontSize: `20px` // 1000px 时为 20px
         },
         // 中间竖排公司名的样式
         companyName: {
-            fontSize: `${baseSize * 4}px`, // 1000px 时为 40px
+            fontSize: `${baseSize * 3}px`, // 1000px 时为 40px
             letterSpacing: `${baseSize * 0.8}px`
         },
         // 右侧站点列表的样式
@@ -59,7 +100,8 @@ const dynamicStyles = computed(() => {
         },
         base: {
             fontSize: `${baseSize * 1.2}px` // 1000px 时为 20px
-        }
+        },
+        baseSize
     };
 });
 
@@ -69,19 +111,19 @@ const dynamicStyles = computed(() => {
  * 因为每个线路的站点数量不同，所以需要的行数也不同。
  */
 const getGridStyle = (line) => {
-    const stationCount = line.stations.length;
+    // 注意：这里的 line.stations 已经是我们处理过的对象数组了
+    const stationCount = line.stations.length; 
     const columnCount = computed(() => {
         if (stationCount <= 20) return 2;
         else if (stationCount <= 40) return 3;
-        else return 4;
+        else if (stationCount <= 56) return 4;
+        else return 5;
     }).value;
-    // 计算需要多少行才能容纳所有站点
     const rowCount = Math.ceil(stationCount / columnCount);
 
     return {
-        // 设置 grid 的行数
         gridTemplateRows: `repeat(${rowCount}, auto)`,
-        // 关键：将填充方向从默认的 row (横向) 改为 column (纵向)
+        gridTemplateColumns: `repeat(${columnCount}, 1fr)`,
         gridAutoFlow: 'column',
     };
 };
@@ -91,13 +133,14 @@ const getGridStyle = (line) => {
 <template>
     <div class="st-lines-container">
         <div 
-            v-for="(line, index) in lines" 
+            v-for="(line, index) in processedLines" 
             :key="index" 
             class="line-block" 
             :style="{ 
                 backgroundColor: line.routec, 
                 width: boardWidth + 'px', 
-                height: lineHeight + 'px' 
+                height: lineHeight-16 + 'px',
+                borderTop: line.routec+' solid 16px'
             }"
         >
             
@@ -108,12 +151,12 @@ const getGridStyle = (line) => {
                 </div>
                 <!-- 使用动态样式 -->
                 <div class="line-name" :style="dynamicStyles.lineName">{{ line.name }}</div>
-                
+                <div style="height:10px;"></div>
                 <div class="info-item" :style="dynamicStyles.infoItem">
                     <span :style="dynamicStyles.base" class="label vertical">首末班</span>
                     <span class="value hours">{{ line.hours }}</span>
                 </div>
-                <div style="height:20px;"></div>
+                <div style="height:10px;"></div>
                 <div class="info-item" :style="dynamicStyles.infoItem">
                     <span class="label">开往:</span>
                     <span class="value direction" :style="{ color: line.stc }">{{ line.direction }}</span>
@@ -122,7 +165,7 @@ const getGridStyle = (line) => {
                     <span class="label">下站:</span>
                     <span class="value next-station" :style="{ color: line.stc }">{{ line.next_station }}</span>
                 </div>
-                <div style="height:20px;"></div>
+                <div style="height:10px;"></div>
                 <div class="info-item" :style="dynamicStyles.infoItem">
                     <span :style="dynamicStyles.base" class="label">服务热线</span>
                     <span class="value">{{ line.phone }}</span>
@@ -139,12 +182,19 @@ const getGridStyle = (line) => {
                 <div class="stations-grid" :style="[dynamicStyles.stationGrid, getGridStyle(line)]">
                     
                     <!-- MODIFICATION 2: 增加站名翻译 -->
-                    <div v-for="(station, sIndex) in line.stations" :key="sIndex" class="station-item">
-                        <span class="station-py">{{ line.stations_py[sIndex] || '' }}</span>
+                    <div 
+                        v-for="(station, sIndex) in line.stations" 
+                        :key="sIndex" 
+                        class="station-item"
+                        :class="{
+                            'current-station': station.status === 'current',
+                            'passed-station': station.status === 'passed'
+                        }"
+                    >
+                        <span class="station-py" :style="{lineHeight:dynamicStyles.baseSize}" >{{ line.stations_py[sIndex] || '' }}</span>
                         <!-- 左侧部分：序号和站名 -->
-                        <span class="station-cn">{{ sIndex + 1 }}. {{ station }}</span>
+                        <span class="station-cn" :style="{}">{{ sIndex + 1 }}. {{ station.name }}</span>
                         <!-- 右侧部分：翻译 -->
-                        
                         
                         <!-- 标记保持不变 >
                         <span class="annotation" v-if="sIndex === 0">起点站</span>
@@ -162,6 +212,7 @@ const getGridStyle = (line) => {
     display: flex;
     flex-direction: column;
     font-family: 'Source Han Sans SC', sans-serif;
+    
 }
 
 .line-block {
@@ -169,6 +220,7 @@ const getGridStyle = (line) => {
     color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     overflow: hidden; /* 防止内容溢出 */
+    
 }
 
 /* --- 左侧 --- */
@@ -177,7 +229,6 @@ const getGridStyle = (line) => {
     padding: 15px;
     display: flex;
     flex-direction: column;
-    border-right: 2px solid white;
 }
 .line-name {
     font-weight: bold;
@@ -187,7 +238,7 @@ const getGridStyle = (line) => {
     justify-content: center;
     align-items: center;
     font-family: 'Source Han Sans SC', sans-serif;
-    line-height: normal;
+    line-height: 60px;
     /* 移除静态字体大小和字间距 */
 }
 .info-item {
@@ -215,6 +266,7 @@ const getGridStyle = (line) => {
 }
 .direction, .next-station {
     padding: 0 5px;
+    font-size: 1em;
 }
 
 /* --- 中间 --- */
@@ -228,6 +280,8 @@ const getGridStyle = (line) => {
     padding: 10px;
     background-color: white;
     border-right: 2px solid white;
+    border-top-left-radius: 24px;
+    border-bottom-left-radius: 24px;
     /* 移除静态字体大小和字间距 */
 }
 
@@ -258,7 +312,31 @@ const getGridStyle = (line) => {
     position: relative; /* 为 annotation 定位提供参考 */
     flex-direction: column;
 }
+/* 已过站点的样式 */
+.passed-station {
+    color: #bbb; /* 字体颜色变灰 */
+}
+.passed-station .station-py {
+    color: #bbb; /* 拼音也变灰 */
+}
 
+/* 当前站点的样式 */
+.current-station {
+    background-color: #196B24; /* 高亮背景色 (可以替换为你喜欢的颜色) */
+    color: white; /* 高亮时的文字颜色 */
+    border-radius: 4px; /* 添加圆角 */
+    font-weight: bold; /* 字体加粗 */
+    /*transform: scale(1.05); /* 轻微放大，更突出 */
+}
+.current-station::after{
+    content: '▼';
+    position: absolute;
+    right:4px;
+    bottom: 8px;
+}
+.current-station .station-py {
+    color: white; /* 高亮时拼音的颜色 */
+}
 /* MODIFICATION 2: 新增翻译文本的样式 */
 .station-cn {
     /* 默认占据尽可能多的空间，将翻译推到右侧 */
@@ -270,7 +348,8 @@ const getGridStyle = (line) => {
     direction: rtl;
     font-size: 0.6em;
     color: #333;
-    margin-left: 1px; /* 与中文名保持一点距离 */
+    margin-top: 1px; /* 与中文名保持一点距离 */
+    line-height:5px ;
 }
 
 .annotation {

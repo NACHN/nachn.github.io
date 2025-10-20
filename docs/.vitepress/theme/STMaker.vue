@@ -2,23 +2,28 @@
 import { ref, computed } from 'vue';
 import STLines from './STLines.vue';
 import * as htmlToImage from 'html-to-image';
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas'; // 1. 引入 html2canvas
 
-// 2. 创建一个 ref 来引用预览区的 DOM 元素
+// 用于引用预览区 DOM 元素的 ref
 const previewAreaRef = ref(null);
 
+// 站牌的核心响应式数据
 const stationData = ref({
     name: '乌鲁木齐站南广场',
     py_name: 'Wu Lu Mu Qi Zhan Nan Guang Chang',
     lines: [],
 });
 
+// 站牌的尺寸控制
 const boardWidth = ref(1000);
 const lineHeight = ref(450);
+const headerHeight = ref(128);
 
+/**
+ * 添加一条新的默认线路数据
+ */
 const addLine = () => {
     stationData.value.lines.push({
+        show: true,
         name: '5035',
         routec: '#196B24',
         fare: '全程2.5元，分段计价',
@@ -33,10 +38,17 @@ const addLine = () => {
     });
 };
 
+/**
+ * 根据索引删除一条线路
+ * @param {number} index - 要删除线路的索引
+ */
 const removeLine = (index) => {
     stationData.value.lines.splice(index, 1);
 };
 
+/**
+ * 计算属性：将原始数据中的站点字符串处理成数组，供子组件使用
+ */
 const processedLines = computed(() => {
     return stationData.value.lines.map(line => ({
         ...line,
@@ -45,13 +57,21 @@ const processedLines = computed(() => {
     }));
 });
 
+/**
+ * 占位函数，原用于生成预览，可根据需要扩展
+ */
 const generate = () => {
-    console.log('站点:', stationData.value);
+    console.log('当前站牌数据:', stationData.value);
 };
 
-// --- 3. 实现新的导出功能 ---
 
-// 工具函数：创建并触发下载
+// --- 导出功能区 ---
+
+/**
+ * 工具函数：创建一个链接并模拟点击来触发文件下载
+ * @param {string} href - 文件的 Data URL
+ * @param {string} filename - 下载时建议的文件名
+ */
 const triggerDownload = (href, filename) => {
     const link = document.createElement('a');
     link.href = href;
@@ -61,7 +81,11 @@ const triggerDownload = (href, filename) => {
     document.body.removeChild(link);
 };
 
-// 功能1：导出整个站牌为 PNG
+// --- PNG 导出 ---
+
+/**
+ * 导出整个站牌预览区为 PNG 图像
+ */
 const exportAllPNG = async () => {
     if (!previewAreaRef.value) return;
     try {
@@ -74,65 +98,11 @@ const exportAllPNG = async () => {
     }
 };
 
-const exportAllPDF = () => {
-    if (!previewAreaRef.value) return;
-
-    const element = previewAreaRef.value;
-    const pdfWidth = element.offsetWidth;
-    const pdfHeight = element.offsetHeight;
-    const orientation = pdfWidth > pdfHeight ? 'l' : 'p';
-
-    const pdf = new jsPDF(orientation, 'px', [pdfWidth, pdfHeight]);
-
-    pdf.html(element, {
-        // html2canvas 选项，用于处理背景等非矢量元素
-        html2canvas: {
-            scale: 2, // 提高栅格化部分的清晰度
-            useCORS: true, // 如果有跨域图片，则需要
-        },
-        // 回调函数，在转换完成后执行
-        callback: function (doc) {
-            doc.save(`${stationData.value.name}-全览-html.pdf`);
-            alert('整站PDF(HTML方法)导出成功！');
-        },
-        x: 0,
-        y: 0,
-        width: pdfWidth, // 明确告诉jsPDF内容的宽度
-        windowWidth: pdfWidth, // 模拟窗口宽度，这对于响应式布局很重要
-    });
-};
-
-const exportModularPDF = () => {
-    const lineElements = previewAreaRef.value.querySelectorAll('.line-block');
-    if (lineElements.length === 0) {
-        alert('没有可导出的线路！');
-        return;
-    }
-
-    lineElements.forEach((element, index) => {
-        const lineName = processedLines.value[index].name;
-        const pdfWidth = element.offsetWidth;
-        const pdfHeight = element.offsetHeight;
-        const orientation = pdfWidth > pdfHeight ? 'l' : 'p';
-        
-        const pdf = new jsPDF(orientation, 'px', [pdfWidth, pdfHeight]);
-
-        pdf.html(element, {
-            html2canvas: { scale: 2 },
-            callback: function (doc) {
-                doc.save(`${stationData.value.name}-${lineName}路-html.pdf`);
-            },
-            width: pdfWidth,
-            windowWidth: pdfWidth,
-        });
-    });
-    alert('所有线路已分别导出为PDF(HTML方法)！');
-};
-
-// 功能3：导出模块化 PNG
+/**
+ * 将每个线路块分别导出为独立的 PNG 图像
+ */
 const exportModularPNG = async () => {
     if (!previewAreaRef.value) return;
-    // 获取所有线路的 DOM 元素
     const lineElements = previewAreaRef.value.querySelectorAll('.line-block');
     if (lineElements.length === 0) {
         alert('没有可导出的线路！');
@@ -152,17 +122,63 @@ const exportModularPNG = async () => {
     }
 };
 
+
+// --- SVG 导出 ---
+
+/**
+ * 导出整个站牌预览区为 SVG 矢量图
+ */
+const exportAllSVG = async () => {
+    if (!previewAreaRef.value) return;
+    try {
+        const dataUrl = await htmlToImage.toSvg(previewAreaRef.value);
+        triggerDownload(dataUrl, `${stationData.value.name}-全览.svg`);
+        alert('整站SVG导出成功！');
+    } catch (error) {
+        console.error('导出整站SVG失败:', error);
+        alert(`导出失败: ${error.message}`);
+    }
+};
+
+/**
+ * 将每个线路块分别导出为独立的 SVG 矢量图
+ */
+const exportModularSVG = async () => {
+    if (!previewAreaRef.value) return;
+    const lineElements = previewAreaRef.value.querySelectorAll('.line-block');
+    if (lineElements.length === 0) {
+        alert('没有可导出的线路！');
+        return;
+    }
+
+    try {
+        for (const [index, element] of lineElements.entries()) {
+            const lineName = processedLines.value[index].name;
+            const dataUrl = await htmlToImage.toSvg(element);
+            triggerDownload(dataUrl, `${stationData.value.name}-${lineName}路.svg`);
+        }
+        alert('所有线路已分别导出为SVG！');
+    } catch (error) {
+        console.error('导出模块化SVG失败:', error);
+        alert(`导出失败: ${error.message}`);
+    }
+};
+
+const showline = (index) => {
+    stationData.value.lines[index].show = !stationData.value.lines[index].show;
+};
 </script>
 
 <template>
     <div class="ST-maker">
         <div class="form-container">
             <!-- ... 你的表单代码保持不变 ... -->
-             <form @submit.prevent="generate">
+            <form @submit.prevent="generate">
                 <div class="form-row">
                     <div class="form-group"><label for="from">站名:</label><input id="from" v-model="stationData.name"
                             type="text" /></div>
-                    <div class="form-group"><label for="from">站名拼音:</label><input id="from" v-model="stationData.py_name" type="text" /></div>
+                    <div class="form-group"><label for="from">站名拼音:</label><input id="from"
+                            v-model="stationData.py_name" type="text" /></div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
@@ -170,8 +186,12 @@ const exportModularPNG = async () => {
                         <input v-model.number="boardWidth" type="number" />
                     </div>
                     <div class="form-group">
-                        <label>单线路高度 (px):</label>
+                        <label>线路高度（推荐>350）:</label>
                         <input v-model.number="lineHeight" type="number" />
+                    </div>
+                    <div class="form-group">
+                        <label>站牌头部高度 (px):</label>
+                        <input v-model.number="headerHeight" type="number" />
                     </div>
                 </div>
             </form>
@@ -180,50 +200,55 @@ const exportModularPNG = async () => {
 
             <!-- 动态线路表单 -->
             <div v-for="(line, index) in stationData.lines" :key="index" class="line-form">
-                <h3 class="line-title">线路 {{ index + 1 }}：{{ line.name }}</h3>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>线路主色 (routec):</label>
-                        <div class="color-picker-wrapper">
-                            <input v-model="line.routec" type="color" class="color-input" />
-                            <span>{{ line.routec }}</span>
+                <h3 class="line-title" @click="showline(index)">线路 {{ index + 1 }}：{{ line.name }}
+                    <button type="button" @click="removeLine(index)" class="remove-line-btn">删除该线路</button>
+                </h3>
+                <div v-if="line.show">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>线路主色 (routec):</label>
+                            <div class="color-picker-wrapper">
+                                <input v-model="line.routec" type="color" class="color-input" />
+                                <span>{{ line.routec }}</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>高亮颜色 (stc):</label>
+                            <div class="color-picker-wrapper">
+                                <input v-model="line.stc" type="color" class="color-input" />
+                                <span>{{ line.stc }}</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label>高亮颜色 (stc):</label>
-                        <div class="color-picker-wrapper">
-                            <input v-model="line.stc" type="color" class="color-input" />
-                            <span>{{ line.stc }}</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group"><label>线路名称:</label><input v-model="line.name" type="text" /></div>
-                    <div class="form-group"><label>开往:</label><input v-model="line.direction" type="text" /></div>
+                    <div class="form-row">
+                        <div class="form-group"><label>线路名称:</label><input v-model="line.name" type="text" /></div>
+                        <div class="form-group"><label>开往:</label><input v-model="line.direction" type="text" /></div>
 
-                </div>
-                <div class="form-row">
-                    <div class="form-group"><label>首末班时间:</label><textarea v-model="line.hours" type="text" /></div>
-                    <div class="form-group"><label>票价:</label><textarea v-model="line.fare" type="text" /></div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group"><label>下站:</label><input v-model="line.next_station" type="text" /></div>
-                    <div class="form-group"><label>服务电话:</label><input v-model="line.phone" type="text" /></div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group"><label>运营企业:</label><input v-model="line.company" type="text" /></div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>详细站点列表 (每行一个):</label>
-                        <textarea v-model="line.stations" rows="8"></textarea>
                     </div>
-                    <div class="form-group">
-                        <label>站点列表翻译 (与左侧一一对应):</label>
-                        <textarea v-model="line.stations_py" rows="8"></textarea>
+                    <div class="form-row">
+                        <div class="form-group"><label>首末班时间:</label><textarea v-model="line.hours" type="text" /></div>
+                        <div class="form-group"><label>票价:</label><textarea v-model="line.fare" type="text" /></div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group"><label>下站:</label><input v-model="line.next_station" type="text" />
+                        </div>
+                        <div class="form-group"><label>服务电话:</label><input v-model="line.phone" type="text" /></div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group"><label>运营企业:</label><input v-model="line.company" type="text" /></div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>详细站点列表 (每行一个):</label>
+                            <textarea v-model="line.stations" rows="8"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>站点列表翻译 (与左侧一一对应):</label>
+                            <textarea v-model="line.stations_py" rows="8"></textarea>
+                        </div>
                     </div>
                 </div>
-                <button type="button" @click="removeLine(index)" class="remove-line-btn">删除该线路</button>
+
             </div>
 
 
@@ -233,26 +258,31 @@ const exportModularPNG = async () => {
                 <button type="submit" @click="generate">生成预览</button>
             </div>
             <div class="button-group export-group">
-                 <button type="button" @click="exportAllPNG" style="background-color: #3498db;">导出整站PNG</button>
-                 <button type="button" @click="exportAllPDF" style="background-color: #e67e22;">导出整站PDF</button>
-                 <button type="button" @click="exportModularPNG" style="background-color: #1abc9c;">导出模块化PNG</button>
-                 <button type="button" @click="exportModularPDF" style="background-color: #9b59b6;">导出模块化PDF</button>
+                <button type="button" @click="exportAllPNG" style="background-color: #3498db;">导出整站PNG</button>
+                <button type="button" @click="exportAllSVG" style="background-color: #e67e22;">导出整站SVG</button>
+                <button type="button" @click="exportModularPNG" style="background-color: #1abc9c;">导出模块化PNG</button>
+                <button type="button" @click="exportModularSVG" style="background-color: #9b59b6;">导出模块化SVG</button>
             </div>
         </div>
 
         <!-- 5. 在预览区根元素上添加 ref -->
         <div class="preview-area" :style="{ width: boardWidth + 'px' }" ref="previewAreaRef">
-            <div class="station-header" c>
-                <span class="station-name-cn">{{ stationData.name }}</span>
-                <span class="station-name-py">{{ stationData.py_name }}</span>
+            <div class="station-header" :style="{ width: boardWidth + 'px', height: headerHeight + 'px' }">
+                <div style="display: flex; flex-direction: row; align-items: center; ">
+                    <img src="/icons/GJ.svg" alt="公交图标" :style="{ height: headerHeight - 40 + 'px' }"
+                        style=" position: relative;left:20px; color: white;" />
+                    <div style="display: flex; flex-direction: column; align-items: flex-start;">
+                        <span style="font-size:40px; line-height: 40px;">公交站</span>
+                        <span style="font-size:20px;">BUS STATION</span>
+                    </div>
+                </div>
+                <div style="display: flex; flex-direction: column; align-items: center; margin-right: 20px;">
+                    <span class="station-name-cn">{{ stationData.name }}</span>
+                    <span class="station-name-py">{{ stationData.py_name }}</span>
+                </div>
             </div>
-            <STLines 
-                :lines="processedLines" 
-                :current-station-name="stationData.name" 
-                :current-station-py-name="stationData.py_name"
-                :board-width="boardWidth"
-                :line-height="lineHeight"
-            />
+            <STLines :lines="processedLines" :current-station-name="stationData.name"
+                :current-station-py-name="stationData.py_name" :board-width="boardWidth" :line-height="lineHeight" />
         </div>
     </div>
 </template>
@@ -262,19 +292,23 @@ const exportModularPNG = async () => {
 .ST-maker {
     margin: 0 auto;
     padding: 15px;
-    font-family: 'Microsoft YaHei', 'Source Han Sans SC', sans-serif;
+    font-family: 'Source Han Sans SC', 'Microsoft YaHei', sans-serif;
     display: flex;
     flex-direction: row;
-    align-items: flex-start; /* 顶部对齐 */
+    align-items: flex-start;
+    /* 顶部对齐 */
 }
 
 .form-container {
     padding: 15px;
     border-radius: 8px;
-    margin-right: 20px; /* 与预览区增加间距 */
+    margin-right: 20px;
+    /* 与预览区增加间距 */
     width: 40%;
-    max-width: 600px; /* 给表单一个最大宽度 */
-    flex-shrink: 0; /* 防止表单被压缩 */
+    max-width: 600px;
+    /* 给表单一个最大宽度 */
+    flex-shrink: 0;
+    /* 防止表单被压缩 */
 }
 
 .form-row {
@@ -319,15 +353,18 @@ const exportModularPNG = async () => {
 
 /* 新增：专门为导出按钮组的样式 */
 .export-group button {
-    flex: 1; /* 让导出按钮平分空间 */
+    flex: 1;
+    /* 让导出按钮平分空间 */
 }
 
 .button-group button {
-    padding: 10px 15px; /* 调整内边距 */
+    padding: 10px 15px;
+    /* 调整内边距 */
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 0.9em; /* 调整字体大小 */
+    font-size: 0.9em;
+    /* 调整字体大小 */
     color: white;
     transition: background-color 0.3s;
 }
@@ -349,7 +386,7 @@ const exportModularPNG = async () => {
 
 .line-form {
     border: 1px solid #e0e0e0;
-    padding: 15px;
+    padding: 10px;
     border-radius: 8px;
     margin-top: 20px;
 }
@@ -362,8 +399,14 @@ const exportModularPNG = async () => {
     padding-bottom: 5px;
 }
 
+.line-title:hover {
+    cursor: pointer;
+    background-color: #36a270;
+    color: white;
+}
+
 .remove-line-btn {
-    padding: 6px 12px;
+    padding: 0px 12px;
     border: none;
     border-radius: 4px;
     background-color: #e74c3c;
@@ -378,18 +421,18 @@ const exportModularPNG = async () => {
 }
 
 .preview-area {
-    overflow-x:scroll;
+    overflow-x: scroll;
 }
 
 .station-header {
-    height: 128px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     gap: 5px;
     background-color: #C00000;
     color: white;
+    font-family: 'Source Han Sans SC', 'Microsoft YaHei', sans-serif;
 }
 
 .station-name-cn {
@@ -420,10 +463,11 @@ const exportModularPNG = async () => {
 }
 
 input[type="color"]::-webkit-color-swatch-wrapper {
-	padding: 0;
+    padding: 0;
 }
+
 input[type="color"]::-webkit-color-swatch {
-	border: none;
+    border: none;
     border-radius: 4px;
 }
 
