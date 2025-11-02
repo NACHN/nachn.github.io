@@ -31,6 +31,11 @@ items:
     details: '机头指向就是飞行方向吗？学习航迹系，理解飞机姿态、合外力与最终运动轨迹之间的动态因果关系。'
     link: '#'
     bgColor: '#FF5722' # 橙色系
+  - icon: '🚀'
+    title: '附录：从理论到代码'
+    details: '探索 JSBSim, BADA 等主流工具、模型与数据库，将理论知识转化为代码，开启你的仿真项目。'
+    link: '/tutorials/6dof/6dof-a1'
+    bgColor: '#9C27B0' # 紫色系
 
 aside: false
 ---

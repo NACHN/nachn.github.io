@@ -72,7 +72,7 @@ export default defineConfig({
       { icon: 'github', link: 'https://github.com/NACHN' }
     ],
     logo: { light: '/web-light.png', dark: '/web.svg' },
-    
+
     search: {
       provider: 'algolia',
       options: {

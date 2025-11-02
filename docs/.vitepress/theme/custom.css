@@ -1,15 +1,21 @@
 :root {
-  /* 品牌色 */
-  --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background:-webkit-linear-gradient(120deg,#00a2ff 30%, #0066ffff 100%);
-  --vp-c-brand-1: #00a2ff; /* 主要品牌色，用于链接、按钮背景等 */
-  --vp-c-brand-2: #bbff00; /* 品牌色的悬停/激活状态 */
-  --vp-c-brand-3: #719b00; /* 品牌色的更亮变体 */
-  --vp-c-brand-soft: rgba(100, 108, 255, 0.14); /* 品牌色的柔和背景色 */
+	/* 品牌色 */
+	--vp-home-hero-name-color: transparent;
+	--vp-home-hero-name-background: -webkit-linear-gradient(120deg,
+			#00a2ff 30%,
+			#0066ffff 100%);
+	--vp-c-brand-1: #00a2ff;
+	/* 主要品牌色，用于链接、按钮背景等 */
+	--vp-c-brand-2: #bbff00;
+	/* 品牌色的悬停/激活状态 */
+	--vp-c-brand-3: #719b00;
+	/* 品牌色的更亮变体 */
+	--vp-c-brand-soft: rgba(100, 108, 255, 0.14);
+	/* 品牌色的柔和背景色 */
 
-  /* 也可以覆盖其他颜色，比如文本颜色、背景色等 */
-  /* --vp-c-text-1: #2c3e50; */
-  /* --vp-c-bg: #ffffff; */
+	/* 也可以覆盖其他颜色，比如文本颜色、背景色等 */
+	/* --vp-c-text-1: #2c3e50; */
+	/* --vp-c-bg: #ffffff; */
 }
 
 /* 
@@ -17,156 +23,183 @@
   .dark 选择器会在 <html> 元素上应用暗色模式时生效
 */
 .dark {
-  --vp-c-brand-1: #00a2ff; /* 暗色模式下的主品牌色，通常更亮一些以保证对比度 */
-  --vp-c-brand-2: #bbff00;
-  --vp-c-brand-3: #719410ff;
-  --vp-c-brand-soft: rgba(138, 222, 255, 0.14);
+	--vp-c-brand-1: #00a2ff;
+	/* 暗色模式下的主品牌色，通常更亮一些以保证对比度 */
+	--vp-c-brand-2: #bbff00;
+	--vp-c-brand-3: #719410ff;
+	--vp-c-brand-soft: rgba(138, 222, 255, 0.14);
 }
-.VPButton.medium.brand{
-  transition: all 0.25s;
-  backdrop-filter: blur(10px);
+
+.VPButton.medium.brand {
+	transition: all 0.25s;
+	backdrop-filter: blur(10px);
 }
-.VPButton.medium.brand:hover{
-  animation: breath 6s 0s ease-out infinite;
-  background-color: #729b00ff;
-  transform: translateX(2px) translateY(2px);
-  border-left-width: 1vh;
+
+.VPButton.medium.brand:hover {
+	animation: breath 6s 0s ease-out infinite;
+	background-color: #729b00ff;
+	transform: translateX(2px) translateY(2px);
+	border-left-width: 1vh;
 }
-.VPButton.alt{
-  transition: all 0.25s;
+
+.VPButton.alt {
+	transition: all 0.25s;
 }
-.VPButton:hover{
-  animation: breath 6s 0s ease-out infinite;
-  background-color: #729b00ff;
-  transform: translateX(2px) translateY(2px);
-  border-left-width: 1vh;
+
+.VPButton:hover {
+	animation: breath 6s 0s ease-out infinite;
+	background-color: #729b00ff;
+	transform: translateX(2px) translateY(2px);
+	border-left-width: 1vh;
 }
+
 .VPHome .VPHero {
-  position: relative; /* 确保伪元素可以相对于它定位 */
-  z-index: 1;
-  overflow:visible; /* 隐藏模糊效果溢出的边缘 */
+	position: relative;
+	/* 确保伪元素可以相对于它定位 */
+	z-index: 1;
+	overflow: visible;
+	/* 隐藏模糊效果溢出的边缘 */
 }
 
 .VPHome .VPHer {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 300vh;
-  height: 100vh;
-  
-  /* 1. 设置你的 SVG 背景 */
-  background-image: url('/web.svg');
-  background-repeat: repeat;
-  background-position: center;
-  background-size: 20%; /* 或者 contain, 80%, etc. */
-  
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 300vh;
+	height: 100vh;
 
-  /* 2. 应用模糊效果 */
-  filter: blur(10px);
+	/* 1. 设置你的 SVG 背景 */
+	background-image: url("/web.svg");
+	background-repeat: repeat;
+	background-position: center;
+	background-size: 20%;
+	/* 或者 contain, 80%, etc. */
 
-  /* 3. 调整透明度 */
-  opacity: 0.1;
+	/* 2. 应用模糊效果 */
+	filter: blur(10px);
 
-  /* 4. 确保背景在内容之下 */
-  z-index: -1;
+	/* 3. 调整透明度 */
+	opacity: 0.1;
 
-  /* (可选) 放大背景图，避免模糊后边缘出现空白 */
+	/* 4. 确保背景在内容之下 */
+	z-index: -1;
+
+	/* (可选) 放大背景图，避免模糊后边缘出现空白 */
 }
 
 /* (可选) 为暗色模式调整透明度 */
 .dark .VPHome .VPHero::before {
-  opacity: 0.08;
+	opacity: 0.08;
 }
 
 .card-grid-container {
-  max-width: 1152px;
-  margin: 0 auto;
-  padding: 48px 24px;
+	max-width: 1152px;
+	margin: 0 auto;
+	padding: 48px 24px;
 }
 
 .card-grid-container h2 {
-  font-size: 1.8rem;
-  font-weight: 600;
-  /*border-bottom: 1px solid var(--vp-c-divider);*/
-  padding-bottom: 12px;
-  margin-top: 48px;
-  margin-bottom: 24px;
+	font-size: 1.8rem;
+	font-weight: 600;
+	/*border-bottom: 1px solid var(--vp-c-divider);*/
+	padding-bottom: 12px;
+	margin-top: 48px;
+	margin-bottom: 24px;
 }
 
 .card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+	gap: 20px;
 }
+
 .tool-card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-}
-.ebutton{
-  transition: all 0.25s ease;
-}
-.ebutton:hover{
-  color:var(--vp-c-brand-3);
-  font-size: 2em;
-  font-weight:bold;
-  width:100px;
-  height: auto;
-  animation: breath 5s 0s ease-out infinite;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: 20px;
 }
 
-.slogan2{
-  text-align:center;
-  margin:1em 0;
+.ebutton {
+	transition: all 0.25s ease;
 }
 
-.slogan{
-  text-align:center;
-  margin:1em 0;
-  animation: breath 6s 0s ease-out infinite;
+.ebutton:hover {
+	color: var(--vp-c-brand-3);
+	font-size: 2em;
+	font-weight: bold;
+	width: 100px;
+	height: auto;
+	animation: breath 5s 0s ease-out infinite;
+}
+
+.slogan2 {
+	text-align: center;
+	margin: 1em 0;
+}
+
+.slogan {
+	text-align: center;
+	margin: 1em 0;
+	animation: breath 6s 0s ease-out infinite;
 }
 
 @keyframes breath {
-  0% {
-  }
-  10% {
-    color: #e2f7a9;
-    text-shadow: 0px 0px 0.2em #9afd6b;
-  }
-  100% {
-  }
+	0% {}
+
+	10% {
+		color: #e2f7a9;
+		text-shadow: 0px 0px 0.2em #9afd6b;
+	}
+
+	100% {}
 }
 
 @keyframes breathopa {
-  0% {
-  }
-  50% {
-    opacity:0;
-  }
-  100% {
-  }
+	0% {}
+
+	50% {
+		opacity: 0;
+	}
+
+	100% {}
 }
-.typewriter{
-  overflow: hidden; /* 防止文字溢出 */
-  border-right: .15em solid #00ff99; /* 光标效果 */
-  white-space: nowrap;
-  letter-spacing: .1em;
-  width:0;
-  animation: typing 3.5s 0s linear infinite, blink-caret .75s step-end infinite;
+
+.typewriter {
+	overflow: hidden;
+	/* 防止文字溢出 */
+	border-right: 0.15em solid #00ff99;
+	/* 光标效果 */
+	white-space: nowrap;
+	letter-spacing: 0.1em;
+	width: 0;
+	animation: typing 3.5s 0s linear infinite, blink-caret 0.75s step-end infinite;
 }
 
 /* 打字效果 */
 @keyframes typing {
-  0% { width: 0 }
-  100% { width: 100% }
+	0% {
+		width: 0;
+	}
+
+	100% {
+		width: 100%;
+	}
 }
 
 /* 光标闪烁 */
 @keyframes blink-caret {
-  from, to { border-color: transparent }
-  50% { border-color: #00ff99 }
+
+	from,
+	to {
+		border-color: transparent;
+	}
+
+	50% {
+		border-color: #00ff99;
+	}
 }
+
 /*
 .fade-slide-y-enter-active,
 .fade-slide-y-leave-active {
@@ -179,18 +212,18 @@
   transform: translateX(20px);
 }*/
 
-.image{
-  transform-origin: 0% 80%;
-  transform: scale(0.6);
-  min-width:960px;
+.image {
+	transform-origin: 0% 80%;
+	transform: scale(0.6);
+	min-width: 960px;
 }
 
-:deep(.image-container){
-  min-width:960px;
+:deep(.image-container) {
+	min-width: 960px;
 }
 
 @media (min-width: 960px) {
-  .container{
-  max-height:250px
-}
+	.container {
+		max-height: 250px;
+	}
 }

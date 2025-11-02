@@ -330,7 +330,8 @@ const handleFileLoad = (event) => {
                     </div>
                 </div>
             </form>
-            <button class="addline" @click="addLine">+</button><span style="margin-left: 4px;margin-right: 24px;">添加线路</span> 点击线路展开或收起，右侧按钮调整线路顺序
+            <button class="addline" @click="addLine">+</button><span
+                style="margin-left: 4px;margin-right: 24px;">添加线路</span> 点击线路展开或收起，右侧按钮调整线路顺序
             <hr class="divider">
             <div class="button-group">
                 <!-- 新增的保存和加载按钮 -->

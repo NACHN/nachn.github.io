@@ -34,7 +34,7 @@ const props = defineProps({
 const processedLines = computed(() => {
     // 遍历从父组件传来的每个 line 对象
     return props.lines.map(line => {
-        
+
         // 在 line.stations 数组中找到当前站点的索引
         // line.stations 现在已经是 ['乌鲁木齐站南广场', '锦绣四街', ...]
         const currentStationIndex = line.stations.findIndex(
@@ -51,7 +51,7 @@ const processedLines = computed(() => {
                     status = 'current'; // 索引 === 当前站索引 -> 当前站点
                 }
             }
-            
+
             return {
                 name: stationName,
                 py: line.stations_py[index] || '', // 从 stations_py 数组中获取对应的拼音
@@ -113,7 +113,7 @@ const dynamicStyles = computed(() => {
  */
 const getGridStyle = (line) => {
     // 注意：这里的 line.stations 已经是我们处理过的对象数组了
-    const stationCount = line.stations.length; 
+    const stationCount = line.stations.length;
     const columnCount = computed(() => {
         if (stationCount <= 10) return 1;
         else if (stationCount <= 20) return 2;
@@ -139,7 +139,7 @@ const linenamesc = (linename) => {
     // 1. 匹配所有双字节字符（非ASCII字符，通常包括汉字）
     // [^\x00-\xff] 匹配不在 ASCII 0-255 范围内的所有字符
     const chineseChars = linename.match(/[^\x00-\xff]/g) || [];
-    
+
     // 2. 计算实际长度：
     //    - 基础长度：linename.length (所有字符都计为 1)
     //    - 额外长度：chineseChars.length (每个汉字额外加 1，使其总长度为 2)
@@ -160,25 +160,22 @@ const linenamesc = (linename) => {
 
 <template>
     <div class="st-lines-container">
-        <div 
-            v-for="(line, index) in processedLines" 
-            :key="index" 
-            class="line-block" 
-            :style="{ 
-                backgroundColor: line.routec, 
-                width: boardWidth + 'px', 
-                height: lineHeight-16 + 'px',
-                borderTop: line.routec+' solid 16px'
-            }"
-        >
-            
+        <div v-for="(line, index) in processedLines" :key="index" class="line-block" :style="{
+            backgroundColor: line.routec,
+            width: boardWidth + 'px',
+            height: lineHeight - 16 + 'px',
+            borderTop: line.routec + ' solid 16px'
+        }">
+
             <div class="left-column">
                 <div class="info-item fare" :style="dynamicStyles.smallInfo">
                     <span class="label">票价:</span>
                     <span class="value">{{ line.fare }}</span>
                 </div>
                 <!-- 使用动态样式 -->
-                <div class="line-name" :style="[dynamicStyles.lineName,{transform: 'scale('+linenamesc(line.name)+')'}]">{{ line.name }}</div>
+                <div class="line-name"
+                    :style="[dynamicStyles.lineName, { transform: 'scale(' + linenamesc(line.name) + ')' }]">{{ line.name }}
+                </div>
 
                 <div style="height:10px;"></div>
                 <div class="info-item" :style="dynamicStyles.infoItem">
@@ -209,22 +206,17 @@ const linenamesc = (linename) => {
             <div class="right-column" :style="{ backgroundColor: line.stc }">
                 <!-- 应用动态计算的 grid 样式和字体样式 -->
                 <div class="stations-grid" :style="[dynamicStyles.stationGrid, getGridStyle(line)]">
-                    
+
                     <!-- MODIFICATION 2: 增加站名翻译 -->
-                    <div 
-                        v-for="(station, sIndex) in line.stations" 
-                        :key="sIndex" 
-                        class="station-item"
-                        :class="{
-                            'current-station': station.status === 'current',
-                            'passed-station': station.status === 'passed'
-                        }"
-                    >
-                        <span class="station-py" >{{ line.stations_py[sIndex] || '' }}</span>
+                    <div v-for="(station, sIndex) in line.stations" :key="sIndex" class="station-item" :class="{
+                        'current-station': station.status === 'current',
+                        'passed-station': station.status === 'passed'
+                    }">
+                        <span class="station-py">{{ line.stations_py[sIndex] || '' }}</span>
                         <!-- 左侧部分：序号和站名 -->
                         <span class="station-cn" :style="{}">{{ sIndex + 1 }}. {{ station.name }}</span>
                         <!-- 右侧部分：翻译 -->
-                        
+
                         <!-- 标记保持不变 :style="{lineHeight:dynamicStyles.baseSize}>
                         <span class="annotation" v-if="sIndex === 0">起点站</span>
                         <span class="annotation" v-else-if="sIndex === line.stations.length - 1">终点站</span-->
@@ -241,15 +233,16 @@ const linenamesc = (linename) => {
     display: flex;
     flex-direction: column;
     font-family: 'Source Han Sans SC', sans-serif;
-    
+
 }
 
 .line-block {
     display: flex;
     color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    overflow: hidden; /* 防止内容溢出 */
-    
+    overflow: hidden;
+    /* 防止内容溢出 */
+
 }
 
 /* --- 左侧 --- */
@@ -259,6 +252,7 @@ const linenamesc = (linename) => {
     display: flex;
     flex-direction: column;
 }
+
 .line-name {
     font-weight: bold;
     text-align: center;
@@ -271,30 +265,40 @@ const linenamesc = (linename) => {
     line-height: 60px;
     /* 移除静态字体大小和字间距 */
 }
+
 .info-item {
     display: flex;
     align-items: center;
     margin-bottom: 1px;
-    line-height: 1.2; /* 调整行高避免重叠 */
+    line-height: 1.2;
+    /* 调整行高避免重叠 */
 }
+
 .info-item .label {
     margin-right: 8px;
     white-space: nowrap;
 }
+
 .info-item .value {
     font-weight: bold;
 }
+
 .info-item .label.vertical {
     writing-mode: vertical-rl;
     border: 1px solid white;
-    padding: 8px 4px; /* 调整内边距 */
+    padding: 8px 4px;
+    /* 调整内边距 */
     margin-right: 10px;
-    text-align: center; /* 居中 */
+    text-align: center;
+    /* 居中 */
 }
+
 .hours {
     white-space: pre-line;
 }
-.direction, .next-station {
+
+.direction,
+.next-station {
     padding: 0 5px;
     font-size: 1em;
 }
@@ -321,16 +325,19 @@ const linenamesc = (linename) => {
     display: flex;
     flex-direction: column;
 }
+
 .stations-grid {
-    
+
     flex-grow: 1;
     color: black;
     padding: 0px;
     display: grid;
     /* 移除 grid-template-columns，因为它会被动态样式覆盖 */
-    gap: 0 20px; /* 增加列间距 */
+    gap: 0 20px;
+    /* 增加列间距 */
     font-weight: bold;
 }
+
 .station-item {
     line-height: normal;
     padding: 0px 0;
@@ -338,48 +345,64 @@ const linenamesc = (linename) => {
     /* MODIFICATION 2: 启用 Flexbox 布局 */
     display: flex;
     /*justify-content: space-between;  关键：让子元素两端对齐 */
-    align-items: baseline; /* 基线对齐，让文字底部对齐 */
-    position: relative; /* 为 annotation 定位提供参考 */
+    align-items: baseline;
+    /* 基线对齐，让文字底部对齐 */
+    position: relative;
+    /* 为 annotation 定位提供参考 */
     flex-direction: column;
 }
+
 /* 已过站点的样式 */
 .passed-station {
-    color: #bbb; /* 字体颜色变灰 */
+    color: #bbb;
+    /* 字体颜色变灰 */
 }
+
 .passed-station .station-py {
-    color: #bbb; /* 拼音也变灰 */
+    color: #bbb;
+    /* 拼音也变灰 */
 }
 
 /* 当前站点的样式 */
 .current-station {
-    background-color: #196B24; /* 高亮背景色 (可以替换为你喜欢的颜色) */
-    color: white; /* 高亮时的文字颜色 */
-    border-radius: 4px; /* 添加圆角 */
-    font-weight: bold; /* 字体加粗 */
+    background-color: #196B24;
+    /* 高亮背景色 (可以替换为你喜欢的颜色) */
+    color: white;
+    /* 高亮时的文字颜色 */
+    border-radius: 4px;
+    /* 添加圆角 */
+    font-weight: bold;
+    /* 字体加粗 */
     /*transform: scale(1.05); /* 轻微放大，更突出 */
 }
-.current-station::after{
+
+.current-station::after {
     content: '▼';
     position: absolute;
-    right:4px;
+    right: 4px;
     bottom: 8px;
 }
+
 .current-station .station-py {
-    color: white; /* 高亮时拼音的颜色 */
+    color: white;
+    /* 高亮时拼音的颜色 */
 }
+
 /* MODIFICATION 2: 新增翻译文本的样式 */
 .station-cn {
     /* 默认占据尽可能多的空间，将翻译推到右侧 */
     flex-grow: 1;
 
 }
+
 .station-py {
     /* 不伸缩，保持自身宽度 */
     direction: rtl;
     font-size: 0.6em;
     color: #333;
-    margin-top: 1px; /* 与中文名保持一点距离 */
-    line-height:5px ;
+    margin-top: 1px;
+    /* 与中文名保持一点距离 */
+    line-height: 5px;
 }
 
 .annotation {
@@ -390,7 +413,8 @@ const linenamesc = (linename) => {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    background-color: inherit; /* 继承父元素背景色 */
+    background-color: inherit;
+    /* 继承父元素背景色 */
     padding: 0 5px;
 }
 </style>
