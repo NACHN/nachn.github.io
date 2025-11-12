@@ -6,7 +6,7 @@ hasBg: true
 hero:
   name: 戴畇滔的状态空间
   text: "My State, My Space"
-  tagline: 控制一切
+  tagline: Model error is a dynamic system, not just a static residual.
   actions:
     - theme: brand
       text: 开始探索
