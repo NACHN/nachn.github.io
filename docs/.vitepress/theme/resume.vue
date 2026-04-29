@@ -8,14 +8,21 @@ const introductionTitle = ref(null); // 我们需要获取标题元素的引用
 
 const publications = ref([
   {
-    title: "Paper 1",
-    details: "[1] Y. Dai, R. Wen, H. Wang. In: IEEE Transactions on Intelligent Transportation Systems (T-ITS). (Under Review)",
-    icon: "📄",
+    title: "A Constant-Gain Equation-Error Framework for Airliner Aerodynamic Monitoring Using QAR Data",
+    details: "Ruiying Wen, Yuntao Dai, Hongyong Wang. A Constant-Gain Equation-Error Framework for Airliner Aerodynamic Monitoring Using QAR Data. 10.1109/TITS.2026.3651385",
+    icon: "✅",
+    link: "research/control-theory/cg-eem",
   },
   {
     title: "Paper 2",
-    details: "[2] Y. Dai, R. Wen, H. Wang. In: IEEE Transactions on Intelligent Transportation Systems (T-ITS). (Under Review)",
+    details: "Yuntao Dai, Ruiying Wen, Feng Dai, Hongyong Wang. In: Aerospace Science and Technology. (Under Review)",
     icon: "📄",
+  },
+  {
+    title: "Model Error Resonance: The Geometric Nature of Error Dynamics",
+    details: "Yuntao Dai. Model Error Resonance: The Geometric Nature of Error Dynamics. arXiv preprint arXiv:2512.11734 (2025).",
+    icon: "🔬",
+    link: "https://arxiv.org/abs/2512.11734",
   },
 ]);
 
@@ -212,7 +219,7 @@ onUnmounted(() => {
 
     <section id="publications" class="resume-section">
       <!-- 使用 ResearchIndex 组件，并通过 props 传入数据 -->
-      <ResearchIndex :items="publications" layout="timeline" lineColor="#37bfe0" :title="'学术发表'" />
+      <ResearchIndex :items="publications" layout="timeline" lineColor="#37bfe0" :title="'我的论文'" />
     </section>
     <a href="#projects">
       <div class="godown" style="margin-top: 0vh; text-align: center; font-size:10vh; left: 50vw;">

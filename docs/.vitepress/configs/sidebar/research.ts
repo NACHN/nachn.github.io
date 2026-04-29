@@ -3,7 +3,7 @@
 export const research = {
   'zh-CN': [
     {
-      text: '学术研究与核心',
+      text: '学术研究记录',
       items: [
         {
           text: '控制理论',
@@ -11,6 +11,8 @@ export const research = {
           items: [
             { text: '状态空间方法', link: '/research/control-theory/state-space-methods' },
             { text: '无迹卡尔曼滤波 (UKF)', link: '/research/control-theory/unscented-kalman-filter' },
+            { text: '我发明的CG-EEM', link: '/research/control-theory/cg-eem'},
+            //{ text: '模型误差共振理论', link: '/research/control-theory/MER'},
             // 在这里添加更多中文控制理论文章
           ]
         },
@@ -34,7 +36,7 @@ export const research = {
   ],
   'en-US': [
     {
-      text: 'Research & Core Academics',
+      text: 'Research Records',
       items: [
         {
           text: 'Control Theory',
