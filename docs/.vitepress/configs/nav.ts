@@ -4,7 +4,7 @@ export const nav = {
   // 中文版的 nav
   'zh-CN': [
     { text: '首页', link: '/' },
-    { text: '学术研究', link: '/research/index' },
+    { text: '研究笔记', link: '/research/index' },
     { text: '工程项目', link: '/projects' },
     { text: '科研入门', link: '/tutorials/welcome' },
     {

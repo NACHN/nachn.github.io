@@ -19,7 +19,7 @@ hero:
       link: /resume
 
 features:
-  - title: 系统与控制理论
+  - title: 动力系统与控制理论
     details: <a href="/beautyofcontrol" class="ebutton">控制真美</a>，不是吗。
   - title: 音乐理论
     details: Can you <a href="#" class="ebutton">hear</a> the music?

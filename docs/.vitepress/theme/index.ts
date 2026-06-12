@@ -1,89 +1,77 @@
 // docs/.vitepress/theme/index.ts
 import type { Theme } from 'vitepress'
-import { ref, h } from 'vue'
+import type { Component } from 'vue'
+import { h } from 'vue'
 import DefaultTheme from 'vitepress/theme'
 import NotFound from './NotFound.vue'
-import Resume from './resume.vue'
-import ResearchIndex from './ResearchIndex.vue'
-import ResearchCard from './ResearchCard.vue'
 import './custom.css'
-import LaTeXPG from './LaTeXPG.vue'
-import IconsBg from './IconsBg.vue'
 import { useData } from 'vitepress'
-import MeteorBg from './MeteorBg.vue'
-import Comment from './Comment.vue'
-import ToolShowcase from './ToolShowcase.vue'
-import TimelineCard from './TimelineCard.vue'
-import Boardingpass from './BoardingPass.vue'
-import HeroBP from './HeroBP.vue'
-import BackToTop from './BackToTop.vue'
-import AircraftViewer from './AircraftViewer.vue'
-import AxesControl from './ACViewerControl/AxesControl.vue'
-import EulerAnglesControl from './ACViewerControl/EulerAnglesControl.vue'
-import AirFlowControl from './ACViewerControl/AirFlowControl.vue'
-import ForcesControl from './ACViewerControl/ForcesControl.vue'
-import MainPage from './MainPage.vue'
-import TrainTicket from './TrainTicket.vue'
-import TicketMaker from './TicketMaker.vue'
-import STMaker from './STMaker.vue'
 
+// ---------------------------------------------------------------------------
+// Auto-discover all .vue components from theme directories
+// ---------------------------------------------------------------------------
+const modules = import.meta.glob<{ default: Component }>(
+  ['./**/*.vue', '!./NotFound.vue'],
+  { eager: true }
+)
+
+/** kebab-case / PascalCase / lowercase → PascalCase */
+function toPascalCase(str: string): string {
+  return str
+    .replace(/[-_](\w)/g, (_, c: string) => c.toUpperCase())
+    .replace(/^./, (s) => s.toUpperCase())
+}
+
+const nameOverrides: Record<string, string> = {
+  LaTeXPG: 'LatexPG',           // custom casing
+  AircraftViewer: 'ACViewer',   // export-name ≠ filename
+}
+
+function componentName(filePath: string): string {
+  const base = filePath.split('/').pop()!.replace(/\.vue$/, '')
+  if (nameOverrides[base]) return nameOverrides[base]
+  return toPascalCase(base)
+}
+
+// { componentName → SFC }
+const components: Record<string, Component> = {}
+for (const [path, mod] of Object.entries(modules)) {
+  const name = componentName(path)
+  // skip names that aren't valid custom-element identifiers (e.g. "1")
+  if (/^\d/.test(name)) continue
+  components[name] = mod.default
+}
+
+// Destructure components used in the Layout render function
+const { IconsBg, MeteorBg, BackToTop, HeroBP, Comment } = components
+
+// ---------------------------------------------------------------------------
+// Theme
+// ---------------------------------------------------------------------------
 export default {
-  ...DefaultTheme, // 继承默认主题的所有配置
-  NotFound: NotFound, // 覆盖默认的 NotFound 组件
+  ...DefaultTheme,
 
-  // 使用 Layout 属性来扩展默认主题
+  NotFound, // VitePress's special slot — not auto-registered
+
   Layout: () => {
     const { frontmatter } = useData()
-    // 定义插槽内容
     const slots = {
-      // 保持你现有的背景逻辑
       'layout-bottom': () => {
         if (frontmatter.value.hasBg) {
-          return h('div', [
-            h(IconsBg),
-            h(MeteorBg),
-            h(BackToTop)
-          ])
+          return h('div', [h(IconsBg), h(MeteorBg), h(BackToTop)])
         }
         return h(BackToTop)
-
-        // 确保 MeteorBg 是全局持久化的
-        /*else {
-          return h(MeteorBg)
-        }*/
       },
       'home-hero-image': () => h(HeroBP),
-
-      // 【新增】定义文章下方的插槽内容
-      'doc-after': () => {
-        // 检查 frontmatter 中是否有 comments: true
-        return frontmatter.value.comments ? h(Comment) : null
-      }
+      'doc-after': () => (frontmatter.value.comments ? h(Comment) : null),
     }
 
     return h(DefaultTheme.Layout, null, slots)
   },
 
-  // 扩展默认主题
   enhanceApp({ app }) {
-    app.component('Resume', Resume)
-    app.component('ResearchIndex', ResearchIndex)
-    app.component('ResearchCard', ResearchCard)
-    app.component('LatexPG', LaTeXPG)
-    app.component('IconsBg', IconsBg)
-    app.component('MeteorBg', MeteorBg)
-    app.component('ToolShowcase', ToolShowcase)
-    app.component('TimelineCard', TimelineCard)
-    app.component('BoardingPass', Boardingpass)
-    app.component('BackToTop', BackToTop)
-    app.component('ACViewer', AircraftViewer);
-    app.component('AxesControl', AxesControl);
-    app.component('EulerAnglesControl', EulerAnglesControl)
-    app.component('AirFlowControl', AirFlowControl)
-    app.component('ForcesControl',ForcesControl)
-    app.component('MainPage',MainPage)
-    app.component('TrainTicket',TrainTicket)
-    app.component('TicketMaker',TicketMaker)
-    app.component('STMaker',STMaker)
-  }
+    for (const [name, comp] of Object.entries(components)) {
+      app.component(name, comp)
+    }
+  },
 } satisfies Theme
