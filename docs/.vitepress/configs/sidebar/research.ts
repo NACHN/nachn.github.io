@@ -28,9 +28,10 @@ export const research = {
           collapsed: true,
           items: [
             { text: '是与不是——从感知机开始', link: '/research/ml-dl/mlp' },
-            { text: '超级叠加——多层网络', link: '/research/ml-dl/rnn' },
+            { text: '超级叠加——层不叠不成网', link: '/research/ml-dl/rnn' },
             { text: '感受时间——机器的记忆', link: '/research/ml-dl/lstm' },
             { text: '似曾相识——“变形金刚”', link: '/research/ml-dl/transformer' },
+            { text: '增量演化——如果网络本身变成动力学过程', link: '/research/ml-dl/resnet' },
           ]
         },
         {
